@@ -1,0 +1,23 @@
+.mini-map{position:absolute;top:22px;right:28px;width:248px;background:#faf1d7;color:#253f35;border:1px solid #75815c;border-radius:9px;overflow:hidden;box-shadow:0 5px 20px #233f3226;z-index:2}
+.mini-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 13px;border:0;background:transparent;color:inherit;font-size:12px;font-weight:700}
+.mini-map svg,.chat-dock svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mini-toggle[aria-expanded=false] svg,.chat-toggle[aria-expanded=true] svg{transform:rotate(180deg)}
+.town .mini-canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;outline:0;border-top:1px solid #d5cfaf}
+.mini-legend{display:flex;align-items:center;gap:6px;padding:7px 12px;font-size:10px}.player-key{width:8px;height:8px;background:#203d32;border:2px solid #faf1d7;outline:1px solid #203d32;border-radius:50%}.mini-north{margin-left:auto;font-weight:650}
+.chat-dock{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:min(580px,calc(100% - 40px));border:1px solid #75815c;background:#faf1d7;color:#253f35;border-radius:10px;box-shadow:0 6px 28px #203d3233;z-index:4;overflow:hidden}
+.chat-top{display:flex;justify-content:space-between;align-items:center;padding:6px 9px;border-bottom:1px solid #d5cfaf}
+.chat-top [role=tablist]{display:flex;gap:4px}.chat-top [role=tab]{padding:6px 11px;border:0;border-radius:5px;background:transparent;color:#526448;font-size:12px;font-weight:650}
+.chat-top [role=tab][aria-selected=true]{background:#294f42;color:#fff8dd}
+.chat-toggle{display:grid;place-items:center;background:transparent;border:0;border-radius:4px;color:inherit;padding:5px}
+.chat-context{padding:13px 18px 9px;display:flex;gap:12px;justify-content:space-between;align-items:center;font-size:11px}.chat-status{color:#526448;font-size:10px}
+.chat-history{height:190px;max-height:28dvh;overflow:auto;padding:6px 18px 15px;scrollbar-color:#9aa580 transparent;scrollbar-width:thin;overscroll-behavior:contain}
+.chat-empty{padding:25px 10px;text-align:center}.chat-empty strong{font-size:16px;line-height:1.4}.chat-empty p{margin:7px 0 0;color:#526448;font-size:12px}
+.chat-message{margin:10px 0 0 auto;max-width:85%;background:#e6ead0;border-radius:8px;padding:8px 12px;overflow-wrap:anywhere}.chat-message small{font-size:10px;color:#526448}.chat-message p{margin:3px 0;font-size:13px;white-space:pre-wrap}
+.chat-form{display:flex;gap:8px;align-items:end;padding:11px 12px 3px}
+.chat-form textarea{display:block;flex:1;min-width:0;min-height:36px;max-height:100px;resize:vertical;padding:8px 10px;font-size:13px;line-height:1.4;border:1px solid #b7bd99;border-radius:5px;background:#fff9e8;color:#253f35;caret-color:#294f42}.chat-form textarea::placeholder{color:#5c6b50;opacity:1}
+.chat-form button{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;border:0;border-radius:5px;background:#294f42;color:#fff8dd}.chat-form button:disabled{background:#d9ddbd;color:#65744e;cursor:default}
+.chat-disclosure{font-size:10px;color:#526448;margin:3px 14px 9px}
+.controls-help{position:absolute;left:28px;bottom:24px;z-index:5;background:#294a3ce8;color:#fff7df;border-radius:5px;font-size:11px}.controls-help summary{cursor:pointer;padding:8px 12px}.controls-help p{padding:0 12px 10px;margin:0;max-width:210px}
+.town[data-map=four] .interaction{bottom:155px;z-index:3}.town[data-chat-expanded=true] .interaction{bottom:400px}
+.town[data-map=four] .touch-controls{bottom:155px}
+@media(max-width:650px){.mini-map{right:16px;top:16px;width:170px}.mini-toggle{padding:7px 10px;font-size:11px}.mini-legend{padding:5px 9px;font-size:9px}.chat-dock{bottom:12px;width:calc(100% - 24px)}.chat-context{display:block}.chat-status{display:block;margin-top:3px}.chat-history{height:150px;max-height:23dvh}.controls-help{left:16px;bottom:145px}.town[data-map=four] .touch-controls{bottom:190px}.town[data-map=four] .interaction{bottom:165px}.town[data-chat-expanded=true] .interaction{bottom:390px}.chat-top [role=tab]{font-size:11px}.chat-empty{padding:15px 6px}}

@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Questvale · Four-zone town</title><link rel="stylesheet" href="approved.css"><link rel="stylesheet" href="explore.css"><link rel="stylesheet" href="town-ui.css"></head>
+<body><main class="town" data-mode="explore" data-map="four">
+<canvas tabindex="0" aria-label="Questvale four-zone town. Move using WASD or arrow keys. Approach Hackathon, Business, Startup, Research or the public noticeboard and press E."></canvas>
+<header class="explore-header"><div class="brand">Questvale<small>Find your next chapter</small></div><div class="actions"></div></header>
+<span class="location">Central square</span>
+<button class="hotspot workshop" aria-label="Explore Hackathon maker workshop">Hackathon</button>
+<button class="hotspot entrance" aria-label="Enter Hackathon maker workshop" hidden>Workshop entrance</button>
+<button class="hotspot board" aria-label="View all opportunities at the public noticeboard">All opportunities</button>
+<button class="interaction" hidden><kbd>E</kbd><span>Explore Hackathon</span></button>
+<details class="controls-help"><summary>Controls</summary><p>WASD / arrows: move<br>E: interact<br>Esc: close conversation or panel</p></details>
+<div class="touch-controls" aria-label="Touch movement"><button data-direction="up" tabindex="-1" aria-label="Move north">↑</button><button data-direction="left" tabindex="-1" aria-label="Move west">←</button><button data-direction="down" tabindex="-1" aria-label="Move south">↓</button><button data-direction="right" tabindex="-1" aria-label="Move east">→</button></div>
+<p class="loading" role="status">Opening the town…</p>
+<dialog aria-labelledby="panel-title"><button class="close" aria-label="Close panel">×</button><div class="panel-content"></div></dialog><p class="sr" aria-live="polite" id="selection-status">No category selected.</p>
+</main><script type="module" src="explore.mjs"></script></body></html>
