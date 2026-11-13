@@ -25,7 +25,7 @@ export function walkable(p){
   return plaza||boardApproach||ROUTES.some(route=>route.slice(1).some((b,i)=>pointDistance(p,route[i],b)<62));
 }
 export function advance(p,input,dt){
-  const d=250*Math.min(.035,dt),n=Math.hypot(input.x,input.y)||1,next={...p};
+  const d=390*Math.min(.035,dt),n=Math.hypot(input.x,input.y)||1,next={...p};
   const x=p.x+input.x/n*d,y=p.y+input.y/n*d;
   if(walkable({x,y:p.y}))next.x=x;
   if(walkable({x:next.x,y}))next.y=y;

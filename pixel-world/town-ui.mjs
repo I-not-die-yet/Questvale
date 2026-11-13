@@ -2,6 +2,11 @@ export function createTownUI(root,map){
   const dock=document.createElement('section');dock.className='chat-dock';dock.setAttribute('aria-label','Town conversations');
   dock.innerHTML=`<div class="chat-top"><div role="tablist" aria-label="Conversation"><button role="tab" id="ai-tab" aria-controls="chat-panel" aria-selected="true" data-channel="advisor">AI Advisor</button><button role="tab" id="town-tab" aria-controls="chat-panel" aria-selected="false" tabindex="-1" data-channel="town">Town Chat</button></div><button class="chat-toggle" aria-label="Expand conversation" aria-expanded="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button></div><div class="chat-panel" id="chat-panel" role="tabpanel" aria-labelledby="ai-tab" hidden><div class="chat-context"><strong>Private AI conversation</strong><span class="chat-status">AI is not connected</span></div><div class="chat-history" role="log" aria-label="Conversation messages"></div></div><form class="chat-form"><label class="sr" for="town-message">Message AI Advisor</label><textarea id="town-message" rows="1" maxlength="500" placeholder="What would you like to explore?" aria-describedby="chat-disclosure"></textarea><button type="submit" disabled aria-label="Preview your message"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5m-5 5 5-5 5 5"/></svg></button></form><p class="chat-disclosure" id="chat-disclosure">Local preview only · messages are not sent or saved.</p>`;
   root.append(dock);
+  // Keep touch movement above the actual dock, including expanded conversations.
+  const dockSizeObserver=new ResizeObserver(()=>{
+    root.style.setProperty('--chat-dock-height',Math.ceil(dock.getBoundingClientRect().height)+'px');
+  });
+  dockSizeObserver.observe(dock);
   const panel=dock.querySelector('.chat-panel'),input=dock.querySelector('textarea'),send=dock.querySelector('[type=submit]'),toggle=dock.querySelector('.chat-toggle');
   const history=dock.querySelector('.chat-history'),tabs=[...dock.querySelectorAll('[role=tab]')];
   const channels={advisor:{draft:'',messages:[]},town:{draft:'',messages:[]}};
@@ -72,9 +77,13 @@ export function createTownUI(root,map){
   mini.querySelector('button').addEventListener('click',()=>{
     const body=mini.querySelector('#mini-body');body.hidden=!body.hidden;mini.querySelector('button').setAttribute('aria-expanded',String(!body.hidden));
   });
-  let cached=null,lastPaint=0;
+  let cached=null,lastPaint=0,destination=null;
   const names={hackathon:'Hackathon',business:'Business',startup:'Startup',research:'Research'};
-  return {update(player,background,buildings,time){
+  return {
+    setGuideActive(active){dock.hidden=active;},
+    openAdvisor(){select('advisor',true);},
+    setDestination(category){destination=map.PLACES.find(p=>p.category===category)||null;root.dataset.destination=destination?.category||'';},
+    update(player,background,buildings,time){
     if(mini.querySelector('#mini-body').hidden||time-lastPaint<80)return;lastPaint=time;
     if(!cached){
       cached=document.createElement('canvas');cached.width=480;cached.height=320;const c=cached.getContext('2d');c.imageSmoothingEnabled=false;c.drawImage(background,0,0,480,320);
@@ -86,6 +95,11 @@ export function createTownUI(root,map){
       for(const p of map.PLACES){const x=p.x/map.SIZE.width*480,y=(p.y+50)/map.SIZE.height*320;const text=names[p.category],w=c.measureText(text).width;c.fillStyle='#faf1d7';c.fillRect(x-w/2-5,y-2,w+10,23);c.fillStyle='#253f35';c.fillText(text,x,y);}
     }
     mctx.drawImage(cached,0,0);
+    if(destination){
+      const tx=destination.x/map.SIZE.width*480,ty=destination.y/map.SIZE.height*320;
+      mctx.beginPath();mctx.arc(tx,ty,15,0,Math.PI*2);mctx.lineWidth=4;mctx.strokeStyle='#fff4b8';mctx.stroke();
+      if(Math.hypot(player.x-destination.x,player.y-destination.y)<90){destination=null;root.dataset.destination='';root.dispatchEvent(new Event('qv-destination-reached'));}
+    }
     const dx=player.x-map.SPAWN.x,dy=player.y-map.SPAWN.y;
     const area=Math.abs(dx)<180&&Math.abs(dy)<180?'at the central square':(dy<-180?'north':dy>180?'south':'')+(dx<-180?'west':dx>180?'east':'')+' of the central square';
     mc.setAttribute('aria-label','Town map: Hackathon northwest, Business northeast, Startup southwest, Research southeast. You are '+area+'.');

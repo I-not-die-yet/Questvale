@@ -1,4 +1,5 @@
 import { validateProps, REGIONS } from './contract.mjs';
+import { mountOpportunityBoard } from './opportunity-board.mjs';
 const root=document.querySelector('.town');
 const dialog=root.querySelector('dialog');
 const content=root.querySelector('.panel-content');
@@ -13,8 +14,14 @@ function onRegionSelect(category) {
 }
 validateProps({activeRegion,highlightedRegions,onRegionSelect});
 export function show(kind) {
+  root.dispatchEvent(new Event('qv-panel-open'));
   restoreFocus=document.activeElement;
-  if(kind==='advisor') {
+  const board=document.body.classList.contains('rpg')&&(kind==='all'||REGIONS.some(region=>region.category===kind));
+  dialog.classList.toggle('op-board',board);
+  if(board){
+    onRegionSelect(kind==='all'?null:kind);
+    mountOpportunityBoard(content,{initialCategory:kind});
+  }else if(kind==='advisor') {
     content.innerHTML='<p class="subtitle">Your opportunity guide</p><h1 id="panel-title">What would you like to explore?</h1><p>Tell your advisor what interests you, what you’ve tried, or where you want to go next.</p><label for="advisor-message">Your interests and goals</label><textarea id="advisor-message" placeholder="I’m a first-year student curious about hackathons, but I haven’t coded before…"></textarea><p class="note">Preview only. AI is not connected. Nothing you type is sent or saved.</p><button class="primary" disabled>Analysis available after integration</button>';
   } else {
     const all=kind==='all';
@@ -32,6 +39,7 @@ for(const selector of ['.workshop','.entrance','.interaction'])root.querySelecto
 root.querySelector('.board').addEventListener('click',()=>show('all'));
 root.querySelector('.close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('close',()=>{
+  dialog.classList.remove('op-board');
   const target=restoreFocus?.isConnected&&!restoreFocus.hidden?restoreFocus:root.querySelector('canvas')||root.querySelector('.advisor');
   target.focus();
 });

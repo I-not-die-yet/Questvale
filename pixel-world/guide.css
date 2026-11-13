@@ -1,0 +1,15 @@
+.guide-dock{z-index:6}.guide-dock .chat-top{align-items:center;padding:9px 15px}
+.guide-dock .chat-top strong{font:600 17px Georgia,serif}
+.guide-close{border:1px solid #c7ae72;border-radius:1px;background:#263f31;color:#fff0c8;width:30px;height:30px;font-size:23px;line-height:1}
+.guide-body{display:flex;align-items:start;gap:16px;padding:20px}
+.guide-portrait{width:88px;height:108px;object-fit:contain;image-rendering:pixelated;flex-shrink:0}
+.guide-copy{min-width:0;flex:1}.guide-line{margin:0 0 16px;font-size:14px;line-height:1.65}
+.guide-options{display:flex;flex-wrap:wrap;gap:8px}
+.guide-choice{border:1px solid #8f7e51;background:#fff0c8;color:#342e20;border-radius:1px;padding:8px 11px;font-size:12px;line-height:1.5}
+.guide-choice:hover{background:#e0d3a7}.guide-footer{margin:0 20px 12px;font-size:11px;color:#625438}
+.guide-route-hint{position:absolute;left:28px;top:128px;margin:0;padding:5px 10px;background:#304b3ae8;color:#fff0c8;border:1px solid #b9a069;font-size:12px;z-index:1}
+.guide-label{font-size:11px;z-index:2}
+@media(max-width:650px){.guide-body{gap:9px;padding:14px}.guide-portrait{width:52px;height:75px}.guide-line{font-size:13px}.guide-choice{font-size:11px;padding:7px 8px}.guide-route-hint{left:16px;top:98px;font-size:10px}.guide-options{gap:6px}.guide-footer{margin-left:14px}}
+
+/* Town-only overlays must not leak into the interior scene. */
+.town[data-scene=interior] .mini-map,.town[data-scene=interior] .hotspot,.town[data-scene=interior] .guide-route-hint{display:none}

@@ -1,10 +1,14 @@
-# questvale
-Questvale — a student opportunity advisor with an original four-zone pixel world. Hackathon project in planning and development.
+# Questvale
 
-## Pixel World prototype
+Private development snapshot of the Questvale pixel opportunity world.
 
-The current local frontend is in [pixel-world/](pixel-world/). See its README for run instructions, controls, tests and artwork provenance.
+Run `node pixel-world/serve.mjs`, then open http://127.0.0.1:4174/rpg.html
+for the latest RPG UI, four interiors, character entry, NPC and opportunity boards.
 
-Start locally with `node pixel-world/serve.mjs`, then open http://127.0.0.1:4174/.
+This is a frontend prototype. Opportunities are labelled fictional fixtures;
+AI, real dataset/backend and multiplayer are not connected in this snapshot.
+No website is deployed by this update. See pixel-world/README.md and ENTRY.md
+for details and verification limits.
 
-AI Advisor, Town Chat and opportunity cards are frontend demonstrations. No AI, multiplayer service, D1 database or backend is connected. Uploading this source does not deploy a website.
+Validation: 46 Node tests pass. They do not verify UI integration or physical
+phones. No new browser testing was performed for this upload.

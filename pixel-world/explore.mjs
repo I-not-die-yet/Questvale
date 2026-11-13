@@ -1,11 +1,40 @@
+import {drawSprite} from './sprite-preview-layout.mjs';
+import { loadCharacters } from './character-sprites.mjs';
+import { createEntry } from './entry.mjs';
 import { show } from './approved.mjs';
+import { facingFor } from './character-motion.mjs';
 import { createTownUI } from './town-ui.mjs';
+import { createGuide, GUIDE } from './guide.mjs';
+import { ROOMS, ROOM_SIZE, roomAdvance, roomNearby, createWorkshopVisit } from './workshop.mjs';
 const root=document.querySelector('.town'),canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');
 const four=root.dataset.map==='four';
 const map=await import(four?'./town-map.mjs':'./route.mjs');
 const { SIZE,SPAWN,advance,nearby }=map;
 const keys=new Set(),dialog=root.querySelector('dialog');
 const townUI=four?createTownUI(root,map):null;
+const guide=four&&document.body.classList.contains('rpg')?createGuide(root,townUI):null;
+const interiorsEnabled=four&&document.body.classList.contains('rpg');
+let activeRoom=null;
+const interiorImages={};
+const visit=createWorkshopVisit();
+const townCanvasLabel=canvas.getAttribute('aria-label');
+const interactionTarget=()=>activeRoom?roomNearby(player):guide?.isNear(player)?'guide':nearby(player);
+function interactWith(target){
+  if(!ready||root.dataset.entryOpen==='true'||dialog.open||guide?.isOpen())return;
+  clear();
+  if(activeRoom){
+    if(target==='board')show(activeRoom);
+    if(target==='exit'){
+      const saved=visit.leave();player=saved.player;direction=saved.direction;
+      activeRoom=null;root.dataset.scene='town';delete root.dataset.room;canvas.setAttribute('aria-label',townCanvasLabel);canvas.focus();
+    }
+  }else if(ROOMS[target]&&interiorsEnabled){
+    player=visit.enter(player,direction);direction=3;activeRoom=target;
+    const room=ROOMS[activeRoom];
+    root.dataset.scene='interior';root.dataset.room=activeRoom;canvas.setAttribute('aria-label',room.label+' '+room.name+'. Move using WASD or arrow keys. Press E at the noticeboard to view opportunities or at the entrance mat to return to town.');
+    root.querySelector('#selection-status').textContent='Entered '+room.label+' '+room.name+'. Noticeboard ahead; exit at the entrance mat.';canvas.focus();
+  }else if(target==='guide')guide.open();else if(target)show(target);
+}
 root.addEventListener('qv-input-pause',()=>keys.clear());
 let player={...SPAWN},direction=3,overview=false,last=0,frames=[],ready=false,stride=0,moving=false;
 let background,buildingImages={};
@@ -15,7 +44,7 @@ if(four){
   for(const p of map.PLACES){
     const button=document.createElement('button');button.className='hotspot workshop';
     button.textContent=p.label;button.setAttribute('aria-label','Explore '+p.label);
-    button.addEventListener('click',()=>{clear();show(p.category);});root.append(button);
+    button.addEventListener('click',()=>interactWith(p.category));root.append(button);
     townLabels.push({p,button});
   }
 }
@@ -26,20 +55,21 @@ function clear(){keys.clear();}
 window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
 dialog.addEventListener('close',clear);
 document.addEventListener('keydown',e=>{
-  if(dialog.open||root.dataset.inputBusy==='true'||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(guide?.isOpen()){if(e.key==='Escape'){e.preventDefault();guide.close();}return;}
+  if(root.dataset.entryOpen==='true'||dialog.open||root.dataset.inputBusy==='true'||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
   const key=e.key.toLowerCase();
   if(['w','a','s','d','arrowup','arrowleft','arrowdown','arrowright'].includes(key)){e.preventDefault();keys.add(key);}
-  if(key==='e'&&!e.repeat){const target=nearby(player);if(target){e.preventDefault();clear();show(target);}}
+  if(key==='e'&&!e.repeat){const target=interactionTarget();if(target){e.preventDefault();clear();interactWith(target);}}
 });
 document.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
 for(const button of root.querySelectorAll('[data-direction]')){
   const key={up:'w',left:'a',down:'s',right:'d'}[button.dataset.direction];
-  button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);keys.add(key);});
+  button.addEventListener('pointerdown',e=>{e.preventDefault();if(root.dataset.entryOpen==='true')return;button.setPointerCapture(e.pointerId);keys.add(key);});
   for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,()=>keys.delete(key));
 }
 const overviewButton=root.querySelector('.overview');
 overviewButton?.addEventListener('click',()=>{overview=!overview;overviewButton.setAttribute('aria-pressed',String(overview));overviewButton.textContent=overview?'Follow player':four?'View town':'View route';clear();});
-root.querySelector('.interaction').addEventListener('click',e=>{e.stopImmediatePropagation();const target=nearby(player);if(target)show(target);},true);
+root.querySelector('.interaction').addEventListener('click',e=>{e.stopImmediatePropagation();const target=interactionTarget();interactWith(target);},true);
 function positionLabel(selector,x,y,camera,scale){
   const el=typeof selector==='string'?root.querySelector(selector):selector,sx=(x-camera.x)*scale,sy=(y-camera.y)*scale;
   el.hidden=sx<45||sx>canvas.width-45||sy<145||sy>canvas.height-95;
@@ -49,18 +79,21 @@ function render(t){
   const dt=last?Math.min(.035,(t-last)/1000):0;last=t;
   if(ready){
     moving=false;
-    if(!dialog.open&&root.dataset.inputBusy!=='true'){
+    if(root.dataset.entryOpen!=='true'&&!dialog.open&&root.dataset.inputBusy!=='true'){
       const input={x:Number(keys.has('d')||keys.has('arrowright'))-Number(keys.has('a')||keys.has('arrowleft')),y:Number(keys.has('s')||keys.has('arrowdown'))-Number(keys.has('w')||keys.has('arrowup'))};
-      const next=advance(player,input,dt);
+      let next=activeRoom?roomAdvance(player,input,dt,ROOMS[activeRoom]):advance(player,input,dt);
+      if(!activeRoom&&guide?.blocks(next))next=player;
       const distance=Math.hypot(next.x-player.x,next.y-player.y);
       moving=distance>.01;
       if(moving)stride+=distance;
       player=next;
-      if(input.x||input.y)direction=input.x?(input.x<0?1:2):(input.y<0?3:0);
+      direction=facingFor(input,direction);
     }
+    if(activeRoom){renderInterior();requestAnimationFrame(render);return;}
     const scale=overview?Math.min(canvas.width/SIZE.width,canvas.height/SIZE.height):Math.max(canvas.width/980,canvas.height/620)*(four ? .66 : .88);
     const w=canvas.width/scale,h=canvas.height/scale;
     const actorHeight=four?74*1.15:74;
+    const actorWidth=actorHeight*frames[0][1].w/frames[0][1].h;
     const camera=overview?{x:(SIZE.width-w)/2,y:(SIZE.height-h)/2}:{x:Math.max(0,Math.min(SIZE.width-w,player.x-w/2)),y:Math.max(0,Math.min(SIZE.height-h,four?player.y-h/2-actorHeight/2:player.y-h*.78))};
     ctx.fillStyle='#82a85b';ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.drawImage(background,Math.round(-camera.x*scale),Math.round(-camera.y*scale),Math.round(SIZE.width*scale),Math.round(SIZE.height*scale));
@@ -83,11 +116,16 @@ function render(t){
       }
       ctx.restore();
     }
+    if(guide&&player.y>=GUIDE.y)guide.paint(ctx,camera,scale,actorHeight,actorWidth);
     const column=moving?[0,1,2,1][Math.floor(stride/30)%4]:1;
     const f=frames[direction][column],idle=frames[direction][1],unit=actorHeight*scale/idle.h;
     // Lock scale and head origin to the idle pose, never refit each walking frame.
-    ctx.drawImage(f.image,f.x,f.y,f.w,f.h,Math.round((player.x-camera.x)*scale-(f.anchorX-f.x)*unit),Math.round((player.y-camera.y)*scale-actorHeight*scale),Math.round(f.w*unit),Math.round(f.h*unit));
+    if(four)drawSprite(ctx,frames,direction,column,(player.x-camera.x)*scale,(player.y-camera.y)*scale,actorHeight*scale);
+    else ctx.drawImage(f.image,f.x,f.y,f.w,f.h,Math.round((player.x-camera.x)*scale-(f.anchorX-f.x)*unit),Math.round((player.y-camera.y)*scale-actorHeight*scale),Math.round(f.w*unit),Math.round(f.h*unit));
+    if(guide&&player.y<GUIDE.y)guide.paint(ctx,camera,scale,actorHeight,actorWidth);
+    guide?.update(player,camera,scale,canvas.width,canvas.height);
     root.dataset.walkFrame=String(column);
+    root.dataset.facing=String(direction);
     townUI?.update(player,background,buildingImages,t);
     if(four){
       for(const {p,button} of townLabels)positionLabel(button,p.x,p.y+48,camera,scale);
@@ -96,21 +134,39 @@ function render(t){
       positionLabel('.workshop',555,487,camera,scale);
       positionLabel('.board',1540,665,camera,scale);
     }
-    const target=nearby(player),interact=root.querySelector('.interaction');
-    interact.hidden=!target||dialog.open;interact.querySelector('span').textContent=target==='all'?'All opportunities':'Explore '+(four?map.PLACES.find(p=>p.category===target)?.label||'':'Hackathon');
-    root.querySelector('.location').textContent=four?(target&&target!=='all'?map.PLACES.find(p=>p.category===target).label:Math.hypot(player.x-SPAWN.x,player.y-SPAWN.y)<300?'Central square':'Town paths'):target==='hackathon'?'Hackathon · Maker workshop':player.x>1110?'Central square':'Path to Hackathon ↖';
+    const mapTarget=nearby(player),target=interactionTarget(),interact=root.querySelector('.interaction');
+    interact.hidden=!target||dialog.open||guide?.isOpen();interact.querySelector('span').textContent=ROOMS[target]&&interiorsEnabled?'Enter '+ROOMS[target].name:target==='guide'?'Talk to Town Guide':target==='all'?'All opportunities':'Explore '+(four?map.PLACES.find(p=>p.category===target)?.label||'':'Hackathon');
+    root.querySelector('.location').textContent=four?(mapTarget&&mapTarget!=='all'?map.PLACES.find(p=>p.category===mapTarget).label:Math.hypot(player.x-SPAWN.x,player.y-SPAWN.y)<300?'Central square':'Town paths'):target==='hackathon'?'Hackathon · Maker workshop':player.x>1110?'Central square':'Path to Hackathon ↖';
     root.dataset.playerX=player.x.toFixed(1);root.dataset.playerY=player.y.toFixed(1);root.dataset.nearby=target||'';
   }
   requestAnimationFrame(render);
 }
+function renderInterior(){
+  // Reserve space for the existing chat dock instead of obscuring the doorway.
+  const dockHeight=root.querySelector('.chat-dock').getBoundingClientRect().height;
+  const scale=Math.min(canvas.width/ROOM_SIZE.width,Math.max(160,canvas.height-dockHeight-110)/ROOM_SIZE.height);
+  const ox=(canvas.width-ROOM_SIZE.width*scale)/2,oy=80;
+  ctx.fillStyle='#292832';ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(interiorImages[activeRoom],Math.round(ox),oy,Math.round(ROOM_SIZE.width*scale),Math.round(ROOM_SIZE.height*scale));
+  const column=moving?[0,1,2,1][Math.floor(stride/30)%4]:1;
+  const actorHeight=85.1*1.7;
+  drawSprite(ctx,frames,direction,column,ox+player.x*scale,oy+player.y*scale,actorHeight*scale);
+  const target=roomNearby(player),interact=root.querySelector('.interaction');
+  interact.hidden=!target||dialog.open;
+  interact.querySelector('span').textContent=target==='exit'?'Return to town':'View '+ROOMS[activeRoom].label+' opportunities';
+  root.querySelector('.location').textContent=ROOMS[activeRoom].label+' · '+ROOMS[activeRoom].name;
+  root.dataset.playerX=player.x.toFixed(1);root.dataset.playerY=player.y.toFixed(1);root.dataset.nearby=target||'';
+  root.dataset.walkFrame=String(column);root.dataset.facing=String(direction);
+}
 async function init(){
   try{
-    const [plate,sheet]=await Promise.all([load(four?'assets/town-ground.png':'assets/workshop-ground.png'),load('assets/student-walk.png')]);background=plate;
+    const [plate,cardinalSheet,diagonalSheet]=await Promise.all([load(four?'assets/town-ground.png':'assets/workshop-ground.png'),four?null:load('assets/student-walk.png'),four?null:load('assets/student-walk-diagonal.png')]);background=plate;
     if(four){
       const [hack,kit]=await Promise.all([load('assets/hackathon-building.png'),load('assets/three-buildings.png')]);
       buildingImages={hack,kit};
 
     }
+    if(!four)for(const sheet of [cardinalSheet,diagonalSheet]){
     const scratch=document.createElement('canvas');scratch.width=sheet.width;scratch.height=sheet.height;
     const sc=scratch.getContext('2d',{willReadFrequently:true});sc.drawImage(sheet,0,0);
     const data=sc.getImageData(0,0,sheet.width,sheet.height).data;
@@ -128,7 +184,20 @@ async function init(){
       }
       frames.push(poses);
     }
-    ready=true;root.querySelector('.loading').hidden=true;canvas.focus();
+    }
+    await guide?.load(load);
+    if(interiorsEnabled)await Promise.all(Object.entries(ROOMS).map(async([category,room])=>{interiorImages[category]=await load(room.asset);}));
+    if(four){
+      const characters=await loadCharacters(load);
+      frames=characters[0].frames;
+      createEntry(root,characters,{background,buildings:buildingImages},map,(character,profile)=>{
+        frames=character.frames;stride=0;moving=false;clear();
+        root.dataset.character=character.id;root.dataset.nickname=profile.nickname;
+        root.querySelector('#selection-status').textContent=profile.nickname+' selected '+character.label+'.';
+      });
+    }
+    ready=true;root.querySelector('.loading').hidden=true;
+    if(root.dataset.entryOpen!=='true')canvas.focus();
   }catch{root.querySelector('.loading').textContent='The town artwork could not load. Please reload the page.';}
 }
 init();requestAnimationFrame(render);

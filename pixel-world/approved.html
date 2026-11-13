@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Questvale · Maker workshop</title><link rel="stylesheet" href="approved.css"></head>
+<body>
+<main class="town" aria-label="Questvale, the route from the central square to Hackathon">
+  <div class="scene">
+    <img class="scene-art" src="assets/questvale-hackathon-approved.png" alt="An overhead pixel town: a blue-roof maker workshop connects by a short sandy path to the central plaza. A student explorer with a mustard backpack stands on the path, surrounded by trees, flowers and a workbench." draggable="false">
+    <button class="hotspot advisor" aria-label="Open AI Advisor" title="Open AI Advisor"><span class="sr">AI Advisor</span></button>
+    <button class="hotspot workshop" aria-label="Explore Hackathon maker workshop" title="Explore Hackathon · E"><span class="sr">Explore Hackathon</span></button>
+    <button class="hotspot entrance" aria-label="Enter Hackathon maker workshop" title="Explore Hackathon · E"><span class="sr">Workshop entrance</span></button>
+    <button class="hotspot board" aria-label="View all opportunities at the public noticeboard" title="All opportunities"><span class="sr">All opportunities</span></button>
+    <button class="interaction" aria-label="Explore Hackathon, press E"><kbd>E</kbd> Explore Hackathon</button>
+  </div>
+  <p class="preview-status">Art preview · movement is not enabled</p>
+  <nav class="mobile-actions" aria-label="Explore scene"><button data-action="hackathon">Hackathon</button><button data-action="all">All opportunities</button><button data-action="advisor">AI Advisor</button></nav>
+  <dialog aria-labelledby="panel-title">
+    <button class="close" aria-label="Close panel">×</button>
+    <div class="panel-content"></div>
+  </dialog>
+  <p class="sr" aria-live="polite" id="selection-status">No category selected.</p>
+</main>
+<script type="module" src="approved.mjs"></script>
+</body></html>

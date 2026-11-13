@@ -25,5 +25,5 @@ test('each building and the board block their painted footprint',()=>{
 test('diagonal movement stays normalized and long pauses cannot tunnel through walls',()=>{
   const a=advance(SPAWN,{x:1,y:0},.01),b=advance(SPAWN,{x:1,y:1},.01);
   assert.ok(Math.abs(Math.hypot(a.x-SPAWN.x,a.y-SPAWN.y)-Math.hypot(b.x-SPAWN.x,b.y-SPAWN.y))<1e-8);
-  assert.ok(advance(SPAWN,{x:1,y:0},100).x-SPAWN.x<=8.75);
+  assert.ok(advance(SPAWN,{x:1,y:0},100).x-SPAWN.x<=13.65+1e-8);
 });

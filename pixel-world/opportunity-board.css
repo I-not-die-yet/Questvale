@@ -1,0 +1,14 @@
+.rpg dialog.op-board{inset:24px;margin:auto;width:min(760px,calc(100% - 48px));height:min(780px,calc(100dvh - 48px));padding:58px 24px 24px;scrollbar-color:#927347 #f5e7ca}
+.op-board h1{margin:0 0 12px}.op-disclosure{color:#59452d;font-size:12px;line-height:1.5;margin:0 0 24px}
+.op-search-label{display:block;margin-bottom:7px;font-weight:600;font-size:13px}
+.op-search{box-sizing:border-box;width:100%;border:2px solid #927347;border-radius:0;background:#fff2d4;color:#392f20;padding:12px;font:inherit;caret-color:#304b3a}
+.op-search::placeholder{color:#71603f}.op-board :is(input,button):focus-visible{outline:3px solid #304b3a;outline-offset:3px}
+.op-filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.op-filters button,.op-back{border:2px solid #927347;background:#ead9b4;color:#392f20;padding:8px 12px;font:600 12px/1.4 ui-monospace,monospace;border-radius:0;cursor:pointer}
+.op-filters button[aria-pressed=true]{background:#304b3a;color:#fff0c8;border-color:#493020}
+.op-count{font-size:12px;color:#59452d;margin:20px 0 8px}.op-row{padding:18px 0;border-top:1px solid #b9a46d}
+.op-category{font:600 11px/1.5 ui-monospace,monospace;color:#304b3a}.op-row h2{margin:5px 0 8px;font-size:20px;line-height:1.4}
+.op-open{border:0;background:none;color:#392f20;text-align:left;font:inherit;font-weight:700;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#927347}
+.op-meta{font-size:12px;margin:5px 0;color:#59452d}.op-empty{padding:24px 0}.op-empty h2{font-size:20px}
+.op-detail{line-height:1.65}.op-detail .op-category{margin-top:24px}.op-detail h2{font:700 26px/1.35 ui-monospace,monospace;margin:8px 0 20px}.op-detail dl{border-block:1px solid #b9a46d;padding:18px 0;margin:24px 0}.op-detail dt{font-weight:700;font-size:12px;margin-top:14px}.op-detail dt:first-child{margin-top:0}.op-detail dd{margin:4px 0;font-size:14px}.op-source{font-size:12px;color:#59452d}.op-board ::selection{background:#304b3a;color:#fff0c8}
+
+.op-state-message{padding:24px 0;line-height:1.6}.op-filters button:disabled,.op-search:disabled{opacity:.65;cursor:default}

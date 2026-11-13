@@ -1,0 +1,34 @@
+.entry-overlay{position:absolute;inset:0;z-index:30;overflow:auto;background:#263e32;color:#fff0ce;isolation:isolate}
+.town[data-entry-open=true]>:not(canvas):not(.entry-overlay):not(.loading){visibility:hidden}
+.entry-world{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover;pointer-events:none}
+.entry-shade{position:absolute;inset:0;background:#142e2473;pointer-events:none}
+.entry-content{position:relative;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 16px}
+.entry-logo{font:900 clamp(42px,7.5vw,100px)/1.1 ui-monospace,monospace;letter-spacing:-.06em;color:#fff0ce;margin:0;text-shadow:4px 0 #233f2c,0 4px #233f2c,4px 4px #233f2c,6px 6px #233f2c;animation:entry-arrive .45s both}
+.entry-tagline{font-size:clamp(13px,1.6vw,21px);margin:14px 0 38px;animation:entry-arrive .45s .1s both}
+.entry-overlay button{cursor:pointer;font-family:ui-monospace,monospace;font-weight:700}
+.entry-start,.entry-enter{background:#304b3a;color:#fff0ce;border:5px solid #59391f;box-shadow:inset 0 0 0 3px #b07a42,3px 3px #243526;padding:18px 34px;font-size:clamp(17px,2vw,25px)}
+.entry-welcome{animation:entry-arrive .45s .2s both}.entry-welcome p{font-size:12px;margin-top:22px}
+.entry-overlay button:active{translate:0 2px}.entry-overlay button:focus-visible,.entry-overlay input:focus-visible{outline:3px solid #fff2c9;outline-offset:4px;box-shadow:0 0 0 6px #294a3c}
+.character-picker{width:min(450px,100%);background:#f5e7ca;background-clip:padding-box;border:20px solid transparent;border-image:url('assets/ui-parchment-frame-v2.png') 12% stretch;image-rendering:pixelated;color:#392f20;padding:12px 12px 8px;animation:entry-arrive .25s both}
+.character-picker h2{font:800 clamp(18px,2vw,24px)/1.3 ui-monospace,monospace;margin:0 0 6px}
+.character-hero{display:flex;align-items:center;justify-content:center;gap:8px}
+.town .character-hero canvas{width:160px;height:168px;image-rendering:pixelated}
+.character-prev,.character-next{border:0;background:none;color:#493020;font-size:25px;min-width:44px;min-height:44px}
+.character-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:6px 0 14px}
+.character-option{padding:3px 0;border:2px solid #9e7a49;background:#fff0d1;color:#493020;min-width:0;font-size:10px}
+.character-option[aria-pressed=true]{border-color:#315933;outline:2px solid #315933;background:#e1dfb5}
+.town .character-option canvas{width:100%;height:auto;image-rendering:pixelated}
+.nickname-label{text-align:left;margin:0 0 5px;font-size:12px}
+.character-picker input{width:100%;border:2px solid #987548;background:#fff2d5;color:#392f20;font:15px/1.4 system-ui,sans-serif;padding:9px 10px;border-radius:0}
+.entry-enter{display:block;width:100%;font-size:18px;padding:13px;margin-top:14px}
+.entry-hint{font-size:10px;margin:10px 0 4px}.entry-back{background:none;border:0;color:#59452d;text-decoration:underline;padding:7px 12px;font-size:11px}
+.choosing .entry-logo{font-size:clamp(30px,4vw,48px)}.choosing .entry-tagline{margin:8px 0 17px;font-size:12px}
+.entry-storage{max-width:400px;font-size:11px;margin:5px 0 0}
+.rpg .actions .change-character{font-size:11px;padding:8px 10px;border:8px solid transparent;border-image:var(--frame) 12% stretch;background:#f5e7ca;background-clip:padding-box;border-radius:0;color:#392f20}
+.rpg .actions{margin-right:290px}
+@keyframes entry-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:650px){.entry-content{padding:20px 12px}.character-picker{border-width:15px;padding:10px 8px}.character-picker h2{font-size:18px}.character-options{gap:5px}.entry-welcome p{max-width:260px;line-height:1.6}.rpg .actions{margin-right:0;position:absolute;left:16px;top:120px}.rpg .actions .change-character{font-size:9px;padding:4px 6px}.town .character-hero canvas{width:130px;height:137px}.choosing .entry-tagline{margin-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.entry-overlay *{animation:none!important;transition:none!important}}
+
+.entry-overlay.is-leaving{animation:entry-leave .25s forwards;pointer-events:none}
+@keyframes entry-leave{to{opacity:0}}

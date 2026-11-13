@@ -1,0 +1,105 @@
+/* Questvale PNG skin: nine-slice corners stay fixed while timber rails stretch. */
+.rpg{--parchment:#f5e7ca;--ink:#392f20;--timber:#493020;--forest:#304b3a;--frame:url('assets/ui-parchment-frame-v2.png');--plate:url('assets/ui-green-plate.png')}
+.rpg .mini-map,.rpg .chat-dock,.rpg dialog{
+  border:18px solid transparent;border-image:var(--frame) 12% stretch;
+  border-radius:0;background:var(--parchment);background-clip:padding-box;
+  color:var(--ink);box-shadow:none;outline:0;image-rendering:pixelated;
+}
+.rpg .mini-map{width:274px;top:18px;right:22px;overflow:visible}
+.rpg .mini-toggle,.rpg .chat-top [role=tab],.rpg .primary,.rpg .location,.rpg .controls-help summary{
+  background-color:var(--forest);background-image:none;background-position:center;
+  background-repeat:no-repeat;border:4px solid #493020;border-radius:0;color:#fff0c8;image-rendering:pixelated;
+  text-shadow:0 1px #1b3020;box-shadow:inset 0 0 0 2px #a36d39;
+}
+.rpg .mini-toggle{min-height:43px;padding:8px 22px;font:700 14px/1.4 ui-monospace,monospace}
+.rpg .mini-toggle svg,.rpg .chat-dock svg{stroke-linecap:square;stroke-linejoin:miter;stroke-width:2.5;shape-rendering:crispEdges}
+.rpg .town .mini-canvas{border:2px solid #9d7b4d;border-radius:0;margin-top:6px;box-sizing:border-box}
+.rpg .mini-legend{padding:8px 0 0;font-size:11px;color:#59452d}
+.rpg .player-key{background:#304b3a;border-color:#f5e7ca;outline-color:#493020}
+.rpg .chat-dock{width:min(640px,calc(100% - 40px));bottom:16px;overflow:visible}
+.rpg .chat-top{padding:0 0 9px;border-bottom:2px solid #ccb487;align-items:center;gap:8px}
+.rpg .chat-top [role=tablist]{gap:7px;min-width:0}
+.rpg .chat-top [role=tab]{min-height:41px;padding:9px 23px;font:700 14px/1.4 ui-monospace,monospace;color:#d0c7a1;filter:brightness(.8)}
+.rpg .chat-top [role=tab][aria-selected=true]{color:#fff4ce;filter:none;position:static}
+.rpg .chat-toggle,.rpg .close,.rpg .chat-form button,.rpg .touch-controls button{
+  border:10px solid transparent;border-image:var(--frame) 12% stretch;border-radius:0;
+  background:#f5e7ca;background-clip:padding-box;box-shadow:none;color:#304b3a;image-rendering:pixelated;
+}
+.rpg .chat-toggle{width:34px;height:34px;padding:0;flex-shrink:0}
+.rpg .chat-context{margin:0;padding:14px 2px 9px;border-bottom:1px solid #c9b388;font-size:12px}
+.rpg .chat-context strong{font:700 15px/1.4 ui-monospace,monospace}
+.rpg .chat-status{color:#6c5838;font-size:11px}
+.rpg .chat-history{padding:8px 2px 13px;scrollbar-color:#9a804c #e8d7a7}
+.rpg .chat-empty{padding:22px 8px}
+.rpg .chat-empty strong{font:600 21px/1.35 ui-monospace,monospace;color:#3b3a26}
+.rpg .chat-empty p{color:#665335;font-size:13px;line-height:1.6}
+.rpg .chat-message{border:1px solid #baa16e;border-radius:0;background:#e7d8b5;box-shadow:2px 2px #c9b58a}
+.rpg .chat-message small{color:#665335}
+.rpg .chat-form{padding:11px 0 0;gap:10px}
+.rpg .chat-form textarea{background:#fff2d4;border:2px solid #b19965;border-radius:0;box-shadow:inset 2px 2px #dfcba2;color:#392f20;padding:9px 10px;resize:none;caret-color:#304b3a}
+.rpg .chat-form textarea::placeholder{color:#71603f}
+.rpg .chat-form button{width:40px;height:40px;border-width:9px}
+.rpg .chat-form button:disabled{opacity:.5;cursor:default}
+.rpg .chat-disclosure{color:#6c5838;font-size:10px;margin:7px 2px 0}
+.rpg dialog{inset:14px 14px 14px auto;width:min(480px,calc(100% - 28px));height:calc(100dvh - 28px);padding:68px 15px 24px;overflow:auto}
+.rpg dialog::before{content:"";position:absolute;top:0;left:0;right:0;height:48px;background:var(--forest);border:4px solid #493020;box-shadow:inset 0 0 0 2px #a36d39;image-rendering:pixelated}
+.rpg dialog::backdrop{background:#182f2866}
+.rpg .close{top:5px;right:9px;width:36px;height:36px;padding:0;z-index:1;font-size:21px;line-height:16px}
+.rpg dialog h1{font-family:ui-monospace,monospace;font-size:34px;letter-spacing:-.02em;color:#3c3b25;margin-top:12px}
+.rpg .subtitle{color:#665335;font-size:13px}
+.rpg .empty{border-color:#b9a46d}.rpg .empty h2{font-family:ui-monospace,monospace;font-size:23px}
+.rpg .primary{font-size:13px;padding:15px 29px;min-height:48px}
+.rpg .primary:disabled{filter:grayscale(.7);opacity:.65}
+.rpg .location{padding:10px 23px;min-height:38px}
+.rpg .controls-help{background:transparent;border:0;border-radius:0;color:#fff0c8}
+.rpg .controls-help summary{padding:10px 23px}
+.rpg .controls-help p{background:#304b3a;border:2px solid #8a633e;padding:8px 12px}
+.rpg .workshop,.rpg .board,.rpg .interaction{background:#f5e7ca;background-clip:padding-box;color:#392f20;border:10px solid transparent;border-image:var(--frame) 12% stretch;border-radius:0;box-shadow:none;padding:3px 9px;image-rendering:pixelated}
+.rpg kbd{border-radius:0;background:#493020;color:#fff0c8}
+.rpg button:focus-visible,.rpg textarea:focus-visible,.rpg summary:focus-visible{outline:2px solid #fff8dd;outline-offset:3px;box-shadow:0 0 0 5px #294a3c}
+.rpg button:hover:not(:disabled){filter:brightness(1.1)}
+.rpg .chat-form button:active:not(:disabled),.rpg .primary:active:not(:disabled),.rpg .chat-top [role=tab]:active{translate:0 2px}
+@media(max-width:650px){
+  .rpg .mini-map{width:180px;right:12px;top:12px;border-width:14px}
+  .rpg .mini-toggle{font-size:12px;padding:6px 17px;min-height:34px}
+  .rpg .mini-legend{font-size:9px;padding:6px 0 0}
+  .rpg .chat-dock{width:calc(100% - 20px);border-width:16px;bottom:10px}
+  .rpg .chat-top [role=tab]{padding:8px 17px;font-size:12px;min-height:36px}
+  .rpg .chat-context strong{font-size:14px}.rpg .chat-empty strong{font-size:18px}
+  .rpg .chat-toggle{width:30px;height:30px;border-width:8px}
+  .rpg dialog{border-width:16px;padding-left:8px;padding-right:8px}
+}
+
+/* Keep the coarse timber skin compact; all text remains live HTML. */
+.rpg .chat-dock{width:min(600px,calc(100% - 40px))}
+.rpg .chat-top [role=tab]{font-size:13px;padding:8px 16px;min-height:36px}
+.rpg .mini-toggle{font-size:13px;padding:7px 14px;min-height:36px}
+.rpg .chat-empty strong{font-size:18px}
+.rpg .chat-context strong{font-size:13px}
+.rpg .chat-top{padding-bottom:8px}
+.rpg .chat-form textarea{border-color:#927347;box-shadow:inset 2px 2px #e3cfaa}
+.rpg .chat-history{height:160px}
+@media(max-width:650px){.rpg .chat-dock{width:calc(100% - 20px)}.rpg .chat-top [role=tab]{font-size:11px;padding:7px 11px}.rpg .mini-toggle{font-size:11px;padding:6px 10px}.rpg .chat-history{height:140px}}
+
+/* Compact world labels and a touch pad that clears the conversation dock. */
+.rpg .brand{background:transparent;color:#fff2cd;font-family:ui-monospace,monospace;font-weight:900;letter-spacing:-1px;text-shadow:2px 0 #244333,0 2px #244333,2px 2px #244333,3px 3px #244333}
+.rpg .brand small{display:block;background:transparent;color:#fff2cd;font:500 10px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:0;text-shadow:1px 1px #244333;margin-top:5px}
+.rpg .brand::selection,.rpg .brand small::selection{background:transparent;color:#fff2cd}
+.rpg .location{background:var(--parchment);background-clip:padding-box;border:10px solid transparent;border-image:var(--frame) 12% stretch;color:var(--ink);box-shadow:none;text-shadow:none;padding:1px 7px;min-height:0;font:600 11px/1.4 ui-monospace,monospace}
+@media(max-width:650px){
+  .rpg .brand{font-size:22px}.rpg .brand small{font-size:9px}
+  .rpg .location{top:78px;padding:1px 5px;font-size:10px;border-width:8px}
+  .rpg .town[data-map=four] .touch-controls{left:16px;bottom:calc(var(--chat-dock-height,170px) + 24px + env(safe-area-inset-bottom));grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:5px}
+  .rpg .touch-controls button{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border-width:8px;font-size:24px;line-height:1}
+  .rpg .touch-controls button:active{background-color:#d5c49d;translate:0 2px}
+}
+/* Keep every proximity action above the measured chat dock, not a fixed offset. */
+.rpg .town[data-map=four] .interaction{
+  bottom:calc(var(--chat-dock-height,170px) + 32px);
+  z-index:5;max-width:calc(100% - 32px);white-space:normal;text-align:center;
+}
+@media(max-width:650px){
+  .rpg .town[data-map=four] .interaction{
+    bottom:calc(var(--chat-dock-height,170px) + 130px + env(safe-area-inset-bottom));
+  }
+}
