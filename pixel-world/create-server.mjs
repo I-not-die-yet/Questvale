@@ -5,6 +5,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { resolve, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {parsePublicOrigin,requestOrigin,createAdvisorGate} from './public-access.mjs';
+import {attachPresence} from './presence-server.mjs';
 export async function createQuestvaleServer({root=fileURLToPath(new URL('.',import.meta.url)),publicOrigin='',databasePath=resolve(root,'.local/teams.sqlite'),advisorMaxCalls=0,advisorFetch=fetch}={}){
 publicOrigin=parsePublicOrigin(publicOrigin);
 const gate=createAdvisorGate({maxCalls:advisorMaxCalls});
@@ -43,7 +44,7 @@ const server = createServer({requestTimeout:10000,headersTimeout:10000,maxHeader
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); res.end(); return; }
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    if(pathname.split('/').some(part=>part.startsWith('.')||['node_modules','tests','tools','docs'].includes(part))||['/serve.mjs','/create-server.mjs','/team-service.mjs','/advisor-proxy.mjs','/public-access.mjs'].includes(pathname)||/\.(sqlite|db)(-|$)/i.test(pathname)){res.writeHead(403);res.end();return;}
+    if(pathname.split('/').some(part=>part.startsWith('.')||['node_modules','tests','tools','docs'].includes(part))||['/serve.mjs','/create-server.mjs','/team-service.mjs','/advisor-proxy.mjs','/public-access.mjs','/presence-server.mjs'].includes(pathname)||/\.(sqlite|db)(-|$)/i.test(pathname)){res.writeHead(403);res.end();return;}
     const file = resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
     if (!file.startsWith(resolve(root) + sep)) { res.writeHead(403); res.end(); return; }
     const data = await readFile(file);
@@ -51,6 +52,8 @@ const server = createServer({requestTimeout:10000,headersTimeout:10000,maxHeader
     res.end(req.method === 'HEAD' ? undefined : data);
   } catch { res.writeHead(404); res.end('Not found'); }
 });
-server.once('close',()=>teams.close());
+const presence=attachPresence(server,{teams,publicOrigin});
+server.closePresence=presence.close;
+server.once('close',()=>{presence.close();teams.close();});
 return server;
 }

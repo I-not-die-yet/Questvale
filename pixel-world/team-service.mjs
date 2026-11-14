@@ -104,5 +104,5 @@ export function createTeamService(path,opportunityIds){
    }catch(e){db.exec('ROLLBACK');throw e;}
   }catch(error){return response({error:error.status?error.message:'Team service unavailable.'},error.status||500);}
  }
- return {handle,authenticate,close:()=>db.close()};
+ return {handle,authenticate,guestName:user=>one('SELECT name FROM guests WHERE id=?',user)?.name||null,close:()=>db.close()};
 }

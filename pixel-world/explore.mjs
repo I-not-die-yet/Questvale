@@ -2,6 +2,7 @@ import {createJoystick} from './joystick.mjs';
 import {drawSprite} from './sprite-preview-layout.mjs';
 import { loadCharacters } from './character-sprites.mjs';
 import { createEntry } from './entry.mjs';
+import {createPresence} from './presence-client.mjs';
 import { show } from './approved.mjs';
 import { facingFor } from './character-motion.mjs';
 import { createTownUI } from './town-ui.mjs';
@@ -18,6 +19,7 @@ const townUI=four?createTownUI(root,map):null;
 const guide=four&&document.body.classList.contains('rpg')?createGuide(root,townUI):null;
 const interiorsEnabled=four&&document.body.classList.contains('rpg');
 let activeRoom=null;
+let presence=null;
 const interiorImages={};
 const visit=createWorkshopVisit();
 const townCanvasLabel=canvas.getAttribute('aria-label');
@@ -104,7 +106,8 @@ function render(t){
       player=next;
       direction=facingFor(input,direction);
     }
-    if(activeRoom){renderInterior();requestAnimationFrame(render);return;}
+    presence?.update((!activeRoom||Object.hasOwn(ROOMS,activeRoom))&&root.dataset.entryOpen!=='true'&&!document.hidden,{scene:activeRoom||'town',x:player.x,y:player.y,direction,moving,character:root.dataset.character},t);
+    if(activeRoom){renderInterior(t,dt);requestAnimationFrame(render);return;}
     const scale=overview?Math.min(canvas.width/SIZE.width,canvas.height/SIZE.height):Math.max(canvas.width/980,canvas.height/620)*(four ? .66 : .88);
     const w=canvas.width/scale,h=canvas.height/scale;
     const actorHeight=four?74*1.15:74;
@@ -132,6 +135,7 @@ function render(t){
       ctx.restore();
     }
     if(guide&&player.y>=GUIDE.y)guide.paint(ctx,camera,scale,actorHeight,actorWidth);
+    presence?.paint(ctx,camera,scale,actorHeight,t,dt);
     const column=moving?[0,1,2,1][Math.floor(stride/30)%4]:1;
     const f=frames[direction][column],idle=frames[direction][1],unit=actorHeight*scale/idle.h;
     // Lock scale and head origin to the idle pose, never refit each walking frame.
@@ -156,7 +160,7 @@ function render(t){
   }
   requestAnimationFrame(render);
 }
-function renderInterior(){
+function renderInterior(time,dt){
   // Reserve space for the existing chat dock instead of obscuring the doorway.
   const dockHeight=root.querySelector('.chat-dock').getBoundingClientRect().height;
   const scale=Math.min(canvas.width/ROOM_SIZE.width,Math.max(160,canvas.height-dockHeight-110)/ROOM_SIZE.height);
@@ -165,6 +169,7 @@ function renderInterior(){
   ctx.drawImage(interiorImages[activeRoom],Math.round(ox),oy,Math.round(ROOM_SIZE.width*scale),Math.round(ROOM_SIZE.height*scale));
   const column=moving?[0,1,2,1][Math.floor(stride/30)%4]:1;
   const actorHeight=85.1*1.7;
+  presence?.paint(ctx,{x:-ox/scale,y:-oy/scale},scale,actorHeight,time,dt);
   drawSprite(ctx,frames,direction,column,ox+player.x*scale,oy+player.y*scale,actorHeight*scale);
   const target=roomNearby(player),interact=root.querySelector('.interaction');
   interact.hidden=!target||dialog.open;
@@ -210,6 +215,7 @@ async function init(){
         root.dataset.character=character.id;root.dataset.nickname=profile.nickname;root.dataset.skills=JSON.stringify(profile.skills||[]);
         root.querySelector('#selection-status').textContent=profile.nickname+' selected '+character.label+'.';
       });
+      presence=createPresence(root,characters);
     }
     ready=true;root.querySelector('.loading').hidden=true;
     if(root.dataset.entryOpen!=='true')canvas.focus();

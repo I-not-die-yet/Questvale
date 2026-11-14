@@ -1,5 +1,24 @@
 # Questvale — local development MVP
 
+## All four interiors — current update, 2026-11-14
+
+Town, Hackathon, Business, Startup and Research now use scene-scoped presence.
+All rooms share the same 10-guest connection cap. Each interior validates its own
+roomWalkable furniture/bounds; neither movement nor collision rules were changed.
+Server snapshots contain only the recipient’s current scene, with client guards
+against stale snapshots and cross-scene interpolation. Enter/exit retains the
+same connection and the existing local return-position behavior. No chat, schema,
+provider, dependency or public-origin change. Earlier outdoor/Hackathon-only
+notes below/above describe previous milestones.
+
+113 local tests pass: every room's enter/move/exit and town isolation, plus
+different-interior isolation at identical coordinates. Two module syntax checks
+pass. The user accepted Hackathon visually; other three interiors still require
+manual UI acceptance. No browser test, real model call, public Tunnel or Git push
+was performed for this extension. Rollback copies are in
+../questvale-before-all-room-presence/.
+
+
 Updated: 2026-11-14 (Hong Kong time).
 
 Questvale is a student opportunity discovery and coordination app presented as a
@@ -9,7 +28,9 @@ or public-deployment claim. Older prototype descriptions are superseded below.
 ## Run
 
 Use Node with built-in `node:sqlite`; the verified runtime is v24.22.1.
-No package installation is required for the active frontend/team server.
+The server now uses one pinned dependency: ws 8.23.0. Install with
+`pnpm install --frozen-lockfile --ignore-scripts --no-optional` in this folder.
+The approved local installation is already complete; no global package was added.
 
 ```sh
 node serve.mjs
@@ -26,6 +47,37 @@ consistently: localhost and 127.0.0.1 have different browser identities.
 If frontend files were updated while an older server was still running, stop and
 restart it to load the current service routes. Do not start another server on the
 same port, delete the database or reset guest cookies as a routine debugging step.
+
+## Multiplayer town presence — local first version
+
+Authenticated guests in the outdoor town now share positions, directions, avatars
+and names over /api/presence WebSocket. Maximum 10 active guest connections; the
+next receives Town full feedback. One connection per guest cookie: use separate
+browser profiles/private contexts to test different players, not ordinary tabs.
+Position state is memory-only and does not alter SQLite schema or movement rules.
+Entering an interior, selecting a character or hiding the page disconnects outdoor
+presence. Indoor multiplayer is not implemented. Other players do not collide.
+
+Updates are capped client-side at 10/second (idle once/second), interpolated on
+render, server-validated for walkable finite positions, speed bounds and message
+rate/size. Origin and guest cookie must be valid; names are server-owned guest
+nicknames, with a short connection suffix to distinguish duplicates. Heartbeats
+remove broken sessions; connection recovery is limited to three attempts until
+manual reload or explicit return to the active town. This is not authoritative
+anti-cheat, public load testing or a ten-person real-device performance guarantee.
+
+Verification: 107 local tests pass, including two-client movement/disconnect,
+invalid identity/origin/updates, rate limiting and ten-client capacity. Two isolated
+browser guests visibly received each other’s movement and names in both directions.
+Only ws 8.23.0 was added; install scripts/optional binaries were disabled and registry
+audit reported zero known advisories at this check. No Tunnel, AI call, Git push or
+deployment. Physical phones and external WebSocket connectivity remain unverified.
+
+Rollback copies of the six changed pre-existing files are at the sibling
+work/questvale-before-presence directory. Restoring those files and restarting
+returns to the prior version; new presence files and installed ws then remain
+unused. Do not restore over subsequent edits without checking them. No rollback
+was performed. See PRESENCE.md for scope and recovery.
 
 ## Current functionality
 
@@ -306,3 +358,22 @@ are not implemented by chat.
 Do not create another competing team/chat backend. Next: manual multi-guest UI
 acceptance, bounded live Advisor verification, source-checking demo opportunities, then a
 separately authorized deployment plan. No automatic push/deployment is implied.
+
+
+## Hackathon interior extension — 2026-11-14
+
+Presence now supports town and Hackathon workshop. Snapshots are filtered on the
+server by the receiving player's current scene; client drops stale snapshots from
+a previous scene and resets interpolation at transitions. The same authenticated
+connection stays active on town/Hackathon transitions, sharing the global 10-guest
+cap. Rendering uses the existing indoor camera and actor scale. Interior bounds
+and furniture validation use roomWalkable; local movement/collision rules, saved
+town position and chat are unchanged. Other three interiors remain unsynchronized
+and pause presence. Character selection/page hiding still disconnects presence.
+
+109 local tests passed, including three-client town/Hackathon isolation, enter,
+move, exit, stable connection identity and invalid-room coordinates. Syntax checks
+passed for three changed modules. Browser/physical-device acceptance of the indoor
+rendering is left to the user. No new dependency, schema, AI call, public Tunnel or
+Git action. Prior outdoor-only notes describe the previous milestone.
+Rollback copies of this step are in ../questvale-before-hackathon-presence/.
