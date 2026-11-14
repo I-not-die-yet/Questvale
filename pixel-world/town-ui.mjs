@@ -5,7 +5,7 @@ import {loadOpportunityData} from './opportunity-data.mjs';
 import {summarizeOpportunities} from './opportunity-summary.mjs';
 export function createTownUI(root,map){
   const dock=document.createElement('section');dock.className='chat-dock';dock.setAttribute('aria-label','Town conversations');
-  dock.innerHTML=`<div class="chat-top"><div role="tablist" aria-label="Conversation"><button role="tab" id="ai-tab" aria-controls="chat-panel" aria-selected="true" data-channel="advisor">AI Advisor</button><button role="tab" id="town-tab" aria-controls="chat-panel" aria-selected="false" tabindex="-1" data-channel="town">Town Chat</button></div><button class="chat-toggle" aria-label="Expand conversation" aria-expanded="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button></div><div class="chat-panel" id="chat-panel" role="tabpanel" aria-labelledby="ai-tab" hidden><div class="chat-context"><strong>Private AI conversation</strong><span class="chat-status">AI is not connected</span></div><div class="chat-history" role="log" aria-label="Conversation messages"></div></div><form class="chat-form"><label class="sr" for="town-message">Message AI Advisor</label><textarea id="town-message" rows="1" maxlength="500" placeholder="What would you like to explore?" aria-describedby="chat-disclosure"></textarea><button type="submit" disabled aria-label="Preview your message"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5m-5 5 5-5 5 5"/></svg></button></form><p class="chat-disclosure" id="chat-disclosure">Local preview only · messages are not sent or saved.</p>`;
+  dock.innerHTML=`<div class="chat-top"><div role="tablist" aria-label="Conversation"><button role="tab" id="ai-tab" aria-controls="chat-panel" aria-selected="true" data-channel="advisor">AI Advisor</button><button role="tab" id="town-tab" aria-controls="chat-panel" aria-selected="false" tabindex="-1" data-channel="town">Town Chat</button></div><button class="chat-toggle" aria-label="Expand conversation" aria-expanded="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button></div><div class="chat-panel" id="chat-panel" role="tabpanel" aria-labelledby="ai-tab" hidden><div class="chat-context"><strong>Private AI conversation</strong><span class="chat-status">AI is not connected</span></div><div class="chat-history" role="log" aria-label="Conversation messages"></div></div><form class="chat-form"><label class="sr" for="town-message">Message AI Advisor</label><textarea id="town-message" rows="1" maxlength="500" placeholder="What would you like to explore?"></textarea><button type="submit" disabled aria-label="Preview your message"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5m-5 5 5-5 5 5"/></svg></button></form><p class="chat-disclosure" id="chat-disclosure" hidden></p>`;
   root.append(dock);
   // Keep touch movement above the actual dock, including expanded conversations.
   const dockSizeObserver=new ResizeObserver(()=>{
@@ -19,7 +19,7 @@ export function createTownUI(root,map){
   let advisorBusy=false,advisorStatus='Not submitted · local service required';
   const advisorHost=document.createElement('div');advisorHost.className='advisor-view';history.after(advisorHost);history.hidden=true;
   const advisor=createAdvisorUI(root,advisorHost,{onBusy:value=>{advisorBusy=value;updateSend();},onStatus:text=>{advisorStatus=text;if(channel==='advisor')dock.querySelector('.chat-status').textContent=text;}});
-  dock.querySelector('.chat-status').textContent=advisorStatus;send.setAttribute('aria-label','Send to Advisor');dock.querySelector('.chat-disclosure').textContent='Advisor uses the separate local service. No automatic retries; source checks remain incomplete.';
+  dock.querySelector('.chat-status').textContent=advisorStatus;send.setAttribute('aria-label','Send to Advisor');dock.querySelector('.chat-disclosure').hidden=true;
   send.setAttribute('aria-label','Send to Advisor');
   let townActive=false,townReady=false,townSending=false;
   const publicActions=document.createElement('div');publicActions.className='town-chat-actions';publicActions.hidden=true;
@@ -71,7 +71,9 @@ export function createTownUI(root,map){
     dock.querySelector('.chat-context strong').textContent=channel==='advisor'?'Private AI conversation':'Public town channel';
     dock.querySelector('.chat-status').textContent=channel==='advisor'?advisorStatus:townReady?'Connected · public to all guests':'Connecting…';
     publicActions.hidden=channel!=='town';
-    dock.querySelector('.chat-disclosure').textContent=channel==='town'?'Public channel · visible to all guests on this server. Avoid private information.':'Advisor uses the separate local service. No automatic retries; source checks remain incomplete.';
+    dock.querySelector('.chat-disclosure').textContent=channel==='town'?'Public channel · visible to all guests on this server. Avoid private information.':'';
+    dock.querySelector('.chat-disclosure').hidden=channel!=='town';
+    if(channel==='town')input.setAttribute('aria-describedby','chat-disclosure');else input.removeAttribute('aria-describedby');
     send.setAttribute('aria-label',channel==='town'?'Send public message':'Send to Advisor');
     dock.querySelector('label').textContent=channel==='advisor'?'Message AI Advisor':'Message Town Chat';
     input.placeholder=channel==='advisor'?'What would you like to explore?':'Share an idea or look for teammates…';

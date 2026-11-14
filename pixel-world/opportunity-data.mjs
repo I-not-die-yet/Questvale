@@ -28,6 +28,7 @@ export function adaptOpportunities(rows){
       statusKey:Object.hasOwn(STATUSES,row.status)?row.status:'unknown',nextSteps:opportunityNextSteps(row),id:row.id,category:row.category,title:row.name,description:row.description||row.shortDescription||'Description not provided.',organizer:row.organizer||'Not confirmed',
       location:[location.place,({offline:'In person',online:'Online',hybrid:'Hybrid'})[location.type]].filter(Boolean).join(' · ')||'Not confirmed',
       deadline:mark(dates.deadline?[dates.deadline,dates.deadlineTimezone].filter(Boolean).join(' · '):'Not confirmed','deadline'),
+      deadlineDate:dates.deadline||null,deadlineTimezone:dates.deadlineTimezone||null,deadlineUncertain:!!uncertain.deadline,
       eventDates:[dates.eventStart,dates.eventEnd].filter(Boolean).join(' – ')||'Not confirmed',
       fee:mark([amount===null?'Amount not confirmed':[fee.currency,amount].filter(Boolean).join(' '),fee.note].filter(Boolean).join(' · '),'fee'),
       teamSizeRule:row.eligibilityConditions?.teamSize||'Not confirmed',

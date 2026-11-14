@@ -1,0 +1,77 @@
+{
+  "scenario": "needs-information",
+  "testOnly": true,
+  "asOf": "2026-11-14T03:00:00.000Z",
+  "request": {
+    "message": "Show startup opportunities.",
+    "context": {
+      "preferredCategories": [
+        "startup"
+      ]
+    }
+  },
+  "selectionForTest": {
+    "opportunityIds": [
+      "qv-startup-hult-prize-2027"
+    ]
+  },
+  "status": 200,
+  "response": {
+    "message": "These recorded opportunities may be worth checking. Review eligibility and availability separately.",
+    "recommendations": [
+      {
+        "opportunityId": "qv-startup-hult-prize-2027",
+        "availability": {
+          "status": "needs_confirmation",
+          "reasons": [
+            "The imported draft lists applications as open; this service has not rechecked the source.",
+            "The application deadline or its time zone is not confirmed.",
+            "The draft marks the deadline as uncertain."
+          ]
+        },
+        "eligibility": {
+          "status": "needs_confirmation",
+          "reasons": [
+            "The available checks do not establish full eligibility."
+          ],
+          "missingFields": [
+            "teamSize",
+            "age",
+            "isStudent"
+          ]
+        },
+        "reasons": [
+          "The recorded category matches your stated preference: startup.",
+          "Recorded deadline: not confirmed · time zone not confirmed · needs confirmation.",
+          "Recorded fee: amount not confirmed · needs confirmation · Participation fee not stated on How It Works page..",
+          "Recorded location: Global · hybrid.",
+          "Recorded source check: 2026-11-14T00:20:00+08:00; not a complete verification. Source type: official.",
+          "Source notes: Exact application deadline for current cycle not stated on read page; qualifiers described as September to February."
+        ],
+        "uncertainties": [
+          "Full eligibility is not encoded. Institution, participation route, all team members and other recorded requirements need human confirmation.",
+          "Participation fee is not confirmed.",
+          "The draft marks fee information as uncertain.",
+          "Beginner suitability and weekly workload have not been assessed."
+        ],
+        "officialUrl": "https://www.hultprize.org/how-it-works",
+        "sourceUrl": "https://www.hultprize.org/how-it-works",
+        "lastVerifiedAt": "2026-11-14T00:20:00+08:00"
+      }
+    ],
+    "missingFields": [
+      "teamSize",
+      "age",
+      "isStudent"
+    ],
+    "uncertainties": [
+      "Recommendations use an imported draft; sources have not been rechecked by this service.",
+      "Selection order is not an overall ranking. Skills and live team recruitment are not assessed by this Advisor."
+    ],
+    "followUpQuestions": [
+      "How many people, including you, are in your team?",
+      "What is your age in completed years?",
+      "Are you currently enrolled as a student?"
+    ]
+  }
+}

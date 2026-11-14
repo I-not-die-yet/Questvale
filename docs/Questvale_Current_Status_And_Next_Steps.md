@@ -4,6 +4,26 @@ Updated: 2026-11-14 (Hong Kong time).
 This replaces the earlier handoff that still described team UI as not integrated.
 Read current code and README before editing; multiple agents share this workspace.
 
+## Latest local preparation — 2026-11-14
+
+Tunnel compatibility implemented, NOT exposed: exact HTTPS PUBLIC_ORIGIN, loopback
+listener, ignored forwarded headers, Secure/Path=/api session cookie and old
+narrow-cookie migration. Advisor authenticates the SQLite guest; no identity/token
+forwarded to backend/model. Forwarding now defaults OFF (ADVISOR_PROXY_MAX_CALLS=0).
+Positive finite budget requires authorized usage. Limits: guest 5s cooldown,
+global 20/minute, concurrency 2 and process lifetime cap. Backend default 10/minute
+can still throttle the shared proxy; align it explicitly for an authorized demo.
+No schema change. serve.mjs starts a testable create-server.mjs factory; sensitive
+server modules, tests/tools, dot-directories and DB files cannot be served.
+
+Clean outputs/Questvale_Delivery_2026-11-14.zip contains frontend and reviewed
+Advisor source/tests, no guest/chat DB, env/keys, packages or test screenshots.
+Delivery rerun: 99 frontend + 75 backend tests pass (loopback/mocks only), plus
+8 syntax checks. No real provider, Tunnel or deployment. Read TUNNEL-PREP.md.
+Existing running frontend needs restart. Physical phone, public-origin/session
+browser flow and real Advisor remain unverified. Previous sections record earlier
+milestones; prefer this update for current defaults.
+
 ## 1. Product and source of truth
 
 Questvale is a student opportunity decision/coordination app in a pixel town.
@@ -61,7 +81,12 @@ blocked-page and incomplete-review notes.
 
 Next steps give actionable fee/eligibility/intake/date checks and historical-record
 handling. Missing/unsafe URLs produce instructions to read notes, not broken links.
-No pass count, confidence score, comparison tray or recommendation verdict added.
+No pass count, confidence score or recommendation verdict added.
+Two-record Compare is now implemented on board rows/details, with cross-category
+selection within a board visit, Remove/Clear, honest source/unknown fields and
+stacked phone layout. Closing the dialog clears selections. No ranking or AI/team
+backend change. Latest local suite: 92 passed, 0 failed; responsive rendering and
+dialog interactions remain for user manual verification. This work is local only.
 
 ### Skills and roles
 
@@ -71,6 +96,34 @@ to prevent stale overwrite. Inline changes refresh role hints without resetting
 search, category, opportunity or chat. Skills do not depend on avatar.
 Role Coverage compares explicit recruitment roles with self-reported member skills;
 official event rules/team-size text remain separate. No eligibility inference.
+Find a team now includes Teams looking for your skills above All teams, using exact
+overlap within this opportunity's current team list, excluding full teams. Inline
+skill changes update it without replacing forms/state. No skills, no matches and
+existing membership have explicit states; no invented teams, rankings or verified
+gap claims. No backend/API changes. Latest local suite: 95 passed, 0 failed;
+rendered interaction is not browser-verified. Comparison (#1) and this team hint
+(#3) are local and unpushed.
+
+### Advisor structured decision evidence (#2)
+
+Implemented in the existing external questvale-advisor backend on 2026-11-14:
+structured dates/fee/location/uncertainty/partial assessments/source notes now reach
+the selector. Models still return IDs only. Server-owned reasons expose recorded
+decision facts and source caveats; ordering compares only confirmed same-zone
+calendar dates or explicit instants, never overall suitability. Frontend labels
+these as Recorded decision evidence. No request schema, eligibility coverage,
+provider budgets or team service changes. Skills/live team matching remain in
+the team panel, not Advisor reasoning. Restart an old backend process before use.
+
+Original backend file hashes were checked before applying 13 reviewed files;
+another agent's concurrent edits would have stopped integration. Exact existing
+backend path: /Users/issac/Documents/deepseek-harness/default-workspace/questvale-advisor.
+Post-integration tests: 75 backend / 95 frontend passed, mocked provider plus
+loopback only. 19 backend syntax checks and changed frontend module check passed.
+No real model calls, source-site rechecks, browser tests, push or deployment.
+The isolated work/questvale-advisor-review is a test copy, not a second service.
+Live model behavior, frontend/proxy/backend browser flow and presentation
+source verification still require acceptance; these tests do not prove them.
 
 ### Shared teams and private Team Chat — local server implementation
 
@@ -162,7 +215,7 @@ private team access is removed. Do not let backend tests substitute for this flo
    public access require explicit approval and a review of origin/auth assumptions.
 5. Rehearse the integrated demo; prepare honest fallback behavior and handoff.
 
-Comparison (at most two opportunities) remains deferred. No new game systems,
+Comparison (at most two opportunities) is implemented locally as described above. No new game systems,
 ranking, live-location synchronization or automatic matchmaking is authorized by
 this handoff. Ask only for materially unresolved interfaces/ownership, not routine
 reversible details already approved.

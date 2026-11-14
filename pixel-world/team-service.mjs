@@ -14,13 +14,14 @@ export function createTeamService(path,opportunityIds){
  const one=(sql,...args)=>db.prepare(sql).get(...args),all=(sql,...args)=>db.prepare(sql).all(...args),run=(sql,...args)=>db.prepare(sql).run(...args);
  const fail=(status,message)=>{throw Object.assign(new Error(message),{status});};
  const text=(value,max)=>{if(typeof value!=='string'||!value.trim()||value.trim().length>max)fail(400,'Check the required fields and length limits.');return value.trim();};
+ function authenticate(cookie){const token=cookie?.match(/(?:^|;\s*)qv_session=([a-f0-9]{64})(?:;|$)/)?.[1];return token?one('SELECT user FROM sessions WHERE token=? AND expires>?',hash(token),Date.now())?.user||null:null;}
  function teamView(t,user){
   const members=all('SELECT g.id,g.name,g.skills FROM guests g JOIN members m ON g.id=m.user WHERE m.team=?',t.id);
   return {...t,members:members.map(m=>({id:m.id,name:m.name,skills:JSON.parse(m.skills)})),isCaptain:t.captain===user,isMember:members.some(m=>m.id===user),pending:!!one('SELECT 1 FROM requests WHERE team=? AND user=?',t.id,user),requests:t.captain===user?all('SELECT g.id,g.name FROM guests g JOIN requests r ON g.id=r.user WHERE r.team=?',t.id):[]};
  }
  async function handle(request){
   const url=new URL(request.url);let cookie;
-  const response=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store',...(cookie?{'Set-Cookie':cookie}:{})}});
+  const response=(data,status=200)=>{const headers=new Headers({'Content-Type':'application/json','Cache-Control':'no-store'});if(cookie){headers.append('Set-Cookie',cookie);headers.append('Set-Cookie','qv_session=; HttpOnly; SameSite=Strict; Path=/api/teams; Max-Age=0'+(url.protocol==='https:'?'; Secure':''));}return new Response(JSON.stringify(data),{status,headers});};
   try{
    if(request.method!=='GET'){
     if(request.headers.get('x-questvale-client')!=='teams'||request.headers.get('origin')&&request.headers.get('origin')!==url.origin)fail(403,'Same-origin requests only.');
@@ -31,8 +32,9 @@ export function createTeamService(path,opportunityIds){
    let body={};if(request.method!=='GET'){const raw=await request.text();if(raw.length>4096)fail(413,'Request too large.');try{body=JSON.parse(raw);}catch{fail(400,'Invalid JSON.');}if(!body||typeof body!=='object')fail(400,'Invalid request.');}
    if(url.pathname==='/api/teams/session'&&request.method==='POST'){
     const name=text(body.nickname||'Explorer',24),skills=JSON.stringify(normalizeSkills(body.skills));
-    if(!session){const id=randomBytes(16).toString('hex'),secret=randomBytes(32).toString('hex');run('INSERT INTO guests VALUES(?,?,?)',id,name,skills);run('INSERT INTO sessions VALUES(?,?,?)',hash(secret),id,Date.now()+7*86400000);cookie=`qv_session=${secret}; HttpOnly; SameSite=Strict; Path=/api/teams; Max-Age=604800${url.protocol==='https:'?'; Secure':''}`;session={user:id};}
+    if(!session){const id=randomBytes(16).toString('hex'),secret=randomBytes(32).toString('hex');run('INSERT INTO guests VALUES(?,?,?)',id,name,skills);run('INSERT INTO sessions VALUES(?,?,?)',hash(secret),id,Date.now()+7*86400000);cookie=`qv_session=${secret}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=604800${url.protocol==='https:'?'; Secure':''}`;session={user:id};}
     else run('UPDATE guests SET name=?,skills=? WHERE id=?',name,skills,session.user);
+    if(!cookie)cookie=`qv_session=${token}; HttpOnly; SameSite=Strict; Path=/api${url.protocol==='https:'?'; Secure':''}`;
     return response({userId:session.user});
    }
    if(!session)fail(401,'Your guest session expired. Reopen the team panel to reconnect.');
@@ -102,5 +104,5 @@ export function createTeamService(path,opportunityIds){
    }catch(e){db.exec('ROLLBACK');throw e;}
   }catch(error){return response({error:error.status?error.message:'Team service unavailable.'},error.status||500);}
  }
- return {handle,close:()=>db.close()};
+ return {handle,authenticate,close:()=>db.close()};
 }

@@ -1,0 +1,18 @@
+{
+  "scenario": "invalid-request",
+  "testOnly": true,
+  "asOf": "2026-11-14T03:00:00.000Z",
+  "request": {
+    "message": "   "
+  },
+  "selectionForTest": {
+    "opportunityIds": []
+  },
+  "status": 400,
+  "response": {
+    "error": {
+      "code": "INVALID_REQUEST",
+      "message": "message must contain 1 to 500 UTF-16 code units and must not be blank."
+    }
+  }
+}

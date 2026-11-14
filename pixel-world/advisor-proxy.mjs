@@ -10,8 +10,9 @@ export async function advisorProxy(request,{fetchImpl=fetch,signal}={}){
     return {status:upstream.status,body,headers:retry&&/^\d+$/.test(retry)?{'Retry-After':retry}:{}};
   }catch{return {status:503,body:{error:{code:'ADVISOR_UNAVAILABLE',message:'Advisor unavailable. Start the configured local Advisor service, then retry manually.'}},headers:{}};}
 }
-export function advisorBoundary({method,host,origin,client,type,encoding},port){
-  if(!['127.0.0.1:'+port,'localhost:'+port].includes(host)||origin&&origin!=='http://'+host||client!=='advisor')return 403;
+export function advisorBoundary({method,host,origin,client,type,encoding},port,effectiveOrigin){
+  const expected=effectiveOrigin||(['127.0.0.1:'+port,'localhost:'+port].includes(host)?'http://'+host:null);
+  if(!expected||origin&&origin!==expected||client!=='advisor')return 403;
   if(method!=='POST')return 405;
   if(type?.split(';')[0].trim()!=='application/json'||encoding&&encoding!=='identity')return 415;
   return 0;

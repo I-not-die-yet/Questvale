@@ -8,9 +8,9 @@ test('only explicit conditions enter Advisor context; blanks stay unknown',()=>{
  assert.deepEqual(advisorContext({age:'20',teamSize:'3',isStudent:'yes',category:'research'}),{age:20,teamSize:3,isStudent:true,preferredCategories:['research']});
  assert.deepEqual(advisorContext({skills:['Design'],isStudent:'no'}),{isStudent:false});
 });
-test('browser sends same-origin JSON without cookies and preserves structured results',async()=>{
+test('browser sends same-origin JSON with same-origin guest cookies and preserves structured results',async()=>{
  const response=await requestAdvisor('Hello',{}, {fetchImpl:async(url,options)=>{
- assert.equal(url,'/api/advisor');assert.equal(options.credentials,'omit');assert.equal(options.headers['X-Questvale-Client'],'advisor');assert.deepEqual(JSON.parse(options.body),{message:'Hello',context:{}});return Response.json(result);
+ assert.equal(url,'/api/advisor');assert.equal(options.credentials,'same-origin');assert.equal(options.headers['X-Questvale-Client'],'advisor');assert.deepEqual(JSON.parse(options.body),{message:'Hello',context:{}});return Response.json(result);
  }});assert.deepEqual(response,result);
 });
 test('rate limit retry delay and budget errors remain errors, never invented success',async()=>{

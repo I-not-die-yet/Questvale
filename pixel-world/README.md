@@ -62,6 +62,25 @@ Board Status is initially collapsed on phone and expanded on desktop, and follow
 current search/category results. Closed/historical and unknown remain separate.
 Centered dialogs keep their frame/close control fixed while content scrolls.
 
+## Copy and sorting update (2026-11-14)
+
+Removed repeated board/skills/dock notices; qualification text remains labelled
+as public-source information, not verified eligibility. Board source notes/links
+are under Source details; Advisor evidence and assessment notes are expandable.
+Model-processing disclosure and actual unknown/error states remain.
+
+Board Sort by offers Original order / Deadline date — soonest first. It orders
+confirmed calendar dates as recorded (not exact expiry instants across time zones);
+missing/uncertain/invalid dates and unknown status follow confirmed dates, while
+closed/historical and confirmed past dates are last. Past-day classification uses
+the recorded IANA time zone; missing zones are not guessed. Search/category/detail
+keep the selected order. Team sorting offers open slots most/fewest first, with
+full teams last and stable ties; it changes presentation only, not permissions,
+membership or capacity. No team creation-time field/API was added.
+
+103 local tests pass, including four sorting regressions; six module syntax checks
+pass. Browser acceptance of these new copy/sort controls remains pending.
+
 ## Opportunity data and trust
 
 `data/opportunities.json` is a copied local draft, not a live database/API. Original:
@@ -82,7 +101,27 @@ intake, check fees/dates or read historical information. Only safe HTTP(S) URLs
 without embedded credentials are linked; missing sources direct users to notes.
 Information links are not advertised as verified application endpoints.
 Role Coverage shows self-reported skills against explicit recruitment roles; it
-never establishes eligibility. No comparison tray, confidence score or pass count.
+never establishes eligibility. No confidence score or pass count.
+
+Find a team now has a Teams looking for your skills section above All teams. It
+uses only the current opportunity's loaded teams and exact `roleCoverage` overlap,
+excluding full teams and your own team, without scoring or semantic inference.
+Listed wanted roles may already overlap existing members' skills: these are captain
+preferences, not verified gaps. Inline skill edits update the section immediately;
+Refresh teams reloads recruitment state. Empty matches offer Create a team; existing
+members instead see a Manage-your-team explanation. No new backend query or API.
+
+### Two-record comparison
+
+Use Compare on a result or detail to select up to two records, including different
+categories. Expand Compare above the results to inspect availability, deadline /
+time zone, location, fees/charges, eligibility text, recorded source check and
+source caveats. Remove and Clear release selections. Search/category and detail
+navigation keep the choices within this board visit; closing the dialog clears
+them. Another district board starts a fresh visit. There is no persistence,
+ranking or eligibility verdict. Missing sources have no clickable action; safe
+information links are not verified application endpoints. Phone layouts at 650px
+and below stack the two records in the same field order; desktop uses two columns.
 
 ## Shared teams, identity and private Team Chat
 
@@ -129,11 +168,42 @@ Town/Advisor drafts remain separate. Public
 chat has no moderation, reporting/blocking, attachments or direct messages yet.
 This is not a hardened production public-chat service.
 
+## Tunnel preparation update
+
+Current verification: **99 frontend tests, 75 backend tests pass**, including the
+clean delivery-folder rerun with temporary data and mocked providers. Eight
+changed-module syntax checks pass. New origin/session browser flow is unverified.
+
+See [TUNNEL-PREP.md](TUNNEL-PREP.md) for exact configuration, cookie migration,
+limits and delivery startup. PUBLIC_ORIGIN is opt-in exact HTTPS; no forwarded
+headers are trusted. The listener remains loopback-only. Advisor now authenticates
+the shared guest and defaults to forwarding disabled (ADVISOR_PROXY_MAX_CALLS=0).
+A finite authorized budget is required to enable forwarding. Prior Advisor
+behavior notes below describe earlier milestones where applicable. No Tunnel
+was installed/opened, provider enabled, database copied, Git push or deployment
+performed in this task.
+
 ## AI Advisor integration
 
-The browser posts to the frontend's same-origin `/api/advisor`. `serve.mjs` forwards
+Structured-evidence follow-up (2026-11-14): the existing separate backend now
+supplies the selector with dates/time zone, fee/location, uncertainty flags,
+partial assessments and source notes. Its ID-only output boundary is unchanged.
+Server-owned reasons show recorded deadline/fee/location/source caveats; deadline
+ordering appears only for confirmed comparable dates (same calendar zone or
+explicit instants), without overall rankings. The frontend displays those reasons
+under Recorded decision evidence. Skills/live team recruitment are assessed only
+by the separate team hint UI, not this Advisor. Restart any existing backend
+process to load the changed source; no provider was enabled by this update.
+
+Verification after integration: **75 backend tests and 95 frontend tests pass**.
+Backend tests used loopback and mocked provider transport, including the complete
+structured candidate payload size bound. Nineteen backend module syntax checks
+and the changed frontend module check passed. No real model or browser acceptance,
+source-web recheck, Git push or deployment was performed.
+
+The browser initializes a shared guest and posts with same-origin cookies to the frontend's `/api/advisor`. `serve.mjs` forwards
 only JSON to the fixed `http://127.0.0.1:4185/api/advisor` endpoint; browser cookies
-and authorization are not forwarded. Host/origin/client-header checks, body and
+and authorization are not forwarded to the backend/model. Host/origin/client-header checks, body and
 response size limits, and timeouts bound the connection. No packages were added.
 
 The separate backend lives at
@@ -168,6 +238,29 @@ membership checks. Public Internet hosting needs a separate security review; thi
 local design is not automatically deployment-ready.
 
 ## Verification
+
+Browser follow-up (2026-11-14): two isolated guests reproduced a team-list render
+failure (`Cannot access 'matches' before initialization`). Renamed the outer
+matching-team collection to avoid shadowing the loop's per-team `matches` binding.
+The 95-test suite still passes; its pure helper tests had not caught this DOM path.
+Browser retest passed team creation, Design recruitment overlap, request, captain
+refresh/accept, 2/2 membership and bidirectional Team/Town messages. Guest B used
+a 390×844 mobile/touch emulation. Tested team-panel.mjs SHA-256:
+`c1fbe80804d2589caa4b617ad6f7790e33ac8bfecfeb69ac2c4d239b36535108`.
+Testing used a temporary source copy and fresh database; the test server was
+stopped. No real Advisor calls. This is not physical-phone acceptance. Phone
+Compare/expanded Advisor, overflow/joystick obstruction, full-team exclusion and
+member-hint visuals remain untested. Earlier no-browser statements below describe
+their respective test rounds, not this follow-up.
+
+Skill/team follow-up: **95 passed, 0 failed**. Three added tests cover exact overlap,
+full/member exclusion, missing skills/teams, changed skills and preserved team data.
+UI interactions still need manual verification; no browser or model calls were made.
+
+Comparison follow-up: **92 passed, 0 failed**. Four added tests cover selection
+limits/removal/reset, cross-category state independence, uncertainty preservation
+and safe/missing links. These are state/data tests, not rendered browser checks.
+The comparison's responsive layout, focus and dialog lifecycle need manual testing.
 
 Follow-up chat/focus fix on 2026-11-14: **88 passed, 0 failed**, plus three changed
 module syntax checks. Team Chat now invalidates old chat visits for polling,

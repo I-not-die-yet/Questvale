@@ -30,3 +30,13 @@ The town and entry now use the approved coarse pixel walk sheets (`*-walk-rough.
 They share opaque-band extraction and foot/head registration with the comparison
 preview. Robot NW right-step uses a mirrored NE source pose, as in the preview.
 Old PNGs remain available; local profile IDs and movement speed are unchanged.
+
+
+## Fixed background while scrolling (2026-11-14)
+
+The entry overlay now clips its fixed background canvas/shade, while a separate
+entry-scroll layer scrolls the settings card. No art or sizing changes. Browser
+checks at 1200×650 and 390×650 confirmed background/shade bounds stay fixed at
+viewport height when scrolling to the bottom, Back stays visible, and the narrow
+view has no horizontal overflow. Mobile emulation was reset afterward. Six
+profile/skills tests and entry.mjs syntax passed. Physical phones were not tested.

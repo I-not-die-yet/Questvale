@@ -25,7 +25,8 @@
   border:10px solid transparent;border-image:var(--frame) 12% stretch;border-radius:0;
   background:#f5e7ca;background-clip:padding-box;box-shadow:none;color:#304b3a;image-rendering:pixelated;
 }
-.rpg .chat-toggle{width:34px;height:34px;padding:0;flex-shrink:0}
+.rpg .chat-toggle{width:34px;height:34px;padding:0;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.rpg .chat-toggle svg{display:block;flex-shrink:0}
 .rpg .chat-context{margin:0;padding:14px 2px 9px;border-bottom:1px solid #c9b388;font-size:12px}
 .rpg .chat-context strong{font:700 15px/1.4 ui-monospace,monospace}
 .rpg .chat-status{color:#6c5838;font-size:11px}
@@ -38,7 +39,8 @@
 .rpg .chat-form{padding:11px 0 0;gap:10px}
 .rpg .chat-form textarea{background:#fff2d4;border:2px solid #b19965;border-radius:0;box-shadow:inset 2px 2px #dfcba2;color:#392f20;padding:9px 10px;resize:none;caret-color:#304b3a}
 .rpg .chat-form textarea::placeholder{color:#71603f}
-.rpg .chat-form button{width:40px;height:40px;border-width:9px}
+.rpg .chat-form button{width:40px;height:40px;border-width:9px;padding:0;display:flex;align-items:center;justify-content:center}
+.rpg .chat-form button svg{display:block;flex-shrink:0}
 .rpg .chat-form button:disabled{opacity:.5;cursor:default}
 .rpg .chat-disclosure{color:#6c5838;font-size:10px;margin:7px 2px 0}
 /* One centered, fixed frame; only its inner content scrolls. */
@@ -46,7 +48,8 @@
 .rpg dialog .panel-content{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#927347 #f5e7ca;padding:0 8px 8px 0;overflow-wrap:anywhere}
 .rpg dialog::before{content:"";position:absolute;top:0;left:0;right:0;height:48px;background:var(--forest);border:4px solid #493020;box-shadow:inset 0 0 0 2px #a36d39;image-rendering:pixelated}
 .rpg dialog::backdrop{background:#182f2866}
-.rpg .close{top:5px;right:9px;width:36px;height:36px;padding:0;z-index:1;font-size:21px;line-height:16px}
+.rpg .close{top:5px;right:9px;width:36px;height:36px;padding:0;z-index:1;display:flex;align-items:center;justify-content:center}
+.rpg .close svg{display:block;flex-shrink:0;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:square}
 .rpg dialog h1{font-family:ui-monospace,monospace;font-size:34px;letter-spacing:-.02em;color:#3c3b25;margin-top:12px}
 .rpg .subtitle{color:#665335;font-size:13px}
 .rpg .empty{border-color:#b9a46d}.rpg .empty h2{font-family:ui-monospace,monospace;font-size:23px}
@@ -87,10 +90,10 @@
 .rpg .brand{background:transparent;color:#fff2cd;font-family:ui-monospace,monospace;font-weight:900;letter-spacing:-1px;text-shadow:2px 0 #244333,0 2px #244333,2px 2px #244333,3px 3px #244333}
 .rpg .brand small{display:block;background:transparent;color:#fff2cd;font:500 10px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:0;text-shadow:1px 1px #244333;margin-top:5px}
 .rpg .brand::selection,.rpg .brand small::selection{background:transparent;color:#fff2cd}
-.rpg .location{background:var(--parchment);background-clip:padding-box;border:10px solid transparent;border-image:var(--frame) 12% stretch;color:var(--ink);box-shadow:none;text-shadow:none;padding:1px 7px;min-height:0;font:600 11px/1.4 ui-monospace,monospace}
+.rpg .location{top:68px;background:var(--parchment);background-clip:padding-box;border:10px solid transparent;border-image:var(--frame) 12% stretch;color:var(--ink);box-shadow:none;text-shadow:none;padding:1px 7px;min-height:0;font:600 11px/1.4 ui-monospace,monospace}
 @media(max-width:650px){
   .rpg .brand{font-size:22px}.rpg .brand small{font-size:9px}
-  .rpg .location{top:78px;padding:1px 5px;font-size:10px;border-width:8px}
+  .rpg .location{top:58px;padding:1px 5px;font-size:10px;border-width:8px}
   .rpg .town[data-map=four] .touch-controls{left:16px;bottom:calc(var(--chat-dock-height,170px) + 24px + env(safe-area-inset-bottom));grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:5px}
   .rpg .touch-controls button{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border-width:8px;font-size:24px;line-height:1}
   .rpg .touch-controls button:active{background-color:#d5c49d;translate:0 2px}

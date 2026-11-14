@@ -1,0 +1,29 @@
+{
+  "scenario": "no-recommendations",
+  "testOnly": true,
+  "asOf": "2026-11-14T03:00:00.000Z",
+  "request": {
+    "message": "Show startup opportunities.",
+    "context": {
+      "preferredCategories": [
+        "startup"
+      ]
+    }
+  },
+  "selectionForTest": {
+    "opportunityIds": []
+  },
+  "status": 200,
+  "response": {
+    "message": "No recommendations were returned. This does not establish that no suitable opportunities exist.",
+    "recommendations": [],
+    "missingFields": [],
+    "uncertainties": [
+      "Recommendations use an imported draft; sources have not been rechecked by this service.",
+      "Selection order is not an overall ranking. Skills and live team recruitment are not assessed by this Advisor."
+    ],
+    "followUpQuestions": [
+      "Would you like to change your preferred categories?"
+    ]
+  }
+}

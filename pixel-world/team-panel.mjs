@@ -1,11 +1,13 @@
 import {updateProfileSkills} from './profile-skills.mjs';
-import {SKILLS,normalizeSkills,roleCoverage} from './skills.mjs';
+import {SKILLS,normalizeSkills,roleCoverage,teamsForSkills} from './skills.mjs';
 import {teamRequest,ensureGuest} from './team-client.mjs';
 import {createTeamChatPoller} from './team-chat-poller.mjs';
+import {sortTeams} from './list-sorting.mjs';
 export function mountTeamPanel(host,item,onBack){
   const root=host.closest('.town');
   let skills=[];try{skills=normalizeSkills(JSON.parse(root?.dataset.skills||'[]'));}catch{}
   const state={draft:''};let currentUser=null,teams=[],view='list',selected=null,busy=false,stopped=false,messages=[],pendingMessage=null;
+  let teamOrder='default';
   const own=()=>teams.find(team=>team.isMember);
   const alive=()=>!stopped&&host.isConnected&&!host.hidden&&host.closest('dialog')?.open;
   async function refresh(){const result=await teamRequest('?opportunity='+encodeURIComponent(item.id));teams=result.teams;if(selected)selected=teams.find(team=>team.id===selected.id)||null;if(!selected&&(view==='team'||view==='chat'))view='list';if(selected&&!selected.isMember&&view==='chat'){view='team';messages=[];}}
@@ -26,11 +28,11 @@ export function mountTeamPanel(host,item,onBack){
     const covered=[...new Set(team.members.flatMap(member=>member.id===currentUser?skills:member.skills))];
     parent.append(el('p','Covered: '+(covered.length?covered.join(' · '):'Not specified'),'op-meta'),el('p','Wanted: '+team.roles,'op-meta'));
     const matches=roleCoverage(skills,team.roles);
-    parent.append(el('p',team.isMember?'Covered roles reflect members’ self-reported skills.':matches.length?'You could contribute: '+matches.join(' · '):skills.length?'No exact skill overlap listed. You can still read the team pitch.':'Select your skills above to see role overlap.',matches.length?'team-fit':'op-meta'));
+    parent.append(el('p',team.isMember?'Member skills shown above.':matches.length?'You could contribute: '+matches.join(' · '):skills.length?'No exact skill overlap listed. You can still read the team pitch.':'Select your skills above to see role overlap.',matches.length?'team-fit':'op-meta'));
   }
   function skillPicker(){
-    const group=add('fieldset',undefined,'team-skill-picker');group.append(el('legend','Your skills (optional)'));
-    const buttons=el('div',undefined,'team-skill-buttons'),status=el('p',skills.length?'Self-reported skills · recruitment preferences only.':'No skills selected. You can skip this.','op-meta');status.setAttribute('role','status');group.append(buttons,status);
+    const group=add('fieldset',undefined,'team-skill-picker');group.append(el('legend','Your skills (self-reported, optional)'));
+    const buttons=el('div',undefined,'team-skill-buttons'),status=el('p',skills.length?'Skills updated.':'No skills selected.','op-meta');status.setAttribute('role','status');group.append(buttons,status);
     for(const skill of SKILLS){const b=button(buttons,skill,()=>{
       const next=skills.includes(skill)?skills.filter(s=>s!==skill):[...skills,skill];
       const result=updateProfileSkills(host.closest('.town'),next);skills=result.profile.skills;
@@ -38,22 +40,42 @@ export function mountTeamPanel(host,item,onBack){
       for(const node of buttons.children)node.setAttribute('aria-pressed',String(skills.includes(node.textContent)));
       teamRequest('/session',{nickname:root.dataset.nickname||'Explorer',skills}).catch(error=>notice(error.message));
       for(const entry of coverageNodes){entry.node.replaceChildren();coverage(entry.node,entry.team,false);}
-      status.textContent=(skills.length?'Self-reported skills · recruitment preferences only.':'No skills selected. You can skip this.')+(result.persisted?'':' Changes last for this visit; browser storage is unavailable.');
+      renderSkillTeams();
+      status.textContent=(skills.length?'Skills updated.':'No skills selected.')+(result.persisted?'':' Changes last for this visit; browser storage is unavailable.');
     });b.setAttribute('aria-pressed',String(skills.includes(skill)));}
   }
   const coverageNodes=[];
+  let skillTeams=null;
+  function renderSkillTeams(){
+    if(!skillTeams)return;skillTeams.replaceChildren(el('h3','Teams looking for your skills'));
+    skillTeams.append(el('p','Matches the roles teams are recruiting for.','op-source'));
+    if(!skills.length){skillTeams.append(el('p','Select your skills above to see recruitment overlap. Skills are optional.','op-meta'));return;}
+    if(own()){skillTeams.append(el('p','You already belong to a team for this opportunity. Manage your team below; leave it before requesting another.','op-meta'));return;}
+    const matchingTeams=teamsForSkills(sortTeams(teams,teamOrder),skills);
+    if(!matchingTeams.length){skillTeams.append(el('p',teams.length?'No open team lists an exact match for your selected skills. You can still explore all teams below.':'No teams have been created for this opportunity yet.','op-meta'));button(skillTeams,'Create a team',()=>go('create'));return;}
+    for(const {team,matches,openSlots}of matchingTeams){
+      const row=el('div',undefined,'team-skill-result');row.append(el('strong',team.name),el('p','Your overlap: '+matches.join(' · ')+' · '+openSlots+' open '+(openSlots===1?'slot':'slots'),'team-fit'));
+      if(team.pending)row.append(el('p','Your join request is pending.','op-meta'));
+      button(row,'View team',()=>{selected=team;go('team');});skillTeams.append(row);
+    }
+  }
   function requirements(){
-    const section=add('section',undefined,'team-requirements');section.append(el('h3','Event requirements'),el('p','Team size rule: '+(item.teamSizeRule||'Not confirmed')),el('p',item.eligibility||'Eligibility not confirmed.'),el('p','Source-draft requirements · check official information. Skill overlap and recruitment capacity do not establish eligibility.','op-source'));
+    const section=add('section',undefined,'team-requirements');section.append(el('h3','Event requirements (public sources)'),el('p','Team size rule: '+(item.teamSizeRule||'Not confirmed')),el('p',item.eligibility||'Eligibility not confirmed.'),el('p','Check the linked source for full requirements.','op-source'));
   }
   function render(){
-    coverageNodes.length=0;host.replaceChildren();
+    coverageNodes.length=0;skillTeams=null;host.replaceChildren();
     button(host,view==='list'?'← Opportunity':'← Teams',()=>view==='list'?(()=>{stopped=true;chat.stop();observer.disconnect();onBack();})():go('list'));
     add('p',item.title,'op-category');
     if(view==='list'){
       heading('Find a team');skillPicker();
       button(actions(),'Refresh teams',()=>act(async()=>{}));
+      const sortLabel=add('label','Sort teams','op-sort'),sort=document.createElement('select');
+      for(const [value,text]of [['default','Original order'],['slots-most','Open slots — most first'],['slots-fewest','Open slots — fewest first']]){const option=el('option',text);option.value=value;sort.append(option);}sort.value=teamOrder;sortLabel.append(sort);
+      sort.addEventListener('change',()=>{teamOrder=sort.value;render();host.querySelector('.op-sort select').focus();});
+      skillTeams=add('section',undefined,'team-skill-results');renderSkillTeams();
+      add('h3','All teams');
       if(!teams.length)add('p','No teams yet. Start one for this opportunity.','op-meta');
-      for(const team of teams){
+      for(const team of sortTeams(teams,teamOrder)){
         const row=add('section',undefined,'team-row');row.append(el('h3',team.name),el('p',team.intro),el('p',team.members.length+' / '+team.capacity+' members · Looking for: '+team.roles,'op-meta'));
         coverage(row,team);
         button(row,team.isMember?'Manage team':'View team',()=>{selected=team;go('team');});
@@ -72,6 +94,7 @@ export function mountTeamPanel(host,item,onBack){
       coverage(host,selected);requirements();
       if(selected.isCaptain){
         const requests=add('section',undefined,'team-row');requests.append(el('h3','Join requests'));
+        requests.append(el('p','Use Refresh team to check new requests.','op-meta'));
         if(!selected.requests.length)requests.append(el('p','No pending requests.','op-meta'));
         for(const applicant of selected.requests){const row=el('div');row.append(el('p',applicant.name));for(const action of ['accept','reject'])button(row,action==='accept'?'Accept':'Reject',()=>act(()=>teamRequest('/'+selected.id+'/'+action,{userId:applicant.id})));requests.append(row);}
         button(actions(),'Disband team',()=>{if(confirm('Disband this team and remove its messages?'))act(()=>teamRequest('/'+selected.id+'/disband',{}),'list');});
@@ -89,7 +112,6 @@ export function mountTeamPanel(host,item,onBack){
       input.addEventListener('input',()=>{state.draft=input.value;send.disabled=!input.value.trim();});
       form.addEventListener('submit',async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;const visit=chat.capture();send.disabled=true;if(!pendingMessage||pendingMessage.text!==text||pendingMessage.team!==visit.id)pendingMessage={text,team:visit.id,nonce:crypto.randomUUID()};const pending=pendingMessage;try{await teamRequest('/'+visit.id+'/messages',{text,nonce:pending.nonce});if(!visit.valid())return;if(pendingMessage===pending)pendingMessage=null;if(input.value.trim()===text){state.draft='';input.value='';}await chat.poll();}catch(error){if(visit.valid())notice(error.message);}finally{if(visit.valid())send.disabled=!input.value.trim();}});
     }
-    add('p','Shared on this server · guest identity lasts 7 days in this browser. Recruitment capacity does not confirm event eligibility.','op-source team-disclosure');
   }
   function paintMessages(){const log=host.querySelector('.team-log');if(!log)return;log.replaceChildren();if(!messages.length)log.append(el('p','No messages yet.'));for(const message of messages){const p=el('p');p.append(el('strong',message.name),el('br'),document.createTextNode(message.body));log.append(p);}}
   const observer=new MutationObserver(()=>{if(!alive()){stopped=true;chat.stop();observer.disconnect();}});

@@ -1,20 +1,15 @@
-# Questvale
+# Questvale — local delivery, 2026-11-14
 
-Private development snapshot: pixel opportunity discovery, skills-aware team
-recruitment and shared local-server Team/Town Chat.
+Not deployed or publicly exposed. Use Node 24 with built-in SQLite.
+No third-party package installation needed.
 
-Use Node supporting built-in SQLite (validated with v24.22.1):
+Run `node pixel-world/serve.mjs`, then open http://127.0.0.1:4174/rpg.html.
+Advisor forwarding defaults disabled. See pixel-world/TUNNEL-PREP.md for startup,
+public-origin configuration, finite budgets, session migration and limitations.
+The optional backend is included in advisor-service/, without provider keys.
+No database or real guest/chat records are included; first startup creates a new one.
 
-```sh
-node pixel-world/serve.mjs
-```
-
-Open http://127.0.0.1:4174/rpg.html or /town.html. Loopback-only; not publicly deployed.
-
-Read [setup, data protection and limits](pixel-world/README.md),
-[chat/map behavior](pixel-world/CHAT-MAP-UI.md), and
-[current handoff](docs/Questvale_Current_Status_And_Next_Steps.md).
-
-88 local tests pass. No fresh browser/phone multi-user acceptance is claimed.
-Advisor frontend/proxy integration is included; the separate backend must run on port 4185. Real model and browser integration remain unverified. Opportunity source records retain explicit
-verification gaps. Private SQLite/guest/chat data and secrets are excluded.
+Source verification: 103 frontend tests / 75 backend tests passed using mocked
+providers and loopback. Public Tunnel, real phones and live provider acceptance
+are not verified. Historical browser results concern earlier specific snapshots.
+SHA256SUMS.json identifies this delivery's files.
