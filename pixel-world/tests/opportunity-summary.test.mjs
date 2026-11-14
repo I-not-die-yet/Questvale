@@ -7,7 +7,7 @@ import {summarizeOpportunities} from '../opportunity-summary.mjs';
 const items=adaptOpportunities(JSON.parse(readFileSync(new URL('../data/opportunities.json',import.meta.url),'utf8')));
 test('map totals include collected records across four categories and all statuses',()=>{
  const s=summarizeOpportunities(items);assert.equal(s.total,24);assert.deepEqual(s.categories,{hackathon:5,business:6,startup:6,research:7});
- assert.deepEqual(s.statuses,{open:11,closing_soon:4,upcoming:6,closed_historical:2,unknown:1});
+ assert.deepEqual(s.statuses,{open:10,closing_soon:4,upcoming:6,closed_historical:3,unknown:1});
 });
 test('board summary follows the category and search subset without changing data',()=>{
  const before=JSON.stringify(items),subset=filterOpportunities(items,'research','Hong Kong'),s=summarizeOpportunities(subset);

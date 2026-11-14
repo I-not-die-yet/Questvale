@@ -147,7 +147,7 @@
     "category": "research",
     "status": "upcoming",
     "shortDescription": "8-week summer research programme at HKUST; application starts early Jan 2027.",
-    "description": "10-week intensive research training programme for undergraduate students interested in postgraduate research. Participants work on HKUST research projects under faculty supervision, with networking and extracurricular activities. Scholarship and financial support available upon completion.",
+    "description": "8-week research training programme for undergraduate students, from 14 June to 6 August 2027. Participants work on HKUST research projects under faculty supervision, with orientation and cultural activities and an end-of-program presentation. Programme charges and the conditional tuition waiver are recorded separately in the fee notes.",
     "location": {
       "type": "offline",
       "place": "Hong Kong University of Science and Technology",
@@ -162,7 +162,7 @@
     "fee": {
       "amount": "17700",
       "currency": "HKD",
-      "note": "Program fee HK$17,700 plus application fee HK$200; tuition waived for nominated exchange students."
+      "note": "HK$17,700 is the programme fee only, covering housing, visa, insurance, administration and activities; it is not an all-in price. Application fee: HK$200. Tuition fee for the 3-credit course: HK$21,600, waived for nominated Exchange Students. Listed components total HK$39,500 without the tuition waiver or HK$17,900 with it, before any applicable visa-fee deduction and personal expenses. Individual charges and waiver eligibility require confirmation."
     },
     "eligibilityRawText": "Full-time undergraduate students enrolled in overseas and non-Chinese institutions. Have completed at least 2 years of study by the start of this program. Exceptional academic record with demonstrated potential and passion in research. CGA at least 3.0 on a 4.0 scale or equivalent. Students must be age 18 or above by the start of the programme.",
     "eligibilityConditions": {
@@ -177,7 +177,7 @@
     "uncertainty": {
       "deadline": false,
       "eligibility": false,
-      "fee": false,
+      "fee": true,
       "availability": false
     },
     "officialUrl": "https://summercampus.hkust.edu.hk/summer-school-ug-application",
@@ -185,7 +185,7 @@
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
     "tags": ["research", "summer", "HKUST", "undergraduate", "international"],
-    "notes": "Important eligibility caveat: mainly for overseas/non-Chinese institutions. Do not recommend blindly to CityU students."
+    "notes": "Partial source review on 14 November 2026: programme duration and fee components checked at https://summercampus.hkust.edu.hk/hkust-summer-ug-research-program . Eligibility retains the source requirement for overseas and non-Chinese institutions; exchange nomination alone is not a confirmed exception. Do not recommend blindly to CityU students. Existing lastVerifiedAt retained; this is not complete verification of every field or an individual fee quotation."
   },
   {
     "id": "qv-research-cityu-pamlab-internship",
@@ -405,13 +405,13 @@
       "yearOrGrade": "undergraduate or graduate",
       "teamSize": "2-4",
       "institution": "any degree-granting program",
-      "age": "18 or above",
+      "age": "The 2027 registration page requires all members to be 18+ by 28 February 2027; the general terms still refer to 28 February 2025. The applicable current-cycle age basis requires confirmation.",
       "other": "Business must directly support at least one UN SDG.",
-      "notes": "Qualifiers: September to February; campus route or Open Application."
+      "notes": "Campus and online entry routes are subject to organiser requirements. Conflicting age reference dates require confirmation; current age alone must not be treated as a complete eligibility decision."
     },
     "uncertainty": {
       "deadline": true,
-      "eligibility": false,
+      "eligibility": true,
       "fee": true,
       "availability": false
     },
@@ -420,7 +420,7 @@
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
     "tags": ["startup", "SDG", "global", "student", "entrepreneurship"],
-    "notes": "Exact application deadline for current cycle not stated on read page; qualifiers described as September to February."
+    "notes": "Partial source review on 14 November 2026: https://www.hultprize.org/register states all members must be at least 18 by 28 February 2027, while https://www.hultprize.org/terms-conditions still refers to 28 February 2025. The general How It Works page does not resolve this cycle-specific conflict. Eligibility is marked uncertain, disabling the existing evidence-bound partial checks for this record pending clarification. Exact current-cycle application deadline remains unconfirmed. Existing lastVerifiedAt retained; no complete eligibility or fee verification is claimed."
   },
   {
     "id": "qv-biz-cfa-research-challenge-2026-27",
@@ -569,8 +569,8 @@
     "organizer": "Copenhagen Business School",
     "category": "business",
     "status": "closing_soon",
-    "shortDescription": "University students worldwide compete virtually; solo or team of 3-4; deadline 16 Nov 2026.",
-    "description": "GLOBAL 2026 by CBS Case Competition is open to university students worldwide. Participants compete virtually through preliminary and semi-final rounds, with the top three teams advancing to the Grand Final in Copenhagen, Denmark. Students may apply as individuals or as teams of 3-4 members. The competition develops case-solving, teamwork and presentation skills.",
+    "shortDescription": "Complete teams of 3-4 students can sign up until 16 November 2026 at 08:00 CET; solo sign-up closed on 12 November at 20:00 CET.",
+    "description": "GLOBAL 2026 by CBS Case Competition has digital initial and semi-final rounds and an in-person Grand Final in Copenhagen for the top three teams. Solo registration closed on 12 November 2026 at 20:00 CET. Complete teams of 3-4 eligible students can register until 16 November 2026 at 08:00 CET. The official FAQ states there is no participation fee; this does not establish coverage of travel, accommodation or other expenses.",
     "location": {
       "type": "hybrid",
       "place": "Online / Copenhagen, Denmark",
@@ -583,19 +583,19 @@
       "eventEnd": null
     },
     "fee": {
-      "amount": null,
+      "amount": "0",
       "currency": null,
-      "note": "Participation fee not stated in read source."
+      "note": "The official FAQ states there is no participation fee. Travel, accommodation and other expenses or their coverage have not been verified here; do not describe the entire trip as free."
     },
-    "eligibilityRawText": "This case competition is open to university students worldwide. Interested students may apply either as an individual participant or as a team of 3–4 members.",
+    "eligibilityRawText": "Active undergraduate students worldwide and graduate students with no more than a two-year gap between graduating from a bachelor programme and enrolling in a graduate programme may participate. Gap-year applicants who are not currently enrolled are not eligible. Complete teams have 3-4 eligible members. Solo sign-up was available but closed on 12 November 2026 at 20:00 CET; complete-team sign-up closes on 16 November 2026 at 08:00 CET.",
     "eligibilityConditions": {
       "student": true,
-      "yearOrGrade": "university",
+      "yearOrGrade": "Active undergraduate; graduate with no more than a two-year bachelor-to-graduate enrolment gap",
       "teamSize": "3-4",
       "institution": "worldwide",
       "age": null,
       "other": "Solo sign-up deadline 12 Nov 2026 20:00 CET; group sign-up deadline 16 Nov 2026 08:00 CET.",
-      "notes": "Grand Final travel and expenses are student's own responsibility."
+      "notes": "Solo sign-up is closed as of the 14 November 2026 review. Complete teams of 3-4 can still use the team route until its deadline. Travel and accommodation coverage is unconfirmed."
     },
     "uncertainty": {
       "deadline": false,
@@ -604,11 +604,11 @@
       "availability": false
     },
     "officialUrl": "https://www.casecompetition.com/global/",
-    "sourceUrl": "https://ug.hkubs.hku.hk/competition/global-2026-by-cbs-case-competition",
+    "sourceUrl": "https://www.casecompetition.com/timeline/",
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:30:00+08:00",
     "tags": ["case competition", "business", "global", "university", "Copenhagen"],
-    "notes": "Deadline is 16 Nov 2026, very soon. Official CBS page referenced but not directly re-read; HKU FBE listing confirms deadline."
+    "notes": "Partial source review on 14 November 2026: https://www.casecompetition.com/timeline/ confirms solo sign-up closed on 12 November at 20:00 CET and complete-team sign-up closes on 16 November at 08:00 CET (15:00 in Hong Kong). dates.deadline records the team-route calendar date only, not an end-of-day cutoff. https://www.casecompetition.com/faq/ confirms no participation fee and the graduate enrolment-gap restriction. Other costs and complete eligibility remain to be checked. Existing lastVerifiedAt retained."
   },
   {
     "id": "qv-biz-ydc-dare-to-change-2027",
@@ -780,7 +780,7 @@
       "student": true,
       "yearOrGrade": "current undergraduate, preferably final year",
       "teamSize": null,
-      "institution": "HKU",
+      "institution": null,
       "age": null,
       "other": "Social science and education disciplines preferred.",
       "notes": "Online application only; CV required."
@@ -796,7 +796,7 @@
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
     "tags": ["research", "student job", "HKU", "social science", "education"],
-    "notes": "Deadline may pass quickly; posts filled on rolling basis. Not a structured research programme but a student research role."
+    "notes": "Partial source review on 14 November 2026: the official job advertisement does not state an HKU-only enrolment requirement. HKU is the employer, not a confirmed applicant-institution restriction; null does not establish eligibility for every institution. Review continues until 15 November 2026 or until posts are filled, whichever is earlier. This is a student research role, not a structured research programme. Other recorded conditions and dates were not fully corrected in this batch; existing lastVerifiedAt retained."
   },
   {
     "id": "qv-research-hku-public-health-student-ra-2026-27",
@@ -827,7 +827,7 @@
       "student": true,
       "yearOrGrade": "current undergraduate",
       "teamSize": null,
-      "institution": "HKU",
+      "institution": null,
       "age": null,
       "other": "Good command of written and spoken English and Chinese including Putonghua.",
       "notes": "Previous applicants under Ref. 536970 need not re-apply."
@@ -843,7 +843,7 @@
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
     "tags": ["research", "student job", "HKU", "public health", "population study"],
-    "notes": "Search result fetched from a careersite mirror URL; original jobs.hku.hk page not yet re-read directly."
+    "notes": "Partial source review on 14 November 2026: the original jobs.hku.hk advertisement was read directly and does not state an HKU-only enrolment requirement. HKU is the employer, not a confirmed applicant-institution restriction; null does not establish eligibility for every institution. The stated discipline and language requirements still apply. Review continues until 29 January 2027 or until posts are filled, whichever is earlier. Existing lastVerifiedAt retained; this is not complete verification of every field."
   },
   {
     "id": "qv-research-hku-ai-agents-student-ra-2026-27",
@@ -874,7 +874,7 @@
       "student": true,
       "yearOrGrade": "undergraduate, any discipline",
       "teamSize": null,
-      "institution": "HKU",
+      "institution": null,
       "age": null,
       "other": "AI-native; fluent with tools like Codex or Claude Code or equivalents.",
       "notes": "Portfolio of AI-built projects or GitHub repo can supplement application."
@@ -890,7 +890,7 @@
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
     "tags": ["research", "student job", "HKU", "AI", "architecture", "construction"],
-    "notes": "Advertised Jul 2026; review continues until positions filled. AI-native requirement is specific."
+    "notes": "Partial source review on 14 November 2026: the official advertisement requires undergraduate status in any discipline for the Student Research Assistant route, but does not state an HKU-only enrolment requirement. HKU is the employer; null does not establish eligibility for every institution. Other RA grades have different degree requirements. AI-native capability remains required. Review continues until 31 January 2027 or until posts are filled, whichever is earlier. Existing lastVerifiedAt retained; salary and other fields were not fully reverified in this batch."
   },
   {
     "id": "qv-hack-hkmu-hackathon-2027",
@@ -1038,8 +1038,8 @@
     "name": "HKSI Institute Case Competition 2027",
     "organizer": "Hong Kong Securities and Investment Institute",
     "category": "business",
-    "status": "open",
-    "shortDescription": "Securities and investment case competition for full-time undergraduate students from participating Hong Kong/GBA universities.",
+    "status": "closed_historical",
+    "shortDescription": "Applications closed on 13 October 2026. Case competition for full-time undergraduates from participating institutions; the 2027 programme itself is not described as finished.",
     "description": "HKSI Institute Case Competition is a flagship talent development programme. Student participants must be HKSI Institute Student Members and full-time undergraduate students pursuing a Bachelor’s Degree from participating Higher Education Institutions in Hong Kong and selected Greater Bay Area universities. Teams compete on securities and investment case analysis.",
     "location": {
       "type": "hybrid",
@@ -1047,7 +1047,7 @@
       "region": "Hong Kong SAR"
     },
     "dates": {
-      "deadline": null,
+      "deadline": "2026-10-13",
       "deadlineTimezone": null,
       "eventStart": null,
       "eventEnd": null
@@ -1055,7 +1055,7 @@
     "fee": {
       "amount": null,
       "currency": null,
-      "note": "Participation fee not stated."
+      "note": "The official page lists a HK$100 Student Membership application special offer for Case Competition applicants, non-refundable for unsuccessful membership applications. This is not a confirmed competition entry fee or an automatic extra charge for existing members. Other charges are not confirmed."
     },
     "eligibilityRawText": "All student participants are HKSI Institute Student Members AND Full-time Undergraduate Students pursuing a Bachelor’s Degree from the participating Higher Education Institutions (HEIs) and selected universities in the Greater Bay Area (GBA).",
     "eligibilityConditions": {
@@ -1073,12 +1073,12 @@
       "fee": true,
       "availability": false
     },
-    "officialUrl": "https://www.hksi.org/",
-    "sourceUrl": "https://www.hksi.org/media/9175/hksi-institute-case-competition-2027_student-invitation_final.pdf",
+    "officialUrl": "https://www.hksi.org/en/membership/outreach/case-competition/",
+    "sourceUrl": "https://www.hksi.org/en/membership/outreach/case-competition/",
     "dataSource": "official",
     "lastVerifiedAt": "2026-11-14T00:45:00+08:00",
     "tags": ["securities", "investment", "case competition", "HKSI", "university"],
-    "notes": "Official invitation PDF read. Full dates and deadline not included in the invitation excerpt; re-read official page before public use."
+    "notes": "Partial source review on 14 November 2026: the official Case Competition 2027 page explicitly marks applications closed, with an application period ending 13 October 2026 at 11:59 pm. The reviewed text does not explicitly state the time zone, so deadlineTimezone remains null and deadline uncertainty remains true. closed_historical refers to applications, not completion of the 2027 programme. Other eligibility and quota details remain inherited draft claims; the previous lastVerifiedAt is retained rather than claiming complete verification."
   },
   {
     "id": "qv-startup-youthx-2027",
