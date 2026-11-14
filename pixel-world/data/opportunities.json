@@ -1,0 +1,1130 @@
+[
+  {
+    "id": "qv-hack-iot-data-hackathon-2027",
+    "name": "IOT Data Hackathon 2027",
+    "organizer": "GS1 Hong Kong, Cyberport, HKSTP",
+    "category": "hackathon",
+    "status": "open",
+    "shortDescription": "Student and professional streams transform IoT/open data into practical solutions; free to join.",
+    "description": "GS1 Hong Kong's 4th IOT Data Hackathon invites tertiary students, innovators and entrepreneurs to build on real company challenge statements using real datasets. Shortlisted teams get mentorship and access to challenge-provider datasets. Hack Day and Pitch Day on 20-21 March 2027.",
+    "location": {
+      "type": "hybrid",
+      "place": "Hong Kong",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-12-20",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2027-03-20",
+      "eventEnd": "2027-03-21"
+    },
+    "fee": {
+      "amount": "0",
+      "currency": "HKD",
+      "note": "Participation is completely free."
+    },
+    "eligibilityRawText": "Student Stream: For teams whose members are currently enrolled in tertiary institutions, with at least one member studying at a Hong Kong tertiary institution. Professional Stream: Open to start-ups, entrepreneurs and business professionals, with at least one team member who is a Hong Kong resident or employed by a Hong Kong company. Each team may include up to six members, and each participant may join only one team.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "tertiary",
+      "teamSize": "up to 6",
+      "institution": "Hong Kong tertiary institution required for at least one member in Student Stream",
+      "age": null,
+      "other": "Each participant may join only one team.",
+      "notes": "Student and professional streams have different membership rules."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": false,
+      "availability": false
+    },
+    "officialUrl": "https://www.gs1hk.org/iotdatahackathon",
+    "sourceUrl": "https://businessintelligence.mo/2026/11/05/iot-data-hackathon-2027-now-open-for-applications-calling-innovators-to-turn-data-into-real-world-impact/",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["IoT", "data", "AI", "open data", "student", "professional"],
+    "notes": "Official gs1hk.org page returned 403 via fetch; details confirmed through PR Newswire republication. Re-read official page before public use."
+  },
+  {
+    "id": "qv-biz-healthnext-challenge-2026-27",
+    "name": "Cigna Healthcare x JA HealthNext Challenge 2026/27",
+    "organizer": "Junior Achievement Hong Kong, Cigna Healthcare Hong Kong",
+    "category": "business",
+    "status": "closing_soon",
+    "shortDescription": "Tertiary students form teams of 4-6 to propose healthcare solutions; deadline 11 Dec 2026.",
+    "description": "Healthcare innovation challenge empowering tertiary students to turn talent, ideas and technology into proposals for a more sustainable healthcare ecosystem. Finalists receive mentorship from Cigna Healthcare and industry professionals before the Final Pitch & Awards Ceremony. Cash prizes and internship opportunities.",
+    "location": {
+      "type": "offline",
+      "place": "Hong Kong",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-12-11",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Fee not stated in read source."
+    },
+    "eligibilityRawText": "Tertiary students aged below 30 in Hong Kong. Teams of 4-6 from the same or different institutions. Students from all disciplines are welcome. No healthcare or business background required.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "tertiary",
+      "teamSize": "4-6",
+      "institution": "Hong Kong",
+      "age": "below 30",
+      "other": "No healthcare or business background required.",
+      "notes": "Finalist selection by 19 Feb 2027; Final Pitch & Awards Ceremony in Jun 2027."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://jahk.org/wp-content/uploads/2026/11/HealthNextChallenge_Flyer_Eng-1.pdf",
+    "sourceUrl": "https://www.cb.cityu.edu.hk/careerdevelopment/news/events/eventDetails/?id=40450",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["healthcare", "case competition", "innovation", "tertiary", "Hong Kong"],
+    "notes": "Confirmed through CityU Career page and JA flyer PDF. Fee not stated in sources read."
+  },
+  {
+    "id": "qv-hack-techathon-plus-2027",
+    "name": "Hong Kong Techathon+ 11th Edition",
+    "organizer": "HKSTP and 15+ universities and institutions",
+    "category": "hackathon",
+    "status": "open",
+    "shortDescription": "Cross-university AI hackathon; team formation and pitch deck deadline 11 Jan 2027.",
+    "description": "Hong Kong Techathon+ 11th Edition is a flagship cross-university entrepreneurship and tech competition since 2015. Themes include AI+ Life & Health, Sustainability & New Energy, Digital Economy & Smart City, Advanced Manufacturing & Microelectronics. Finale on 28-31 January 2027.",
+    "location": {
+      "type": "offline",
+      "place": "Hong Kong Science Park",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2027-01-11",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2027-01-28",
+      "eventEnd": "2027-01-31"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated on homepage read."
+    },
+    "eligibilityRawText": "Cross-university event co-hosted by HKSTP and 15 top-tier universities and institutions. Open to university students and young innovators; specific team rules on portal.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university",
+      "teamSize": null,
+      "institution": "Hong Kong universities and partner institutions",
+      "age": null,
+      "other": "Specific rules on participation portal.",
+      "notes": "Registration via portal login; detailed team rules not fully read from homepage."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": true,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://www.hktechathon.com/en",
+    "sourceUrl": "https://www.hktechathon.com/en",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["AI", "startup", "HKSTP", "cross-university", "entrepreneurship"],
+    "notes": "Homepage read successfully. Exact eligibility and fee require portal access or key dates page."
+  },
+  {
+    "id": "qv-research-hkust-summer-ug-research-2027",
+    "name": "HKUST Summer UG Research Program 2027",
+    "organizer": "HKUST International Summer Campus",
+    "category": "research",
+    "status": "upcoming",
+    "shortDescription": "8-week summer research programme at HKUST; application starts early Jan 2027.",
+    "description": "10-week intensive research training programme for undergraduate students interested in postgraduate research. Participants work on HKUST research projects under faculty supervision, with networking and extracurricular activities. Scholarship and financial support available upon completion.",
+    "location": {
+      "type": "offline",
+      "place": "Hong Kong University of Science and Technology",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2027-02-15",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2027-06-14",
+      "eventEnd": "2027-08-06"
+    },
+    "fee": {
+      "amount": "17700",
+      "currency": "HKD",
+      "note": "Program fee HK$17,700 plus application fee HK$200; tuition waived for nominated exchange students."
+    },
+    "eligibilityRawText": "Full-time undergraduate students enrolled in overseas and non-Chinese institutions. Have completed at least 2 years of study by the start of this program. Exceptional academic record with demonstrated potential and passion in research. CGA at least 3.0 on a 4.0 scale or equivalent. Students must be age 18 or above by the start of the programme.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "Year 2 or above (completed at least 2 years of study)",
+      "teamSize": null,
+      "institution": "Overseas and non-Chinese institutions only; not for local Hong Kong degree students unless exchange partner",
+      "age": "18 or above",
+      "other": "Exchange partners may nominate exchange students; fee-paying students also accepted.",
+      "notes": "Not generally open to CityU students unless through exchange nomination."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": false,
+      "availability": false
+    },
+    "officialUrl": "https://summercampus.hkust.edu.hk/summer-school-ug-application",
+    "sourceUrl": "https://summercampus.hkust.edu.hk/summer-school-ug-application",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["research", "summer", "HKUST", "undergraduate", "international"],
+    "notes": "Important eligibility caveat: mainly for overseas/non-Chinese institutions. Do not recommend blindly to CityU students."
+  },
+  {
+    "id": "qv-research-cityu-pamlab-internship",
+    "name": "CityU PAMLab Research Internship",
+    "organizer": "PAMLab, City University of Hong Kong",
+    "category": "research",
+    "status": "open",
+    "shortDescription": "Volunteer research internship in phonetics, language acquisition and multilingualism; open to CityU and non-CityU students.",
+    "description": "PAMLab at CityU welcomes current CityU and non-CityU undergraduate or postgraduate students to volunteer as research interns. CityU undergraduates can also intern for academic credit. Minimum commitment 75 hours total (about 5 hours/week in fall/spring, 6 hours/week in summer). Apply by email with CV, coursework summary, statement of interest and intended time commitment.",
+    "location": {
+      "type": "offline",
+      "place": "City University of Hong Kong",
+      "region": "Kowloon Tong, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Volunteer basis; no fee stated."
+    },
+    "eligibilityRawText": "Current CityU as well as non-CityU students (undergraduate or postgraduate) can join the lab as a research intern on a volunteer basis; CityU undergraduates can also intern for academic credit. Minimum commitment of 75 hours total.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "undergraduate or postgraduate",
+      "teamSize": null,
+      "institution": "CityU or other institution",
+      "age": null,
+      "other": "Minimum 75 hours total commitment.",
+      "notes": "Apply by email to pam.lab@cityu.edu.hk."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": false,
+      "fee": false,
+      "availability": true
+    },
+    "officialUrl": "https://thepamlab.github.io/for-students/prospective-intern",
+    "sourceUrl": "https://thepamlab.github.io/for-students/prospective-intern",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["research", "internship", "CityU", "linguistics", "volunteer"],
+    "notes": "No application deadline stated; lab spots depend on funding and supervisor availability. Page last updated 2026-11-09."
+  },
+  {
+    "id": "qv-research-hku-cds-internship-2027",
+    "name": "HKU CDS Research Internship Programme",
+    "organizer": "HKU School of Computing and Data Science",
+    "category": "research",
+    "status": "upcoming",
+    "shortDescription": "Research internship for Year 2 and Year 3 students in CS/AI/Data Science; 2027 recruitment to be announced.",
+    "description": "Undergraduate students undertake a research project under faculty supervision and present outcomes at the end of the internship. Interns work full-time during the agreed period and present research outcomes. Internship certificate awarded upon satisfactory completion.",
+    "location": {
+      "type": "offline",
+      "place": "The University of Hong Kong",
+      "region": "Pokfulam Road, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Fee not stated."
+    },
+    "eligibilityRawText": "Applications are open to current Year 2 and Year 3 undergraduate students studying Computer Science, Artificial Intelligence and Data Science, or a related discipline at universities in Hong Kong, Mainland China or overseas.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "Year 2 or Year 3",
+      "teamSize": null,
+      "institution": "Universities in Hong Kong, Mainland China or overseas",
+      "age": null,
+      "other": "Computer Science, Artificial Intelligence, Data Science or related discipline.",
+      "notes": "Supervisors nominate applicants for internship offers."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": false,
+      "fee": true,
+      "availability": true
+    },
+    "officialUrl": "https://www.cs.hku.hk/research/research-internship/",
+    "sourceUrl": "https://www.cs.hku.hk/research/research-internship/",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["research", "computer science", "AI", "data science", "HKU"],
+    "notes": "2027 recruitment to be announced; fetch of official page failed once, re-read before public use."
+  },
+  {
+    "id": "qv-startup-cityu-step-2026-27",
+    "name": "CityU Overseas Start-up Technology Entrepreneur Programme (STEP)",
+    "organizer": "City University of Hong Kong Academy of Innovation",
+    "category": "startup",
+    "status": "closed_historical",
+    "shortDescription": "CityU undergraduate entrepreneurship internship in Beijing, Australia or UK; 2026-27 application closed 30 Oct 2026.",
+    "description": "STEP offers CityUHK undergraduate students hands-on entrepreneurial experience in industrial settings or business organizations at top start-up locations. Attachment periods of 3 or 6 months during academic terms. Financial allowance up to HKD 20,000 per month depending on location.",
+    "location": {
+      "type": "offline",
+      "place": "Beijing, Australia or United Kingdom",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2026-10-30",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2027-06-01",
+      "eventEnd": "2027-08-31"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Allowance up to HKD 8,000 (Beijing) or HKD 20,000 (Australia/UK) per month, prorated; airfare reimbursed based on actual expenses."
+    },
+    "eligibilityRawText": "Year 2, 3 or penultimate year students studying a full-time UGC-funded Bachelor's degree programme in the College of Business. Proficient in written and verbal communication in Chinese (for Beijing applicants). Exchange students, associate degree and postgraduate degree students are not eligible.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "Year 2, 3 or penultimate year",
+      "teamSize": null,
+      "institution": "CityU College of Business only",
+      "age": null,
+      "other": "Exchange, associate degree and postgraduate students not eligible.",
+      "notes": "Application closed 30 October 2026, 23:59 HKT."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": false,
+      "availability": false
+    },
+    "officialUrl": "https://www.cb.cityu.edu.hk/careerdevelopment/experience/internship/step/",
+    "sourceUrl": "https://www.cb.cityu.edu.hk/careerdevelopment/experience/internship/step/",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["startup", "internship", "CityU", "entrepreneurship", "overseas"],
+    "notes": "Historical reference only. 2026-27 application closed; do not list as currently open."
+  },
+  {
+    "id": "qv-hack-mlh-ghw-builders-week-2026",
+    "name": "MLH Global Hack Week: Builders Week 2026",
+    "organizer": "Major League Hacking",
+    "category": "hackathon",
+    "status": "closed_historical",
+    "shortDescription": "Free online Global Hack Week, 6-12 Nov 2026; beginner-friendly challenges and Discord community.",
+    "description": "MLH Global Hack Week: Builders Week ran online from 6 to 12 November 2026. Participants built projects around the “builder” theme, took on live challenges, joined live sessions and connected through MLH Discord. Registration and event check-in were separate steps. Some swag challenges (for example X Premium) had additional reported conditions not published on the official page.",
+    "location": {
+      "type": "online",
+      "place": "Online",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2026-11-12",
+      "deadlineTimezone": "America/New_York",
+      "eventStart": "2026-11-06",
+      "eventEnd": "2026-11-12"
+    },
+    "fee": {
+      "amount": "0",
+      "currency": "USD",
+      "note": "Free for anyone, anywhere."
+    },
+    "eligibilityRawText": "Minors (Between 13-18), Working Professionals, Students - University Students, Secondary/High School Students, Other. Under 18 need parental permission.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": null,
+      "teamSize": null,
+      "institution": null,
+      "age": "13 or above; under 18 need parental permission",
+      "other": "Registration and event check-in are separate steps.",
+      "notes": "Open to all; beginner-friendly."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": false,
+      "availability": false
+    },
+    "officialUrl": "https://ghw.mlh.com/events/builders-week",
+    "sourceUrl": "https://ghw.mlh.com/events/builders-week",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["MLH", "online", "free", "beginner", "Global Hack Week"],
+    "notes": "Event ended 12 November 2026. Kept as historical reference; Open Source Week (4-10 Dec 2026) was announced as the next edition but not yet fully verified."
+  },
+  {
+    "id": "qv-startup-hult-prize-2027",
+    "name": "EF Hult Prize",
+    "organizer": "Hult Prize Foundation",
+    "category": "startup",
+    "status": "open",
+    "shortDescription": "Student teams build for-profit startups supporting UN SDGs; qualifiers run September to February.",
+    "description": "Year-long global student competition challenging teams to launch for-profit startups supporting at least one UN Sustainable Development Goal. Teams of 2-4 students pitch ideas, qualify through campus or Open Application, advance through Nationals, Digital Incubator and Global Accelerator. One team wins $1M USD seed funding.",
+    "location": {
+      "type": "hybrid",
+      "place": "Global",
+      "region": "Worldwide"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated on How It Works page."
+    },
+    "eligibilityRawText": "Teams of 2-4 students from almost every country in the world who are at least 18 years of age and enrolled in any degree-granting program (including undergraduate and graduate programs) at the time of registration. Pitching a for-profit business that directly supports at least one UN Sustainable Development Goal (SDG).",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "undergraduate or graduate",
+      "teamSize": "2-4",
+      "institution": "any degree-granting program",
+      "age": "18 or above",
+      "other": "Business must directly support at least one UN SDG.",
+      "notes": "Qualifiers: September to February; campus route or Open Application."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://www.hultprize.org/how-it-works",
+    "sourceUrl": "https://www.hultprize.org/how-it-works",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["startup", "SDG", "global", "student", "entrepreneurship"],
+    "notes": "Exact application deadline for current cycle not stated on read page; qualifiers described as September to February."
+  },
+  {
+    "id": "qv-biz-cfa-research-challenge-2026-27",
+    "name": "CFA Institute Research Challenge",
+    "organizer": "CFA Institute",
+    "category": "business",
+    "status": "unknown",
+    "shortDescription": "University teams of 3-5 analyse a public company and present research; local rounds vary by city.",
+    "description": "The CFA Institute Research Challenge is an annual global competition where university students assume the role of research analysts. Teams of 3-5 are assigned or select a publicly traded company, prepare a written report and deliver a 10-minute presentation. Local rounds are organized by CFA societies; winning teams advance to regional and global finals.",
+    "location": {
+      "type": "offline",
+      "place": "Local CFA society chapters worldwide",
+      "region": "Varies by local society"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Fee not stated."
+    },
+    "eligibilityRawText": "University students; teams of 3-5. Students gain insight by stepping into the role of a research analyst. Local competition hosts select subject companies.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university",
+      "teamSize": "3-5",
+      "institution": "university",
+      "age": null,
+      "other": "Team must be affiliated with a participating university; local CFA society rules apply.",
+      "notes": "Classroom series is a separate simulation and not the official competition."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": true,
+      "fee": true,
+      "availability": true
+    },
+    "officialUrl": "https://www.cfainstitute.org/insights/events/research-challenge",
+    "sourceUrl": "https://www.cfainstitute.org/insights/events/research-challenge",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["finance", "research", "case competition", "CFA", "university"],
+    "notes": "Official page read was truncated; local Hong Kong round status, deadline and eligibility not yet confirmed. Marked unknown."
+  },
+  {
+    "id": "qv-research-hku-chemistry-summer-2027",
+    "name": "HKU Chemistry Summer Research Programme 2027",
+    "organizer": "HKU Summer Institute",
+    "category": "research",
+    "status": "upcoming",
+    "shortDescription": "Chemistry research programme at HKU Summer Institute; details marked Coming Soon.",
+    "description": "HKU Summer Institute Chemistry Summer Research Programme for undergraduate and postgraduate programmes. Application system login required. Programme dates, content, application period and fee subject to change; students should monitor website and email notifications.",
+    "location": {
+      "type": "offline",
+      "place": "The University of Hong Kong",
+      "region": "Pokfulam Road, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": "400",
+      "currency": "HKD",
+      "note": "Application fee HK$400 for first programme, HK$250 for subsequent applications; programme fee varies by programme and not yet stated for 2027."
+    },
+    "eligibilityRawText": "Undergraduate / Postgraduate Programmes. Non-HKU students welcome; enrolment subject to programme requirements and unforeseen circumstances.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "undergraduate or postgraduate",
+      "teamSize": null,
+      "institution": "Non-HKU students welcome",
+      "age": null,
+      "other": "Visa application fee HK$1,100 may apply for students requiring a visa.",
+      "notes": "2027 programme details marked Coming Soon; cannot confirm chemistry-specific prerequisites yet."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": true,
+      "fee": true,
+      "availability": true
+    },
+    "officialUrl": "https://summerinstitute.hku.hk/programmes/detail/hkusi-chem4990-2027",
+    "sourceUrl": "https://summerinstitute.hku.hk/programmes/detail/hkusi-chem4990-2027",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["research", "chemistry", "HKU", "summer", "undergraduate"],
+    "notes": "Programme page shows Coming Soon; fee and eligibility uncertain. Non-HKU students welcome per page text."
+  },
+  {
+    "id": "qv-hack-mlh-ghw-open-source-week-2026",
+    "name": "MLH Global Hack Week: Open Source Week 2026",
+    "organizer": "Major League Hacking",
+    "category": "hackathon",
+    "status": "upcoming",
+    "shortDescription": "Free online Global Hack Week edition, 4-10 Dec 2026; open source theme.",
+    "description": "MLH Global Hack Week Open Source Week is the next edition after Builders Week, running 4-10 December 2026. Focus on open source projects, challenges and community. Registration via MLH events page.",
+    "location": {
+      "type": "online",
+      "place": "Online",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2026-12-10",
+      "deadlineTimezone": "America/New_York",
+      "eventStart": "2026-12-04",
+      "eventEnd": "2026-12-10"
+    },
+    "fee": {
+      "amount": "0",
+      "currency": "USD",
+      "note": "Free for anyone, anywhere."
+    },
+    "eligibilityRawText": "Open to all; MLH events generally welcome university students, secondary/high school students, working professionals and minors 13+ with parental permission.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": null,
+      "teamSize": null,
+      "institution": null,
+      "age": "13 or above; under 18 need parental permission",
+      "other": "Specific rules for Open Source Week not yet confirmed.",
+      "notes": "Announced on Global Hack Week page as UP NEXT; details not yet fully read."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": true,
+      "fee": false,
+      "availability": true
+    },
+    "officialUrl": "https://ghw.mlh.com/",
+    "sourceUrl": "https://ghw.mlh.com/",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:20:00+08:00",
+    "tags": ["MLH", "open source", "online", "free", "upcoming"],
+    "notes": "Only announced as UP NEXT on ghw.mlh.com; dates taken from homepage. Re-read dedicated page before public use."
+  },
+  {
+    "id": "qv-biz-cbs-global-case-competition-2026",
+    "name": "GLOBAL 2026 by CBS Case Competition",
+    "organizer": "Copenhagen Business School",
+    "category": "business",
+    "status": "closing_soon",
+    "shortDescription": "University students worldwide compete virtually; solo or team of 3-4; deadline 16 Nov 2026.",
+    "description": "GLOBAL 2026 by CBS Case Competition is open to university students worldwide. Participants compete virtually through preliminary and semi-final rounds, with the top three teams advancing to the Grand Final in Copenhagen, Denmark. Students may apply as individuals or as teams of 3-4 members. The competition develops case-solving, teamwork and presentation skills.",
+    "location": {
+      "type": "hybrid",
+      "place": "Online / Copenhagen, Denmark",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2026-11-16",
+      "deadlineTimezone": "Europe/Copenhagen",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated in read source."
+    },
+    "eligibilityRawText": "This case competition is open to university students worldwide. Interested students may apply either as an individual participant or as a team of 3–4 members.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university",
+      "teamSize": "3-4",
+      "institution": "worldwide",
+      "age": null,
+      "other": "Solo sign-up deadline 12 Nov 2026 20:00 CET; group sign-up deadline 16 Nov 2026 08:00 CET.",
+      "notes": "Grand Final travel and expenses are student's own responsibility."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://www.casecompetition.com/global/",
+    "sourceUrl": "https://ug.hkubs.hku.hk/competition/global-2026-by-cbs-case-competition",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:30:00+08:00",
+    "tags": ["case competition", "business", "global", "university", "Copenhagen"],
+    "notes": "Deadline is 16 Nov 2026, very soon. Official CBS page referenced but not directly re-read; HKU FBE listing confirms deadline."
+  },
+  {
+    "id": "qv-biz-ydc-dare-to-change-2027",
+    "name": "YDC Dare To Change Business Pitch Competition",
+    "organizer": "Young Entrepreneurs Development Council",
+    "category": "business",
+    "status": "open",
+    "shortDescription": "Hong Kong tertiary students pitch business ideas; deadline 29 Jan 2027.",
+    "description": "YDC Dare To Change Business Pitch Competition offers full-time tertiary students from Hong Kong institutes and 2026 full-time tertiary programme graduates a chance to pitch business ideas in front of seasoned executives. Teams of 2-4 members; projects must be student-led. Teams with prior investment over HK$1,000,000 or revenue over HK$1,000,000 are not eligible.",
+    "location": {
+      "type": "offline",
+      "place": "Hong Kong",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2027-01-29",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2026-12-12",
+      "eventEnd": "2027-01-16"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated."
+    },
+    "eligibilityRawText": "YDC Dare To Change Business Pitch Competition is open to all current students studying full-time in tertiary education institutes in Hong Kong and 2026 full-time tertiary programmes graduates from Hong Kong institutes. Participating teams must consist of 2 to 4 member(s). Each team may draw members from different faculties or institutes. Each team may include current full-time students or 2026 full-time tertiary programmes graduates from Hong Kong institutes.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "full-time tertiary student or 2026 graduate",
+      "teamSize": "2-4",
+      "institution": "Hong Kong tertiary institutes",
+      "age": null,
+      "other": "Projects must be student-led; no prior investment over HK$1,000,000 or revenue over HK$1,000,000.",
+      "notes": "Application deadlines vary by session: 9 Dec 2026 and 13 Jan 2027; final application 29 Jan 2027."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "http://uat.ucal02.ust.hk/events/ydc-dare-change-business-pitch-competition-0",
+    "sourceUrl": "http://uat.ucal02.ust.hk/events/ydc-dare-change-business-pitch-competition-0",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:30:00+08:00",
+    "tags": ["business pitch", "startup idea", "Hong Kong", "tertiary", "YDC"],
+    "notes": "Fetched from UST event calendar mirror; official YDC page not yet re-read directly. Deadline confirmed from search result."
+  },
+  {
+    "id": "qv-startup-orbis-future-vision-2026-27",
+    "name": "Orbis Future Vision Leaders Program 2026/27: Visionary Startup",
+    "organizer": "Orbis Hong Kong",
+    "category": "startup",
+    "status": "closing_soon",
+    "shortDescription": "University students design innovative solutions aligned with healthy living and addressing global blindness; deadline 25 Nov 2026.",
+    "description": "The Orbis Future Vision Leaders Program 2026/27 is designed for university students in Hong Kong and abroad, promoting healthy living and addressing global blindness. The Visionary Startup participation category provides an opportunity for students with entrepreneurial aspirations to design innovative solutions aligned with Orbis's mission. Teams of 2-5 members submit a preliminary proposal by email.",
+    "location": {
+      "type": "hybrid",
+      "place": "Hong Kong",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-11-25",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated in read source."
+    },
+    "eligibilityRawText": "Interested students should form a team of 2 to 5 members and team leader should submit the application HERE and email the preliminary proposal to student.hk@orbis.org by 12:00 noon, November 25, 2026 (Wednesday).",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university",
+      "teamSize": "2-5",
+      "institution": "Hong Kong and abroad",
+      "age": null,
+      "other": "Preliminary proposal submitted by email.",
+      "notes": "HKU FBE competition listing shows deadline 25 Nov 2026 HKT 12:00."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": true,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://ug.hkubs.hku.hk/competition/orbis-future-vision-leaders-program-2026-27-visionary-startup",
+    "sourceUrl": "https://ug.hkubs.hku.hk/competition/orbis-future-vision-leaders-program-2026-27-visionary-startup",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["startup", "social impact", "health", "Orbis", "HKU"],
+    "notes": "Official HKU page fetch was truncated; full eligibility and programme details not fully read. Deadline confirmed from search summary."
+  },
+  {
+    "id": "qv-startup-jci-startup-innovation-weekend-2027",
+    "name": "Startup Innovation Weekend 2027 Hong Kong Selection",
+    "organizer": "InnoEdge Startup Hub, Education University of Hong Kong",
+    "category": "startup",
+    "status": "closing_soon",
+    "shortDescription": "Hong Kong selection for Startup Innovation Weekend 2027; student teams with MVP or high-fidelity prototype can apply by 30 Nov 2026.",
+    "description": "InnoEdge Startup Hub runs the Hong Kong selection for Startup Innovation Weekend 2027. The first round takes place in person in Hong Kong on 19 December 2026, 2-6 pm, at the Education University of Hong Kong. Up to eight student startup teams and eight company startups will be invited, and one student team and one company startup will be nominated to the next international stage. Applicants need at least an MVP or high-fidelity prototype; an idea alone is insufficient.",
+    "location": {
+      "type": "offline",
+      "place": "The Education University of Hong Kong",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-11-30",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2026-12-19",
+      "eventEnd": "2026-12-19"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Application kit free; participation fee not stated."
+    },
+    "eligibilityRawText": "University Startup Teams must be formed by students currently enrolled at a university or other higher education institution. Applicants need at least a minimum viable product (MVP) or a high-fidelity prototype; an idea alone is insufficient.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university or higher education",
+      "teamSize": null,
+      "institution": "university or higher education institution",
+      "age": null,
+      "other": "MVP or high-fidelity prototype required.",
+      "notes": "Checked on 9 November 2026; announcement does not specify closing time."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://cpo.eduhk.hk/en/news-and-events/events/siw2027-hongkong",
+    "sourceUrl": "https://jciqueensway.org.hk/youth-news/startup-innovation-weekend-2027-hong-kong-selection/",
+    "dataSource": "agent_search",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["startup", "MVP", "prototype", "InnoEdge", "EdUHK"],
+    "notes": "Source is JCI Queensway news summary, not official organiser page. Official links listed but not yet re-read directly."
+  },
+  {
+    "id": "qv-research-hku-talic-student-ra-2026-27",
+    "name": "HKU TALIC Part-time Student Research Assistant",
+    "organizer": "The University of Hong Kong - Teaching and Learning Innovation Centre",
+    "category": "research",
+    "status": "open",
+    "shortDescription": "Part-time student research assistant supporting study of Muslim international students at HKU; applications reviewed until 15 Nov 2026.",
+    "description": "Several part-time student research assistant posts in the Teaching and Learning Innovation Centre (TALIC) for seven months, to commence early December 2026 and end in May-June 2027. The project investigates Muslim international students' decision to study in HK, intention to work locally after graduation, and satisfaction with study-abroad experience.",
+    "location": {
+      "type": "offline",
+      "place": "The University of Hong Kong",
+      "region": "Pokfulam Road, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-11-15",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2026-12-01",
+      "eventEnd": "2027-06-30"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Salary commensurate with qualifications and experience."
+    },
+    "eligibilityRawText": "Applicants for Part-time Student Research Assistant(s) position should be current undergraduate students in social science and education disciplines, preferably in their final year of study. Recruiting 1 Muslim and 1 non-Muslim student.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "current undergraduate, preferably final year",
+      "teamSize": null,
+      "institution": "HKU",
+      "age": null,
+      "other": "Social science and education disciplines preferred.",
+      "notes": "Online application only; CV required."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://jobs.hku.hk/cw/en/job/537664/fulltime-research-assistant-i-and-parttime-student-research-assistant-several-posts-in-the-teaching-and-learning-innovation-centre-talic-for-seven-months",
+    "sourceUrl": "https://jobs.hku.hk/cw/en/job/537664/fulltime-research-assistant-i-and-parttime-student-research-assistant-several-posts-in-the-teaching-and-learning-innovation-centre-talic-for-seven-months",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["research", "student job", "HKU", "social science", "education"],
+    "notes": "Deadline may pass quickly; posts filled on rolling basis. Not a structured research programme but a student research role."
+  },
+  {
+    "id": "qv-research-hku-public-health-student-ra-2026-27",
+    "name": "HKU Part-time Student Research Assistant in Public Health",
+    "organizer": "The University of Hong Kong - School of Public Health",
+    "category": "research",
+    "status": "open",
+    "shortDescription": "Part-time student research assistant posts assisting large-scale population studies; applications reviewed until 29 Jan 2027.",
+    "description": "Part-time student research assistant positions in the Division of Community Medicine and Public Health Practice for 3 months, with possibility of renewal. Work includes participant recruitment by phone, fieldwork, data input, study material preparation, and literature reviews.",
+    "location": {
+      "type": "offline",
+      "place": "The University of Hong Kong",
+      "region": "Pokfulam Road, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2027-01-29",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Salary commensurate with qualifications and experience."
+    },
+    "eligibilityRawText": "Applicants should be current undergraduate students in public health, health science, psychology, translation, social sciences, or other health/humanity-related disciplines.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "current undergraduate",
+      "teamSize": null,
+      "institution": "HKU",
+      "age": null,
+      "other": "Good command of written and spoken English and Chinese including Putonghua.",
+      "notes": "Previous applicants under Ref. 536970 need not re-apply."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://jobs.hku.hk/en/job/537632/parttime-student-research-assistant-several-posts-in-the-division-of-community-medicine-and-public-health-practice",
+    "sourceUrl": "https://jobs.hku.hk/en/job/537632/parttime-student-research-assistant-several-posts-in-the-division-of-community-medicine-and-public-health-practice",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["research", "student job", "HKU", "public health", "population study"],
+    "notes": "Search result fetched from a careersite mirror URL; original jobs.hku.hk page not yet re-read directly."
+  },
+  {
+    "id": "qv-research-hku-ai-agents-student-ra-2026-27",
+    "name": "HKU Student Research Assistant in AI Agents for Architecture and Construction",
+    "organizer": "The University of Hong Kong - Department of Urban Planning and Design",
+    "category": "research",
+    "status": "open",
+    "shortDescription": "Student research assistant in AI agents for architecture and construction; applications reviewed until 31 Jan 2027.",
+    "description": "Department of Urban Planning and Design invites applications for Student Research Assistant in AI Agents for Architecture and Construction. Appointment for 6 to 12 months, full-time or part-time, with possibility of renewal based on performance and funding availability. Applicants should demonstrate AI-native capability.",
+    "location": {
+      "type": "offline",
+      "place": "The University of Hong Kong",
+      "region": "Pokfulam Road, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2027-01-31",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Salary commensurate with qualifications and experience."
+    },
+    "eligibilityRawText": "Applicant should be undergraduate student of any discipline for Student Research Assistant position.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "undergraduate, any discipline",
+      "teamSize": null,
+      "institution": "HKU",
+      "age": null,
+      "other": "AI-native; fluent with tools like Codex or Claude Code or equivalents.",
+      "notes": "Portfolio of AI-built projects or GitHub repo can supplement application."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://jobs.hku.hk/en/job/536608/senior-research-assistant-research-assistant-iii-student-research-assistant-in-ai-agents-for-architecture-and-construction",
+    "sourceUrl": "https://jobs.hku.hk/en/job/536608/senior-research-assistant-research-assistant-iii-student-research-assistant-in-ai-agents-for-architecture-and-construction",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["research", "student job", "HKU", "AI", "architecture", "construction"],
+    "notes": "Advertised Jul 2026; review continues until positions filled. AI-native requirement is specific."
+  },
+  {
+    "id": "qv-hack-hkmu-hackathon-2027",
+    "name": "HKMU Hackathon 2027",
+    "organizer": "Hong Kong Metropolitan University - Student Affairs Office",
+    "category": "hackathon",
+    "status": "upcoming",
+    "shortDescription": "Two-day hackathon at HKMU, 6-7 Jan 2027; real-world challenges from industry partners; prize up to HK$10,000.",
+    "description": "HKMU Hackathon 2027 invites students to take on real-world challenges through collaboration, creativity and innovative problem-solving. Two challenge statements from Hong Kong Maritime Museum and Hong Yip Service Company Limited will be announced on Hack Day 1. Pre-hackathon includes AI training workshops and company visits. Team or individual enrolment accepted.",
+    "location": {
+      "type": "offline",
+      "place": "Hong Kong Metropolitan University",
+      "region": "Ho Man Tin, Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": "2027-01-06",
+      "eventEnd": "2027-01-07"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated."
+    },
+    "eligibilityRawText": "We welcome both team and individual enrolment. You may form a team of 4-6 current HKMU students (full-time, part-time, or distance learning).",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "current HKMU students",
+      "teamSize": "4-6",
+      "institution": "HKMU only",
+      "age": null,
+      "other": "Individual enrolment accepted; SAO assists with team formation.",
+      "notes": "Eligibility limited to HKMU students."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://hkmu-hk.campuslabs.com/event/5597",
+    "sourceUrl": "https://hkmu-hk.campuslabs.com/event/5597",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:25:00+08:00",
+    "tags": ["hackathon", "HKMU", "AI", "innovation", "student"],
+    "notes": "Application deadline not yet confirmed on read page. Eligibility limited to HKMU students."
+  },
+  {
+    "id": "qv-startup-ai-for-good-2027",
+    "name": "HKUBS & Olomoon International AI for Good Project Competition 2027",
+    "organizer": "HKU Business School and Olomoon",
+    "category": "startup",
+    "status": "upcoming",
+    "shortDescription": "AI for Good project competition; applications open 1 Jan 2027, deadline 3 Mar 2027.",
+    "description": "International competition jointly created by HKU Business School and Olomoon to identify and promote AI projects addressing real-world challenges in Climate, Health, Education and Community. Selected teams get mentorship and pitch at HKU. Final round on 3 Apr 2027.",
+    "location": {
+      "type": "hybrid",
+      "place": "Hong Kong / Online",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2027-03-03",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2027-01-01",
+      "eventEnd": "2027-04-03"
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated."
+    },
+    "eligibilityRawText": "AI innovators aged 18-25, individually or in teams of up to six, from Hong Kong and worldwide. Submit a new idea or an existing project started after 1 January 2025.",
+    "eligibilityConditions": {
+      "student": false,
+      "yearOrGrade": "aged 18-25",
+      "teamSize": "up to 6",
+      "institution": "Hong Kong and worldwide",
+      "age": "18-25",
+      "other": "New idea or project started after 1 January 2025.",
+      "notes": "Hong Kong shortlisted teams pitch live at HKU; international final online."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://olomoon.org/challenge",
+    "sourceUrl": "https://olomoon.org/challenge",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:35:00+08:00",
+    "tags": ["AI", "social impact", "startup", "global", "HKU"],
+    "notes": "Not limited to students; aged 18-25 only. Full guidelines and submission link marked 'coming soon' on source page."
+  },
+  {
+    "id": "qv-biz-chun-wo-innovation-student-awards-2027",
+    "name": "Chun Wo Innovation Student Awards",
+    "organizer": "Chun Wo",
+    "category": "business",
+    "status": "open",
+    "shortDescription": "Student innovation awards for Hong Kong and Greater Bay Area students; application form deadline 14 Dec 2026.",
+    "description": "Chun Wo Innovation Student Awards is open to full-time undergraduate and postgraduate students from tertiary institutions in Hong Kong and the Greater Bay Area. Teams submit an application form by 14 Dec 2026 and a proposal by 15 Feb 2027. Shortlisted teams receive up to HK$8,000 to produce a demonstration model for the June 2027 final presentation.",
+    "location": {
+      "type": "hybrid",
+      "place": "Hong Kong / Greater Bay Area",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": "2026-12-14",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated."
+    },
+    "eligibilityRawText": "The Award is open to all full-time undergraduate and post-graduate students from any of the tertiary education institutions in Hong Kong and the Greater Bay Area (GBA). Students are encouraged to form groups with a maximum of 8 members, including at least one student studying in engineering-related faculties, or participate as individuals.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "full-time undergraduate or postgraduate",
+      "teamSize": "up to 8",
+      "institution": "Hong Kong and Greater Bay Area tertiary institutions",
+      "age": null,
+      "other": "At least one engineering-related faculty student encouraged for teams.",
+      "notes": "Individual participation accepted."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://www.cwisa.com/en/eligibility.html",
+    "sourceUrl": "https://www.cwisa.com/en/eligibility.html",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:40:00+08:00",
+    "tags": ["innovation", "student award", "Hong Kong", "Greater Bay Area", "engineering"],
+    "notes": "Proposal deadline 15 Feb 2027; final presentation expected June 2027. Engineering-related faculty member encouraged but not strictly stated as mandatory."
+  },
+  {
+    "id": "qv-biz-hksi-case-competition-2027",
+    "name": "HKSI Institute Case Competition 2027",
+    "organizer": "Hong Kong Securities and Investment Institute",
+    "category": "business",
+    "status": "open",
+    "shortDescription": "Securities and investment case competition for full-time undergraduate students from participating Hong Kong/GBA universities.",
+    "description": "HKSI Institute Case Competition is a flagship talent development programme. Student participants must be HKSI Institute Student Members and full-time undergraduate students pursuing a Bachelor’s Degree from participating Higher Education Institutions in Hong Kong and selected Greater Bay Area universities. Teams compete on securities and investment case analysis.",
+    "location": {
+      "type": "hybrid",
+      "place": "Hong Kong / Greater Bay Area",
+      "region": "Hong Kong SAR"
+    },
+    "dates": {
+      "deadline": null,
+      "deadlineTimezone": null,
+      "eventStart": null,
+      "eventEnd": null
+    },
+    "fee": {
+      "amount": null,
+      "currency": null,
+      "note": "Participation fee not stated."
+    },
+    "eligibilityRawText": "All student participants are HKSI Institute Student Members AND Full-time Undergraduate Students pursuing a Bachelor’s Degree from the participating Higher Education Institutions (HEIs) and selected universities in the Greater Bay Area (GBA).",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "full-time undergraduate",
+      "teamSize": null,
+      "institution": "Participating Hong Kong and GBA universities",
+      "age": null,
+      "other": "Must be HKSI Institute Student Member.",
+      "notes": "Quota: 115 teams in total."
+    },
+    "uncertainty": {
+      "deadline": true,
+      "eligibility": false,
+      "fee": true,
+      "availability": false
+    },
+    "officialUrl": "https://www.hksi.org/",
+    "sourceUrl": "https://www.hksi.org/media/9175/hksi-institute-case-competition-2027_student-invitation_final.pdf",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:45:00+08:00",
+    "tags": ["securities", "investment", "case competition", "HKSI", "university"],
+    "notes": "Official invitation PDF read. Full dates and deadline not included in the invitation excerpt; re-read official page before public use."
+  },
+  {
+    "id": "qv-startup-youthx-2027",
+    "name": "YouthX Global Campus Innovation Challenge 2027",
+    "organizer": "YouthX / Unicorn Next",
+    "category": "startup",
+    "status": "open",
+    "shortDescription": "Student teams aged 18-25 build and test ideas across Technology & AI, Sustainability & Climate, Health & Wellbeing; deadline 30 Nov 2026.",
+    "description": "YouthX Global Campus Innovation Challenge 2027 invites student teams (aged 18-25, 3-5 members from the same university) to build and test ideas across three tracks: Technology & AI, Sustainability & Climate, Health, Wellbeing & Social Innovation. Selected teams get eight weeks to build with masterclasses and mentor clinics. Top 10 present to an international jury at the Grand Finale in London (or online) in April 2027.",
+    "location": {
+      "type": "hybrid",
+      "place": "Global",
+      "region": "International"
+    },
+    "dates": {
+      "deadline": "2026-11-30",
+      "deadlineTimezone": "Asia/Hong_Kong",
+      "eventStart": "2026-11-09",
+      "eventEnd": "2027-04-30"
+    },
+    "fee": {
+      "amount": "0",
+      "currency": "USD",
+      "note": "Free to apply."
+    },
+    "eligibilityRawText": "Student teams (aged 18-25, 3-5 members from the same university) build and test ideas across three tracks: Technology & AI, Sustainability & Climate, Health, Wellbeing & Social Innovation.",
+    "eligibilityConditions": {
+      "student": true,
+      "yearOrGrade": "university",
+      "teamSize": "3-5",
+      "institution": "same university",
+      "age": "18-25",
+      "other": "Teams from the same university only.",
+      "notes": "Apply by 30 November 2026. Free to apply."
+    },
+    "uncertainty": {
+      "deadline": false,
+      "eligibility": false,
+      "fee": false,
+      "availability": false
+    },
+    "officialUrl": "https://unicornnext.com/youthx/",
+    "sourceUrl": "http://uat.ucal02.ust.hk/events/youthx-global-campus-innovation-challenge-2027",
+    "dataSource": "official",
+    "lastVerifiedAt": "2026-11-14T00:45:00+08:00",
+    "tags": ["startup", "innovation", "AI", "sustainability", "health", "global"],
+    "notes": "Source read via UST event calendar mirror; official YouthX page not yet re-read directly. Deadline confirmed from search result."
+  }
+]

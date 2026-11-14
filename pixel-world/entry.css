@@ -32,3 +32,5 @@
 
 .entry-overlay.is-leaving{animation:entry-leave .25s forwards;pointer-events:none}
 @keyframes entry-leave{to{opacity:0}}
+
+.entry-skills{border:0;padding:0;margin:16px 0 0;text-align:left;min-width:0}.entry-skills legend{font-size:13px;font-weight:700}.entry-skills legend span{font-weight:400}.entry-skill-options{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.entry-overlay .entry-skill-options button{border:2px solid #927347;background:#fff2d5;color:#392f20;padding:8px 10px;font-size:12px;min-height:40px}.entry-overlay .entry-skill-options button[aria-pressed=true]{background:#304b3a;color:#fff0ce}.entry-skills p{font-size:11px;line-height:1.5;margin:8px 0}.entry-content:has(.character-picker:not([hidden])){justify-content:flex-start}

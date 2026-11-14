@@ -1,14 +1,20 @@
 # Questvale
 
-Private development snapshot of the Questvale pixel opportunity world.
+Private development snapshot: pixel opportunity discovery, skills-aware team
+recruitment and shared local-server Team/Town Chat.
 
-Run `node pixel-world/serve.mjs`, then open http://127.0.0.1:4174/rpg.html
-for the latest RPG UI, four interiors, character entry, NPC and opportunity boards.
+Use Node supporting built-in SQLite (validated with v24.22.1):
 
-This is a frontend prototype. Opportunities are labelled fictional fixtures;
-AI, real dataset/backend and multiplayer are not connected in this snapshot.
-No website is deployed by this update. See pixel-world/README.md and ENTRY.md
-for details and verification limits.
+```sh
+node pixel-world/serve.mjs
+```
 
-Validation: 46 Node tests pass. They do not verify UI integration or physical
-phones. No new browser testing was performed for this upload.
+Open http://127.0.0.1:4174/rpg.html or /town.html. Loopback-only; not publicly deployed.
+
+Read [setup, data protection and limits](pixel-world/README.md),
+[chat/map behavior](pixel-world/CHAT-MAP-UI.md), and
+[current handoff](docs/Questvale_Current_Status_And_Next_Steps.md).
+
+77 local tests pass. No fresh browser/phone multi-user acceptance is claimed.
+AI is not connected in this snapshot. Opportunity source records retain explicit
+verification gaps. Private SQLite/guest/chat data and secrets are excluded.

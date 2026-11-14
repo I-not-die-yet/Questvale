@@ -1,10 +1,12 @@
 import { validateProps, REGIONS } from './contract.mjs';
 import { mountOpportunityBoard } from './opportunity-board.mjs';
+import {loadOpportunityData} from './opportunity-data.mjs';
+let boardVersion=0;
 const root=document.querySelector('.town');
 const dialog=root.querySelector('dialog');
 const content=root.querySelector('.panel-content');
 let restoreFocus=null;
-// This preview host owns the provisional selection. There is no opportunity dataset.
+// This preview host owns category selection; opportunity data is a local draft snapshot.
 let activeRegion=null;
 const highlightedRegions=[];
 function onRegionSelect(category) {
@@ -14,13 +16,19 @@ function onRegionSelect(category) {
 }
 validateProps({activeRegion,highlightedRegions,onRegionSelect});
 export function show(kind) {
+  const version=++boardVersion;
   root.dispatchEvent(new Event('qv-panel-open'));
   restoreFocus=document.activeElement;
   const board=document.body.classList.contains('rpg')&&(kind==='all'||REGIONS.some(region=>region.category===kind));
   dialog.classList.toggle('op-board',board);
   if(board){
     onRegionSelect(kind==='all'?null:kind);
-    mountOpportunityBoard(content,{initialCategory:kind});
+    const boardUI=mountOpportunityBoard(content,{items:[],initialCategory:kind,status:'loading',onRetry:loadBoard});
+    async function loadBoard(){
+      try{const items=await loadOpportunityData();if(version===boardVersion&&dialog.open){boardUI.setState({status:'ready',items});root.dispatchEvent(new CustomEvent('qv-opportunity-data',{detail:items}));}}
+      catch{if(version===boardVersion&&dialog.open)boardUI.setState({status:'error'});}
+    }
+    loadBoard();
   }else if(kind==='advisor') {
     content.innerHTML='<p class="subtitle">Your opportunity guide</p><h1 id="panel-title">What would you like to explore?</h1><p>Tell your advisor what interests you, what you’ve tried, or where you want to go next.</p><label for="advisor-message">Your interests and goals</label><textarea id="advisor-message" placeholder="I’m a first-year student curious about hackathons, but I haven’t coded before…"></textarea><p class="note">Preview only. AI is not connected. Nothing you type is sent or saved.</p><button class="primary" disabled>Analysis available after integration</button>';
   } else {
@@ -39,6 +47,7 @@ for(const selector of ['.workshop','.entrance','.interaction'])root.querySelecto
 root.querySelector('.board').addEventListener('click',()=>show('all'));
 root.querySelector('.close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('close',()=>{
+  boardVersion++;
   dialog.classList.remove('op-board');
   const target=restoreFocus?.isConnected&&!restoreFocus.hidden?restoreFocus:root.querySelector('canvas')||root.querySelector('.advisor');
   target.focus();

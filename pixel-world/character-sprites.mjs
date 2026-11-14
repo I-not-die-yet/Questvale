@@ -1,3 +1,4 @@
+import {normalizeSkills} from './skills.mjs';
 import {detectSpriteFrames} from './sprite-preview-layout.mjs';
 export const CHARACTERS=[
   {id:'boy',label:'Boy',src:'assets/character-drafts/boy-walk-rough.png'},
@@ -7,7 +8,7 @@ export const CHARACTERS=[
 ];
 export function normalizeProfile(value){
   if(!value||!CHARACTERS.some(c=>c.id===value.character))return null;
-  return {character:value.character,nickname:typeof value.nickname==='string'?value.nickname.trim().slice(0,24)||'Explorer':'Explorer'};
+  return {character:value.character,nickname:typeof value.nickname==='string'?value.nickname.trim().slice(0,24)||'Explorer':'Explorer',skills:normalizeSkills(value.skills)};
 }
 export async function loadCharacters(load){
   return Promise.all(CHARACTERS.map(async character=>{

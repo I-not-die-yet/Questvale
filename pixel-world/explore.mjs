@@ -1,3 +1,4 @@
+import {createJoystick} from './joystick.mjs';
 import {drawSprite} from './sprite-preview-layout.mjs';
 import { loadCharacters } from './character-sprites.mjs';
 import { createEntry } from './entry.mjs';
@@ -10,6 +11,8 @@ const root=document.querySelector('.town'),canvas=root.querySelector('canvas'),c
 const four=root.dataset.map==='four';
 const map=await import(four?'./town-map.mjs':'./route.mjs');
 const { SIZE,SPAWN,advance,nearby }=map;
+const touchPointers=new Map();
+let joystick=null,joystickInput={x:0,y:0};
 const keys=new Set(),dialog=root.querySelector('dialog');
 const townUI=four?createTownUI(root,map):null;
 const guide=four&&document.body.classList.contains('rpg')?createGuide(root,townUI):null;
@@ -35,7 +38,11 @@ function interactWith(target){
     root.querySelector('#selection-status').textContent='Entered '+room.label+' '+room.name+'. Noticeboard ahead; exit at the entrance mat.';canvas.focus();
   }else if(target==='guide')guide.open();else if(target)show(target);
 }
-root.addEventListener('qv-input-pause',()=>keys.clear());
+root.addEventListener('qv-input-pause',clear);
+root.addEventListener('qv-browse-category',event=>{
+  if(map.PLACES?.some(place=>place.category===event.detail)&&!dialog.open){clear();show(event.detail);}
+});
+root.addEventListener('qv-browse-category',event=>{if(map.PLACES?.some(place=>place.category===event.detail)&&!dialog.open){clear();show(event.detail);}});
 let player={...SPAWN},direction=3,overview=false,last=0,frames=[],ready=false,stride=0,moving=false;
 let background,buildingImages={};
 const townLabels=[];
@@ -51,7 +58,8 @@ if(four){
 const load=src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;});
 function resize(){canvas.width=Math.round(root.clientWidth);canvas.height=Math.round(root.clientHeight);ctx.imageSmoothingEnabled=false;}
 const observer=new ResizeObserver(resize);observer.observe(root);resize();
-function clear(){keys.clear();}
+function clear(){keys.clear();touchPointers.clear();joystick?.reset();}
+function pressed(key){return keys.has(key)||[...touchPointers.values()].some(held=>held.includes(key));}
 window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
 dialog.addEventListener('close',clear);
 document.addEventListener('keydown',e=>{
@@ -62,11 +70,17 @@ document.addEventListener('keydown',e=>{
   if(key==='e'&&!e.repeat){const target=interactionTarget();if(target){e.preventDefault();clear();interactWith(target);}}
 });
 document.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
+const touchDirections={up:['w'],left:['a'],down:['s'],right:['d'],'up-left':['w','a'],'up-right':['w','d'],'down-left':['s','a'],'down-right':['s','d']};
 for(const button of root.querySelectorAll('[data-direction]')){
-  const key={up:'w',left:'a',down:'s',right:'d'}[button.dataset.direction];
-  button.addEventListener('pointerdown',e=>{e.preventDefault();if(root.dataset.entryOpen==='true')return;button.setPointerCapture(e.pointerId);keys.add(key);});
-  for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,()=>keys.delete(key));
+  button.addEventListener('pointerdown',e=>{
+    e.preventDefault();
+    if(root.dataset.entryOpen==='true'||dialog.open||guide?.isOpen()||root.dataset.inputBusy==='true')return;
+    button.setPointerCapture(e.pointerId);touchPointers.set(e.pointerId,touchDirections[button.dataset.direction]);
+  });
+  for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,e=>touchPointers.delete(e.pointerId));
 }
+const joystickPad=root.querySelector('.touch-joystick');
+if(joystickPad)joystick=createJoystick(joystickPad,{onInput:input=>{joystickInput=input;},enabled:()=>ready&&root.dataset.entryOpen!=='true'&&!dialog.open&&!guide?.isOpen()&&root.dataset.inputBusy!=='true'});
 const overviewButton=root.querySelector('.overview');
 overviewButton?.addEventListener('click',()=>{overview=!overview;overviewButton.setAttribute('aria-pressed',String(overview));overviewButton.textContent=overview?'Follow player':four?'View town':'View route';clear();});
 root.querySelector('.interaction').addEventListener('click',e=>{e.stopImmediatePropagation();const target=interactionTarget();interactWith(target);},true);
@@ -80,7 +94,8 @@ function render(t){
   if(ready){
     moving=false;
     if(root.dataset.entryOpen!=='true'&&!dialog.open&&root.dataset.inputBusy!=='true'){
-      const input={x:Number(keys.has('d')||keys.has('arrowright'))-Number(keys.has('a')||keys.has('arrowleft')),y:Number(keys.has('s')||keys.has('arrowdown'))-Number(keys.has('w')||keys.has('arrowup'))};
+      let input={x:Number(pressed('d')||pressed('arrowright'))-Number(pressed('a')||pressed('arrowleft')),y:Number(pressed('s')||pressed('arrowdown'))-Number(pressed('w')||pressed('arrowup'))};
+      if(!input.x&&!input.y)input=joystickInput;
       let next=activeRoom?roomAdvance(player,input,dt,ROOMS[activeRoom]):advance(player,input,dt);
       if(!activeRoom&&guide?.blocks(next))next=player;
       const distance=Math.hypot(next.x-player.x,next.y-player.y);
@@ -192,7 +207,7 @@ async function init(){
       frames=characters[0].frames;
       createEntry(root,characters,{background,buildings:buildingImages},map,(character,profile)=>{
         frames=character.frames;stride=0;moving=false;clear();
-        root.dataset.character=character.id;root.dataset.nickname=profile.nickname;
+        root.dataset.character=character.id;root.dataset.nickname=profile.nickname;root.dataset.skills=JSON.stringify(profile.skills||[]);
         root.querySelector('#selection-status').textContent=profile.nickname+' selected '+character.label+'.';
       });
     }

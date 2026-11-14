@@ -8,7 +8,7 @@
 <button class="hotspot board" aria-label="View all opportunities at the public noticeboard">All opportunities</button>
 <button class="interaction" hidden><kbd>E</kbd><span>Explore Hackathon</span></button>
 
-<div class="touch-controls" aria-label="Touch movement"><button data-direction="up" tabindex="-1" aria-label="Move north">↑</button><button data-direction="left" tabindex="-1" aria-label="Move west">←</button><button data-direction="down" tabindex="-1" aria-label="Move south">↓</button><button data-direction="right" tabindex="-1" aria-label="Move east">→</button></div>
+<div class="touch-controls touch-joystick" role="group" aria-label="Movement joystick. Hold and drag to move; release to stop. Keyboard: WASD or arrow keys."><span class="joystick-ring" aria-hidden="true"></span><span class="joystick-thumb" aria-hidden="true"></span></div>
 <p class="loading" role="status">Opening the town…</p>
 <dialog aria-labelledby="panel-title"><button class="close" aria-label="Close panel">×</button><div class="panel-content"></div></dialog><p class="sr" aria-live="polite" id="selection-status">No category selected.</p>
 </main><script type="module" src="explore.mjs"></script></body></html>

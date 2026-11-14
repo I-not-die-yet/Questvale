@@ -41,7 +41,9 @@
 .rpg .chat-form button{width:40px;height:40px;border-width:9px}
 .rpg .chat-form button:disabled{opacity:.5;cursor:default}
 .rpg .chat-disclosure{color:#6c5838;font-size:10px;margin:7px 2px 0}
-.rpg dialog{inset:14px 14px 14px auto;width:min(480px,calc(100% - 28px));height:calc(100dvh - 28px);padding:68px 15px 24px;overflow:auto}
+/* One centered, fixed frame; only its inner content scrolls. */
+.rpg dialog{inset:16px;margin:auto;width:min(760px,calc(100% - 32px));height:min(780px,calc(100dvh - 32px));padding:68px 15px 20px;overflow:hidden}
+.rpg dialog .panel-content{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#927347 #f5e7ca;padding:0 8px 8px 0;overflow-wrap:anywhere}
 .rpg dialog::before{content:"";position:absolute;top:0;left:0;right:0;height:48px;background:var(--forest);border:4px solid #493020;box-shadow:inset 0 0 0 2px #a36d39;image-rendering:pixelated}
 .rpg dialog::backdrop{background:#182f2866}
 .rpg .close{top:5px;right:9px;width:36px;height:36px;padding:0;z-index:1;font-size:21px;line-height:16px}
@@ -102,4 +104,23 @@
   .rpg .town[data-map=four] .interaction{
     bottom:calc(var(--chat-dock-height,170px) + 130px + env(safe-area-inset-bottom));
   }
+}
+
+/* Fixed circular joystick, above the measured conversation dock. */
+.rpg .town .touch-joystick{display:none}
+@media(max-width:650px),(pointer:coarse){
+  .rpg .town[data-map=four] .touch-joystick{display:block;position:absolute;left:20px;bottom:calc(var(--chat-dock-height,170px) + 24px + env(safe-area-inset-bottom));width:128px;height:128px;border:2px solid #f5e7ca99;border-radius:50%;background:#304b3a99;box-sizing:border-box;touch-action:none;user-select:none;-webkit-user-select:none;z-index:5}
+  .joystick-ring{position:absolute;inset:20px;border:1px solid #f5e7ca66;border-radius:50%;pointer-events:none}
+  .joystick-thumb{position:absolute;left:calc(50% - 23px);top:calc(50% - 23px);width:46px;height:46px;border:3px solid #f5e7ca;border-radius:50%;background:#304b3a;box-sizing:border-box;transform:translate(var(--stick-x,0px),var(--stick-y,0px));pointer-events:none}
+  .rpg .town[data-map=four] .interaction{bottom:calc(var(--chat-dock-height,170px) + 170px + env(safe-area-inset-bottom))}
+}
+
+.mini-counts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px;margin-top:9px}.rpg .mini-counts button{min-width:0;min-height:36px;padding:5px 3px;border:1px solid #927347;background:#fff2d4;color:#304b3a;font:600 11px/1.4 ui-monospace,monospace}.mini-data-note{font-size:10px;color:#59452d;margin:6px 0 0}@media(max-width:650px){.rpg .mini-counts button{font-size:10px;min-height:44px}}
+
+/* Phone map: preserve readable terrain, remove the tall desktop count controls. */
+@media(max-width:650px){
+  .rpg .mini-map{border-width:8px}
+  .rpg .mini-map .mini-counts,.rpg .mini-map .mini-data-note{display:none}
+  .rpg .mini-toggle{min-height:44px;padding:6px 8px}
+  .rpg .mini-legend{padding:5px 0 0}
 }
