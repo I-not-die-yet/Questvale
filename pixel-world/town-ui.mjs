@@ -1,3 +1,4 @@
+import {createAdvisorUI} from './advisor-ui.mjs';
 import {teamRequest,ensureGuest} from './team-client.mjs';
 import {createTownChat} from './town-chat.mjs';
 import {loadOpportunityData} from './opportunity-data.mjs';
@@ -15,6 +16,11 @@ export function createTownUI(root,map){
   const history=dock.querySelector('.chat-history'),tabs=[...dock.querySelectorAll('[role=tab]')];
   const channels={advisor:{draft:'',messages:[]},town:{draft:'',messages:[]}};
   let channel='advisor',expanded=false;
+  let advisorBusy=false,advisorStatus='Not submitted · local service required';
+  const advisorHost=document.createElement('div');advisorHost.className='advisor-view';history.after(advisorHost);history.hidden=true;
+  const advisor=createAdvisorUI(root,advisorHost,{onBusy:value=>{advisorBusy=value;updateSend();},onStatus:text=>{advisorStatus=text;if(channel==='advisor')dock.querySelector('.chat-status').textContent=text;}});
+  dock.querySelector('.chat-status').textContent=advisorStatus;send.setAttribute('aria-label','Send to Advisor');dock.querySelector('.chat-disclosure').textContent='Advisor uses the separate local service. No automatic retries; source checks remain incomplete.';
+  send.setAttribute('aria-label','Send to Advisor');
   let townActive=false,townReady=false,townSending=false;
   const publicActions=document.createElement('div');publicActions.className='town-chat-actions';publicActions.hidden=true;
   const earlier=document.createElement('button');earlier.type='button';earlier.textContent='Earlier messages';
@@ -24,7 +30,7 @@ export function createTownUI(root,map){
     townReady=message.startsWith('Connected');reconnect.hidden=!canReconnect;
     if(channel==='town'){dock.querySelector('.chat-status').textContent=message;updateSend();}
   }});
-  function updateSend(){send.disabled=!input.value.trim()||(channel==='town'&&(!townReady||townSending));}
+  function updateSend(){send.disabled=!input.value.trim()||(channel==='town'&&(!townReady||townSending))||(channel==='advisor'&&advisorBusy);}
   function syncTown(){
     const visible=channel==='town'&&expanded&&!dock.hidden&&!document.hidden&&root.dataset.entryOpen!=='true'&&!root.querySelector('dialog')?.open;
     if(visible&&!townActive){townActive=true;publicChat.start();}
@@ -32,12 +38,12 @@ export function createTownUI(root,map){
   }
   reconnect.addEventListener('click',()=>{townReady=false;updateSend();publicChat.start();});
   earlier.addEventListener('click',async()=>{earlier.disabled=true;try{const count=await publicChat.earlier();if(channel==='town'&&count===0)dock.querySelector('.chat-status').textContent='No earlier messages.';}catch(error){if(channel==='town')dock.querySelector('.chat-status').textContent=error.message;}finally{earlier.disabled=channels.town.messages.length>=200;}});
-  document.addEventListener('visibilitychange',syncTown);
-  const chatVisibility=new MutationObserver(syncTown);chatVisibility.observe(root,{attributes:true,attributeFilter:['data-entry-open']});chatVisibility.observe(root.querySelector('dialog'),{attributes:true,attributeFilter:['open']});
+  document.addEventListener('visibilitychange',()=>{syncTown();if(document.hidden)advisor.cancel();});
+  const chatVisibility=new MutationObserver(()=>{syncTown();if(root.dataset.entryOpen==='true'||root.querySelector('dialog')?.open)advisor.cancel();});chatVisibility.observe(root,{attributes:true,attributeFilter:['data-entry-open']});chatVisibility.observe(root.querySelector('dialog'),{attributes:true,attributeFilter:['open']});
 
   function pause(){root.dataset.inputBusy='true';root.dispatchEvent(new Event('qv-input-pause'));}
   function setExpanded(value){
-    expanded=value;panel.hidden=!value;root.dataset.chatExpanded=String(value);
+    expanded=value;panel.hidden=!value;if(!value)advisor.cancel();root.dataset.chatExpanded=String(value);
     syncTown();
     toggle.setAttribute('aria-expanded',String(value));toggle.setAttribute('aria-label',value?'Collapse conversation':'Expand conversation');
   }
@@ -58,14 +64,15 @@ export function createTownUI(root,map){
     history.scrollTop=follow?history.scrollHeight:previous;
   }
   function select(next,focus=false){
-    channels[channel].draft=input.value;channel=next;
+    channels[channel].draft=input.value;if(next!=='advisor')advisor.cancel();channel=next;
+    advisorHost.hidden=channel!=='advisor';history.hidden=channel==='advisor';
     for(const tab of tabs){const selected=tab.dataset.channel===channel;tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;}
     panel.setAttribute('aria-labelledby',channel==='advisor'?'ai-tab':'town-tab');
     dock.querySelector('.chat-context strong').textContent=channel==='advisor'?'Private AI conversation':'Public town channel';
-    dock.querySelector('.chat-status').textContent=channel==='advisor'?'AI is not connected':townReady?'Connected · public to all guests':'Connecting…';
+    dock.querySelector('.chat-status').textContent=channel==='advisor'?advisorStatus:townReady?'Connected · public to all guests':'Connecting…';
     publicActions.hidden=channel!=='town';
-    dock.querySelector('.chat-disclosure').textContent=channel==='town'?'Public channel · visible to all guests on this server. Avoid private information.':'Local AI preview · messages are not sent or saved.';
-    send.setAttribute('aria-label',channel==='town'?'Send public message':'Preview your message');
+    dock.querySelector('.chat-disclosure').textContent=channel==='town'?'Public channel · visible to all guests on this server. Avoid private information.':'Advisor uses the separate local service. No automatic retries; source checks remain incomplete.';
+    send.setAttribute('aria-label',channel==='town'?'Send public message':'Send to Advisor');
     dock.querySelector('label').textContent=channel==='advisor'?'Message AI Advisor':'Message Town Chat';
     input.placeholder=channel==='advisor'?'What would you like to explore?':'Share an idea or look for teammates…';
     input.value=channels[channel].draft;updateSend();renderHistory();setExpanded(true);
@@ -101,8 +108,12 @@ export function createTownUI(root,map){
       }}catch(error){if(channel==='town')dock.querySelector('.chat-status').textContent=error.message;}
       finally{townSending=false;updateSend();}return;
     }
-    channels[channel].messages.push(text);if(channels[channel].messages.length>30)channels[channel].messages.shift();
-    channels[channel].draft='';input.value='';send.disabled=true;setExpanded(true);renderHistory();input.focus();
+    if(advisorBusy)return;const sentDraft=input.value;setExpanded(true);
+    if(await advisor.submit(text)){
+      if(channel==='advisor'&&input.value===sentDraft){input.value='';channels.advisor.draft='';}
+      else if(channel!=='advisor'&&channels.advisor.draft===sentDraft)channels.advisor.draft='';
+    }
+    updateSend();
   });
   renderHistory();
   const mini=document.createElement('aside');mini.className='mini-map';mini.setAttribute('aria-label','Town overview map');
@@ -129,11 +140,13 @@ export function createTownUI(root,map){
   const mc=mini.querySelector('canvas'),mctx=mc.getContext('2d');mctx.imageSmoothingEnabled=false;
   mini.querySelector('.mini-toggle').addEventListener('click',()=>{
     const body=mini.querySelector('#mini-body');body.hidden=!body.hidden;mini.querySelector('.mini-toggle').setAttribute('aria-expanded',String(!body.hidden));
+    if(body.hidden)root.querySelector('canvas').focus();
   });
+  mini.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();root.querySelector('canvas').focus();}});
   let cached=null,lastPaint=0,destination=null;
   const names={hackathon:'Hackathon',business:'Business',startup:'Startup',research:'Research'};
   return {
-    setGuideActive(active){dock.hidden=active;syncTown();},
+    setGuideActive(active){dock.hidden=active;if(active)advisor.cancel();syncTown();},
     openAdvisor(){select('advisor',true);},
     setDestination(category){destination=map.PLACES.find(p=>p.category===category)||null;root.dataset.destination=destination?.category||'';},
     update(player,background,buildings,time){

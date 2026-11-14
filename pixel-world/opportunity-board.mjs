@@ -94,5 +94,9 @@ export function mountOpportunityBoard(content,{items=DEMO_ITEMS,initialCategory=
     button.addEventListener('click',()=>{category=option.category;render();});filters.append(button);
   }
   search.addEventListener('input',render);setState({status});
-  return {setState};
+  return {setState,openItem(id,{teams=false}={}){
+    const item=items.find(row=>row.id===id);if(!item)return false;
+    const origin=search;showDetail(item,origin);
+    if(teams)mountTeamPanel(detail,item,()=>showDetail(item,origin));return true;
+  }};
 }

@@ -94,8 +94,13 @@ display window at most 200. Polling runs every 3 seconds only when expanded, vis
 and unobscured; after three failures, manual Reconnect is required. HTTP client
 requests time out after 10 seconds. Shared guest initialization is serialized.
 
-AI Advisor in this workspace still uses disconnected local input. A separate agent
-is developing AI; its progress is not established by these files.
+AI Advisor now posts through the frontend's same-origin `/api/advisor` proxy to
+the separate local backend on port 4185. Optional explicit conditions, structured
+results, honest errors/manual retry and opportunity / Find a team navigation are
+implemented. Blank conditions remain unknown; skills do not establish eligibility.
+Restart the frontend to load the route; the separately configured backend must
+also run. No provider was enabled or called in this integration task. See the
+active README for cancellation, timeout, privacy and startup limitations.
 
 ## 3. Identity, data protection and deployment limits
 
@@ -119,8 +124,12 @@ not proof of production hardening, public accessibility or multiplayer positions
 
 ## 4. Evidence and remaining verification
 
-Rerun in this documentation task on 2026-11-14:
-`node --test tests/*.test.mjs` with Node v24.22.1 → **77 passed, 0 failed**.
+Rerun in the Advisor integration task on 2026-11-14:
+`node --test tests/*.test.mjs` with Node v24.22.1 → **84 passed, 0 failed**.
+Seven new/changed modules passed syntax checks. Advisor tests use mocked transport
+for explicit inputs, request boundaries, errors, aborts and rate-limit handling.
+The running proxy HTTP route, rendered Advisor flow and real provider replies
+remain unverified; there were no model calls or browser checks.
 
 Tests include map/contracts, skill synchronization, source safety/data conversion,
 summary counts, shared-team permissions/membership, guest separation, database
@@ -143,9 +152,10 @@ private team access is removed. Do not let backend tests substitute for this flo
 
 1. User manually verifies current two-guest team/chat UI. Do not silently operate
    the browser; the user has reserved manual testing.
-2. Coordinate with the AI agent: agreed opportunity IDs, user-condition input,
-   evidence/unknowns in output, and navigation to a specific opportunity/team.
-   Do not start a second agent/service or overwrite its active files.
+2. Manually verify the connected Advisor flow after restarting the frontend and
+   starting the separately configured backend. Real provider calls still require
+   a separately authorized bounded check; do not enable them automatically.
+   Do not start a second competing service or overwrite the AI agent's files.
 3. Verify a small set of actual demo opportunity sources/fees/eligibility/dates.
    Do not claim source verification from timestamps or imported labels alone.
 4. Propose how attendees will reach the app and retain identity. Hosting and

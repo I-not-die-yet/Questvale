@@ -1,3 +1,4 @@
+import {advisorProxy,advisorBoundary} from './advisor-proxy.mjs';
 import {createTeamService} from './team-service.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
@@ -9,6 +10,22 @@ await mkdir(resolve(root,'.local'),{recursive:true});
 const opportunities=JSON.parse(await readFile(resolve(root,'data/opportunities.json'),'utf8'));
 const teams=createTeamService(resolve(root,'.local/teams.sqlite'),new Set(opportunities.map(item=>item.id)));
 const server = createServer(async (req, res) => {
+  if(req.url==='/api/advisor'){
+    const reply=(status,body,headers={})=>{if(!res.destroyed&&!res.writableEnded){res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store',...headers});res.end(JSON.stringify(body));}};
+    const blocked=advisorBoundary({method:req.method,host:req.headers.host,origin:req.headers.origin,client:req.headers['x-questvale-client'],type:req.headers['content-type'],encoding:req.headers['content-encoding']},req.socket.localPort);
+    if(blocked){reply(blocked,{error:{code:'INVALID_ADVISOR_REQUEST',message:'This Advisor request is not allowed.'}});req.resume();return;}
+    const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),15000);
+    const stop=()=>abort.abort();req.once('aborted',stop);res.once('close',stop);
+    let expired=false;const bodyTimer=setTimeout(()=>{expired=true;reply(408,{error:{code:'REQUEST_TIMEOUT',message:'Request body took too long.'}});req.destroy();},5000);
+    try{
+      const chunks=[];let size=0;
+      for await(const chunk of req){size+=chunk.length;if(size>8192){reply(413,{error:{code:'REQUEST_TOO_LARGE',message:'Advisor request is too large.'}});req.resume();return;}chunks.push(chunk);}
+      clearTimeout(bodyTimer);if(expired)return;
+      const raw=new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks));JSON.parse(raw);
+      const result=await advisorProxy(raw,{signal:abort.signal});reply(result.status,result.body,result.headers);
+    }catch{reply(400,{error:{code:'INVALID_REQUEST',message:'Advisor request could not be read.'}});}
+    finally{clearTimeout(timer);clearTimeout(bodyTimer);req.removeListener('aborted',stop);res.removeListener('close',stop);}return;
+  }
   if(req.url?.split('?')[0].startsWith('/api/teams')){
     try{
       const host=req.headers.host;if(!['127.0.0.1:'+req.socket.localPort,'localhost:'+req.socket.localPort].includes(host)){res.writeHead(403);res.end();return;}

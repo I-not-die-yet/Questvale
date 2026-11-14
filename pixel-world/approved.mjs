@@ -15,7 +15,7 @@ function onRegionSelect(category) {
   document.querySelector('#selection-status').textContent=category?'Selected: '+REGIONS.find(r=>r.category===category).label+'.':'Selected: All opportunities.';
 }
 validateProps({activeRegion,highlightedRegions,onRegionSelect});
-export function show(kind) {
+export function show(kind,selection=null) {
   const version=++boardVersion;
   root.dispatchEvent(new Event('qv-panel-open'));
   restoreFocus=document.activeElement;
@@ -25,7 +25,7 @@ export function show(kind) {
     onRegionSelect(kind==='all'?null:kind);
     const boardUI=mountOpportunityBoard(content,{items:[],initialCategory:kind,status:'loading',onRetry:loadBoard});
     async function loadBoard(){
-      try{const items=await loadOpportunityData();if(version===boardVersion&&dialog.open){boardUI.setState({status:'ready',items});root.dispatchEvent(new CustomEvent('qv-opportunity-data',{detail:items}));}}
+      try{const items=await loadOpportunityData();if(version===boardVersion&&dialog.open){boardUI.setState({status:'ready',items});if(selection&&!boardUI.openItem(selection.id,{teams:selection.teams}))root.querySelector('#selection-status').textContent='Opportunity not found in the current dataset.';root.dispatchEvent(new CustomEvent('qv-opportunity-data',{detail:items}));}}
       catch{if(version===boardVersion&&dialog.open)boardUI.setState({status:'error'});}
     }
     loadBoard();
@@ -58,3 +58,5 @@ document.addEventListener('keydown',e=>{
   if(e.key.toLowerCase()==='e'&&!e.repeat){e.preventDefault();show('hackathon');}
 });
 for(const button of root.querySelectorAll('[data-action]'))button.addEventListener('click',()=>show(button.dataset.action));
+
+root.addEventListener('qv-open-opportunity',event=>{const selection=event.detail;if(selection&&REGIONS.some(region=>region.category===selection.category)&&!dialog.open)show(selection.category,selection);});

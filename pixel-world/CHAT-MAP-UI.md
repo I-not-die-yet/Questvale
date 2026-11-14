@@ -17,7 +17,10 @@ category/search results and distinguishes historical/closed from unknown.
 
 ## Bottom dock
 
-- AI Advisor: local input preview; no model reply or AI network connection.
+- AI Advisor: same-origin local-service connection, optional explicit conditions,
+  latest structured result, and opportunity / Find a team actions. The separate
+  backend must run on port 4185 with its model mode configured; no model was called
+  during integration verification. Failed requests keep drafts; retries are manual.
 - Town Chat: shared server channel for guests, not restricted to a team. Messages
   persist in SQLite and only server-returned messages are displayed. Labelled
   public-to-guests; do not enter private information.
@@ -35,6 +38,9 @@ No online-user counts or generated replies are shown.
 ## Interaction and presentation
 
 Chat/minimap focus clears movement. Escape/collapse returns focus to the world.
+Minimap collapse and Escape explicitly focus the world canvas to release input.
+Team Chat polling is serialized and scoped to each chat visit; late polling,
+send/history completions and errors cannot update a closed or replaced chat.
 Proximity actions use measured --chat-dock-height; phone prompts clear the joystick.
 The old Controls disclosure and debug state selectors remain removed. Opportunity
 modals are centered, with the outer frame fixed and content scrolling inside.
@@ -46,8 +52,15 @@ modals are centered, with the outer frame fixed and content scrolling inside.
 - team-panel.mjs / team-service.mjs: shared teams and private Team Chat.
 - opportunity-summary.mjs / approved.mjs: collected counts and category integration.
 
-Latest full local run in this documentation task: 77 tests pass on Node v24.22.1.
-Service tests use memory/temporary SQLite; polling tests use mocked requests.
+Latest chat/focus follow-up: 88 tests pass, plus three module syntax checks.
+Four new mocked tests cover stale Team Chat responses/errors and polling recovery;
+minimap keyboard/touch focus still needs manual acceptance.
+
+Prior full local run in the Advisor integration task: 84 tests pass on Node
+v24.22.1; seven module syntax checks pass. Service tests use memory/temporary
+SQLite; polling and Advisor transport tests use mocked requests.
+Rendered Advisor interactions, the running proxy route and real model replies
+remain unverified. Restart the frontend server to load the new route.
 No browser/phone multi-user check was run. Earlier 2026-11-13 visual checks concerned
 the old disconnected chat prototype and do not verify these new shared channels.
 The service is loopback-only, not publicly deployed. No moderation workflow,

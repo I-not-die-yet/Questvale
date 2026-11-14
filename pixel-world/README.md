@@ -41,7 +41,8 @@ same port, delete the database or reset guest cookies as a routine debugging ste
 - Shared teams, applications, captain decisions and member-only Team Chat use the
   local server and SQLite. These are no longer fictional local-array actions.
 - The bottom Town Chat is shared by all authenticated guests on the local server.
-  AI Advisor remains a disconnected local-input preview in this workspace.
+  AI Advisor now has a local-service connection, optional explicit conditions,
+  structured results and links into opportunity details / Find a team.
 
 Product UI copy is English. No skill-match score or formal eligibility judgment
 is produced. Automatic matchmaking, upgrades and quests are deferred.
@@ -124,9 +125,36 @@ Same-nonce retries are idempotent; new sends are limited to one per 500ms per gu
 Failed sends retain drafts/nonces. Server author names/times render as text.
 Concurrent Team/Town session initialization is serialized in the browser.
 
-Town/Advisor drafts remain separate. Advisor does not send to an AI model. Public
+Town/Advisor drafts remain separate. Public
 chat has no moderation, reporting/blocking, attachments or direct messages yet.
 This is not a hardened production public-chat service.
+
+## AI Advisor integration
+
+The browser posts to the frontend's same-origin `/api/advisor`. `serve.mjs` forwards
+only JSON to the fixed `http://127.0.0.1:4185/api/advisor` endpoint; browser cookies
+and authorization are not forwarded. Host/origin/client-header checks, body and
+response size limits, and timeouts bound the connection. No packages were added.
+
+The separate backend lives at
+`/Users/issac/Documents/deepseek-harness/default-workspace/questvale-advisor`.
+Restart the frontend server to load this new route. The backend must also be
+running on port 4185 with its provider mode explicitly configured according to its
+own README. Starting the frontend does not start or enable that backend/model.
+Disconnected or exhausted-budget modes remain errors, with the draft retained;
+the UI never creates a fallback model answer. There are no automatic retries.
+
+Expand AI Advisor to edit optional age, team size, study year, student status,
+weekly hours and category. Blank conditions stay unknown; self-reported skills
+are not converted into eligibility inputs. Weekly hours are collected but not
+assessed by the current backend. Only the latest result is displayed; this is
+not a conversational-memory feature. A configured model may process the message.
+Switching channels, hiding/collapsing the panel or opening a modal cancels pending
+browser work; cancellation cannot undo a provider request already received.
+
+Backend opportunity IDs resolve against the current frontend data. Only matching
+records receive View opportunity / Find a team actions. Unknown eligibility and
+recorded source limitations remain visible; results do not certify eligibility.
 
 ## Protect local data
 
@@ -141,17 +169,28 @@ local design is not automatically deployment-ready.
 
 ## Verification
 
-Latest rerun in this documentation task on 2026-11-14:
+Follow-up chat/focus fix on 2026-11-14: **88 passed, 0 failed**, plus three changed
+module syntax checks. Team Chat now invalidates old chat visits for polling,
+send completion and earlier-history results, and permits one poll at a time.
+Late failures cannot add notices to a closed/replaced chat. Minimap collapse and
+Escape return focus to the world canvas. Four new mocked polling regression tests
+cover stale responses/errors, concurrency and bounded failure recovery. Browser
+focus behavior and the combined UI flow still require manual verification.
+
+Latest rerun in the Advisor integration task on 2026-11-14:
 
 ```sh
 node --test tests/*.test.mjs
 ```
 
-Node v24.22.1: **77 passed, 0 failed**. Tests cover geometry/category contracts,
+Node v24.22.1: **84 passed, 0 failed**; seven changed/new modules also passed syntax
+checks. Tests cover geometry/category contracts,
 profiles/skills synchronization, data adaptation/safe links, count summaries,
 teams/authorization, capacity conflicts, database reopen, shared Town messages,
 idempotent sends and bounded polling. Team-service tests use in-memory or disposable
-temporary databases; Town polling tests use mocked transport. Existing private
+temporary databases; Town polling and Advisor transport tests use mocks. Advisor
+checks cover explicit conditions, request boundaries, sanitized failures, aborts
+and manual rate-limit handling. Existing private
 `.local/teams.sqlite` was not opened by this test run. No external service calls,
 production changes or browser/computer-use checks were performed.
 
@@ -160,16 +199,17 @@ Those are historical reports, not separate browser acceptance evidence. Earlier
 visual-only prototypes and their smaller test counts are superseded.
 
 Still unverified: current two-browser UI acceptance, real phone interaction,
-public deployment/load, and live AI integration. Suggested user check:
+public deployment/load, rendered Advisor interactions, the running HTTP proxy route
+and live AI integration. No real model calls were made. Suggested user check:
 normal window create → private window request → captain refresh/accept → exchange
 Team messages → verify Town Chat across both → reload → leave and confirm private
 chat access is denied. Do this against the current restarted local server.
 
 ## Coordination and remaining work
 
-AI is being developed in a separate chat/environment; its latest state is not
-established here. Agree shared opportunity IDs, Advisor output and file ownership
-before integration. Shared positions/room-presence are not implemented by chat.
+The separate Advisor backend contract was inspected and connected locally in code;
+real-provider and browser acceptance remain pending. Shared positions/room-presence
+are not implemented by chat.
 Do not create another competing team/chat backend. Next: manual multi-guest UI
-acceptance, AI integration contract, source-checking demo opportunities, then a
+acceptance, bounded live Advisor verification, source-checking demo opportunities, then a
 separately authorized deployment plan. No automatic push/deployment is implied.

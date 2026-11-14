@@ -1,33 +1,24 @@
 import {updateProfileSkills} from './profile-skills.mjs';
 import {SKILLS,normalizeSkills,roleCoverage} from './skills.mjs';
 import {teamRequest,ensureGuest} from './team-client.mjs';
+import {createTeamChatPoller} from './team-chat-poller.mjs';
 export function mountTeamPanel(host,item,onBack){
   const root=host.closest('.town');
   let skills=[];try{skills=normalizeSkills(JSON.parse(root?.dataset.skills||'[]'));}catch{}
-  const state={draft:''};let currentUser=null,teams=[],view='list',selected=null,busy=false,failures=0,stopped=false,timer=null,messages=[],pendingMessage=null;
+  const state={draft:''};let currentUser=null,teams=[],view='list',selected=null,busy=false,stopped=false,messages=[],pendingMessage=null;
   const own=()=>teams.find(team=>team.isMember);
   const alive=()=>!stopped&&host.isConnected&&!host.hidden&&host.closest('dialog')?.open;
   async function refresh(){const result=await teamRequest('?opportunity='+encodeURIComponent(item.id));teams=result.teams;if(selected)selected=teams.find(team=>team.id===selected.id)||null;if(!selected&&(view==='team'||view==='chat'))view='list';if(selected&&!selected.isMember&&view==='chat'){view='team';messages=[];}}
   async function act(fn,next){if(busy)return;busy=true;try{await fn();await refresh();if(next)view=next;if(alive())render();}catch(error){if(alive())notice(error.message);}finally{busy=false;}}
   function notice(text){let node=host.querySelector('.team-service-status');if(!node){node=el('p',undefined,'team-service-status');node.setAttribute('role','status');host.append(node);}node.textContent=text;}
-  async function load(){try{const session=await ensureGuest(root);currentUser=session.userId;await refresh();if(!alive())return;render();poll();}catch(error){if(!alive())return;host.replaceChildren();heading('Team connection unavailable');notice(error.message);button(host,'Try again',load);button(host,'Back to opportunity',onBack);}}
-  async function poll(){
-    clearTimeout(timer);if(!alive())return;
-    try{
-      if(view==='chat'&&selected){
-        const data=await teamRequest('/'+selected.id+'/messages'+(messages.length?'?after='+messages.at(-1).id:''));
-        if(!alive())return;
-        for(const message of data.messages)if(!messages.some(m=>m.id===message.id))messages.push(message);
-        if(messages.length>200)messages=messages.slice(-200);paintMessages();
-      }
-      failures=0;
-    }catch(error){failures++;notice(error.message);if(failures>=3){button(host,'Reconnect',()=>{failures=0;load();});return;}}
-    if(alive())timer=setTimeout(poll,3000);
-  }
+  async function load(){try{const session=await ensureGuest(root);currentUser=session.userId;await refresh();if(!alive())return;render();if(view==='chat'&&selected)chat.start(selected.id);}catch(error){if(!alive())return;host.replaceChildren();heading('Team connection unavailable');notice(error.message);button(host,'Try again',load);button(host,'Back to opportunity',onBack);}}
+  const chat=createTeamChatPoller({request:teamRequest,alive:()=>alive()&&view==='chat',after:()=>messages.at(-1)?.id,
+    onRows:rows=>{for(const message of rows)if(!messages.some(m=>m.id===message.id))messages.push(message);messages.sort((a,b)=>a.id-b.id);if(messages.length>200)messages=messages.slice(-200);paintMessages();},
+    onError:(error,paused)=>{notice(error.message);if(paused)button(host,'Reconnect',()=>load());}});
   function el(tag,text,cls){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;}
   function add(tag,text,cls){const node=el(tag,text,cls);host.append(node);return node;}
   function button(parent,text,fn,primary=false){const b=el('button',text,primary?'primary':'op-back');b.type='button';b.addEventListener('click',fn);parent.append(b);return b;}
-  function go(next){view=next;render();if(next==='chat'){messages=[];paintMessages();poll();}}
+  function go(next){chat.stop();view=next;if(next==='chat')messages=[];render();if(next==='chat')chat.start(selected.id);}
   function actions(){return add('div',undefined,'team-actions');}
   function heading(text){const h=add('h2',text);h.id='op-detail-title';h.tabIndex=-1;h.focus();}
   function coverage(parent,team,track=true){
@@ -56,7 +47,7 @@ export function mountTeamPanel(host,item,onBack){
   }
   function render(){
     coverageNodes.length=0;host.replaceChildren();
-    button(host,view==='list'?'← Opportunity':'← Teams',()=>view==='list'?(()=>{stopped=true;clearTimeout(timer);observer.disconnect();onBack();})():go('list'));
+    button(host,view==='list'?'← Opportunity':'← Teams',()=>view==='list'?(()=>{stopped=true;chat.stop();observer.disconnect();onBack();})():go('list'));
     add('p',item.title,'op-category');
     if(view==='list'){
       heading('Find a team');skillPicker();
@@ -92,15 +83,15 @@ export function mountTeamPanel(host,item,onBack){
     }else if(view==='chat'){
       heading('Team Chat');add('p',selected.name,'op-category');
       const log=add('div',undefined,'team-log');log.setAttribute('role','log');log.setAttribute('aria-label','Team messages');paintMessages();
-      button(actions(),'Load earlier messages',()=>act(async()=>{const data=await teamRequest('/'+selected.id+'/messages'+(messages.length?'?before='+messages[0].id:''));messages=[...data.messages.filter(m=>!messages.some(old=>old.id===m.id)),...messages];},'chat'));
+      button(actions(),'Load earlier messages',async()=>{const visit=chat.capture();try{const data=await teamRequest('/'+visit.id+'/messages'+(messages.length?'?before='+messages[0].id:''));if(!visit.valid())return;messages=[...data.messages.filter(m=>!messages.some(old=>old.id===m.id)),...messages];paintMessages();}catch(error){if(visit.valid())notice(error.message);}});
       const form=add('form'),label=el('label','Message your team');label.htmlFor='team-message';const input=el('textarea');input.id='team-message';input.maxLength=500;input.value=state.draft;input.placeholder='Type a message…';
       const send=el('button','Send','primary');send.type='submit';send.disabled=!state.draft.trim();form.append(label,input,send);
       input.addEventListener('input',()=>{state.draft=input.value;send.disabled=!input.value.trim();});
-      form.addEventListener('submit',async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;send.disabled=true;if(!pendingMessage||pendingMessage.text!==text)pendingMessage={text,nonce:crypto.randomUUID()};const {nonce}=pendingMessage;try{await teamRequest('/'+selected.id+'/messages',{text,nonce});pendingMessage=null;state.draft='';input.value='';await poll();}catch(error){notice(error.message);}finally{send.disabled=!input.value.trim();}});
+      form.addEventListener('submit',async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;const visit=chat.capture();send.disabled=true;if(!pendingMessage||pendingMessage.text!==text||pendingMessage.team!==visit.id)pendingMessage={text,team:visit.id,nonce:crypto.randomUUID()};const pending=pendingMessage;try{await teamRequest('/'+visit.id+'/messages',{text,nonce:pending.nonce});if(!visit.valid())return;if(pendingMessage===pending)pendingMessage=null;if(input.value.trim()===text){state.draft='';input.value='';}await chat.poll();}catch(error){if(visit.valid())notice(error.message);}finally{if(visit.valid())send.disabled=!input.value.trim();}});
     }
     add('p','Shared on this server · guest identity lasts 7 days in this browser. Recruitment capacity does not confirm event eligibility.','op-source team-disclosure');
   }
   function paintMessages(){const log=host.querySelector('.team-log');if(!log)return;log.replaceChildren();if(!messages.length)log.append(el('p','No messages yet.'));for(const message of messages){const p=el('p');p.append(el('strong',message.name),el('br'),document.createTextNode(message.body));log.append(p);}}
-  const observer=new MutationObserver(()=>{if(!alive()){stopped=true;clearTimeout(timer);observer.disconnect();}});
+  const observer=new MutationObserver(()=>{if(!alive()){stopped=true;chat.stop();observer.disconnect();}});
   host.replaceChildren();heading('Connecting to teams…');observer.observe(host.closest('.town'),{attributes:true,subtree:true,attributeFilter:['hidden','open']});load();
 }
